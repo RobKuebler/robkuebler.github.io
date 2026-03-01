@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SpesenLaster – Rechtliches</title>
-<meta name="description" content="AGB und Datenschutzerklärung für SpesenLaster." />
+  <title>SpesenLaster – Reisekostenabrechnung für Android</title>
+  <meta name="description" content="SpesenLaster berechnet Verpflegungspauschalen nach deutschem Steuerrecht automatisch per GPS. Kostenlos für Android." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,6 +18,7 @@
       --card-hover: #192035;
       --border:     #1e2a42;
       --accent:     #6366f1;
+      --accent-glow:rgba(99,102,241,0.15);
       --teal:       #2dd4bf;
       --text:       #e2e8f0;
       --text-muted: #7c8ba1;
@@ -25,16 +26,16 @@
       --radius-sm:  8px;
       --radius-md:  16px;
       --radius-lg:  20px;
+      --radius-pill:24px;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.65;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -45,7 +46,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(8,12,20,0.9);
+      background: rgba(8,12,20,0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0 clamp(16px, 5vw, 80px);
@@ -66,108 +67,294 @@
     .nav-back:hover { color: var(--text); }
     .nav-back svg { flex-shrink: 0; }
 
-    /* ─── Main ─── */
-    main {
-      flex: 1;
+    /* ─── Hero ─── */
+    .hero {
+      padding: clamp(64px, 12vw, 112px) clamp(16px, 5vw, 80px) clamp(48px, 8vw, 80px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: clamp(48px, 10vw, 96px) clamp(16px, 5vw, 48px);
-      gap: 48px;
-    }
-
-    .intro {
       text-align: center;
-      max-width: 480px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .app-badge {
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #2e7d32, #1b5e20);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(46,125,50,0.35);
+    }
+
+    .platform-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(99,102,241,0.12);
+      background: rgba(99,102,241,0.1);
       border: 1px solid rgba(99,102,241,0.25);
-      border-radius: 24px;
+      border-radius: var(--radius-pill);
       padding: 4px 12px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       color: var(--accent);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
-    .intro h1 {
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
       font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      max-width: 520px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      transition: background 0.15s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #5254cc; transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--text-muted); color: var(--text); }
+
+    /* ─── Section shared ─── */
+    .section {
+      padding: clamp(48px, 8vw, 80px) clamp(16px, 5vw, 80px);
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
       margin-bottom: 12px;
     }
 
-    .intro p {
-      color: var(--text-muted);
-      font-size: 0.9375rem;
+    .section-title {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      margin-bottom: 40px;
+      line-height: 1.25;
     }
 
-    /* ─── Cards ─── */
-    .cards {
+    /* ─── Features ─── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      max-width: 960px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    .feature-icon.green  { background: rgba(46,125,50,0.2);   color: #4caf50; }
+    .feature-icon.purple { background: rgba(99,102,241,0.15); color: var(--accent); }
+    .feature-icon.teal   { background: rgba(45,212,191,0.12); color: var(--teal); }
+    .feature-icon.amber  { background: rgba(245,158,11,0.12); color: #f59e0b; }
+
+    .feature-card h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── Pricing ─── */
+    .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
-      width: 100%;
-      max-width: 600px;
+      max-width: 640px;
     }
 
-    .card {
+    .pricing-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 28px 24px;
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(99,102,241,0.45);
+      background: linear-gradient(145deg, #141c2e, #192035);
+      position: relative;
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 12px;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+
+    .pricing-name {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .pricing-price span {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .pricing-desc {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .pricing-features {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      transition: background 0.15s, border-color 0.15s, transform 0.15s;
-      cursor: pointer;
+      gap: 8px;
     }
 
-    .card:hover {
-      background: var(--card-hover);
-      border-color: rgba(99,102,241,0.35);
-      transform: translateY(-2px);
-    }
-
-    .card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-sm);
-      background: rgba(99,102,241,0.12);
+    .pricing-features li {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-    }
-
-    .card h2 {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .card p {
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.8125rem;
       color: var(--text-muted);
-      font-size: 0.8125rem;
-      line-height: 1.55;
-      flex: 1;
     }
 
-    .card-arrow {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.8125rem;
-      color: var(--accent);
-      font-weight: 500;
-      margin-top: 4px;
+    .pricing-features li .check {
+      color: var(--teal);
+      flex-shrink: 0;
+      margin-top: 1px;
     }
+
+    .pricing-features li.muted .check { color: var(--text-faint); }
+    .pricing-features li.muted { color: var(--text-faint); }
+
+    /* ─── Legal links ─── */
+    .legal-section {
+      padding: clamp(32px, 5vw, 48px) clamp(16px, 5vw, 80px);
+      border-top: 1px solid var(--border);
+    }
+
+    .legal-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .legal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .legal-link:hover { border-color: var(--text-muted); color: var(--text); }
 
     /* ─── Footer ─── */
     footer {
@@ -202,59 +389,121 @@
 <body>
 
   <nav>
-    <a href="/" class="nav-back">
+    <a href="/apps/" class="nav-back">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M10 12L6 8l4-4"/>
       </svg>
-      robkuebler.github.io
+      Apps
     </a>
   </nav>
 
-  <main>
-    <div class="intro">
-      <div class="app-badge">SpesenLaster</div>
-      <h1>Rechtliche Informationen</h1>
-      <p>AGB und Datenschutzerklärung für die App SpesenLaster und SpesenLaster Pro.</p>
-    </div>
-
-    <div class="cards">
-      <a href="/apps/spesenlaster/agb.html" class="card">
-        <div class="card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
-            <polyline points="10 9 9 9 8 9"/>
-          </svg>
-        </div>
-        <h2>Allgemeine Geschäftsbedingungen</h2>
-        <p>Nutzungsbedingungen für den Kauf von SpesenLaster Pro über den Google Play Store.</p>
-        <span class="card-arrow">
-          AGB lesen
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 4l4 4-4 4"/>
-          </svg>
-        </span>
+  <!-- ─── Hero ─── -->
+  <div class="hero">
+    <div class="app-icon">🚛</div>
+    <div class="platform-badge">Android · Google Play</div>
+    <h1>Spesen im Griff.<br><span>Pauschalen automatisch.</span></h1>
+    <p class="hero-sub">SpesenLaster erkennt per GPS in welchem Land du dich befindest und berechnet deine Verpflegungspauschalen nach § 9 EStG – automatisch, offline und ohne Cloud.</p>
+    <div class="hero-actions">
+      <a href="https://play.google.com/store/apps/details?id=com.robertkuebler.spesenlaster" target="_blank" rel="noopener" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3.18 23.76a2 2 0 0 0 2.08-.22l12.3-7.1-3.4-3.4-11 10.72zM22.38 9.8c-.5-.46-5.82-3.36-6.87-3.95l-3.4 3.4 3.4 3.4c1.04-.6 6.36-3.48 6.87-3.94a1.5 1.5 0 0 0 0-2.18v.27zM1.1.48A1.5 1.5 0 0 0 .5 1.73v20.54c0 .5.23.96.6 1.25l.1.08 11.5-11.5v-.27L1.1.48zm10.4 10.67L2.18.44l-.08.04A2 2 0 0 0 .5 2.24v-.5a2 2 0 0 1 1.6-1.76l11 10.72-1.6 1.55v-1.1z"/>
+        </svg>
+        Jetzt herunterladen
       </a>
-
-      <a href="/apps/spesenlaster/datenschutz.html" class="card">
-        <div class="card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </div>
-        <h2>Datenschutzerklärung</h2>
-        <p>Wie SpesenLaster mit deinen Daten umgeht – lokal, transparent, ohne Tracking.</p>
-        <span class="card-arrow">
-          Datenschutz lesen
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 4l4 4-4 4"/>
-          </svg>
-        </span>
-      </a>
+      <a href="#features" class="btn-secondary">Features ansehen</a>
     </div>
-  </main>
+  </div>
+
+  <!-- ─── Features ─── -->
+  <div class="section" id="features">
+    <p class="section-label">// Features</p>
+    <h2 class="section-title">Was SpesenLaster kann</h2>
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon green">📍</div>
+        <h3>GPS-Ländererkennung</h3>
+        <p>Automatische Erkennung des aktuellen Landes per GPS und Reverse Geocoding – keine manuelle Eingabe nötig.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon purple">📊</div>
+        <h3>§ 9 EStG-konforme Berechnung</h3>
+        <p>Berechnet Verpflegungspauschalen auf Basis der aktuellen BMF-Tabellen für über 200 Länder und Regionen.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon teal">📴</div>
+        <h3>Vollständig offline</h3>
+        <p>Alle Daten bleiben lokal auf deinem Gerät (SQLite). Kein Account, kein Cloud-Zwang, keine Werbung.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon amber">📄</div>
+        <h3>PDF-Export <sup style="font-size:0.65rem;color:var(--accent);font-weight:700;">PRO</sup></h3>
+        <p>Erstelle druckfertige Reisekostenabrechnungen als PDF für beliebige Zeiträume – direkt aus der App.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Pricing ─── -->
+  <div class="section" id="pricing" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <p class="section-label">// Preise</p>
+    <h2 class="section-title">Kostenlos mit optionalem Pro-Upgrade</h2>
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="pricing-name">Free</div>
+        <div class="pricing-price">0 €</div>
+        <div class="pricing-desc">Dauerhaft kostenlos</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Fahrterfassung & Reiseverwaltung</li>
+          <li><span class="check">✓</span> GPS-Ländererkennung</li>
+          <li><span class="check">✓</span> Pauschalen-Berechnung (§ 9 EStG)</li>
+          <li><span class="check">✓</span> Belege & Fotos anhängen</li>
+          <li><span class="check">✓</span> Datenbank-Backup & Export</li>
+          <li class="muted"><span class="check">–</span> PDF-Export</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="featured-badge">Pro</div>
+        <div class="pricing-name">SpesenLaster Pro</div>
+        <div class="pricing-price">Siehe App <span>/ Abo oder Einmalkauf</span></div>
+        <div class="pricing-desc">Alles aus Free, plus:</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Fahrterfassung & Reiseverwaltung</li>
+          <li><span class="check">✓</span> GPS-Ländererkennung</li>
+          <li><span class="check">✓</span> Pauschalen-Berechnung (§ 9 EStG)</li>
+          <li><span class="check">✓</span> Belege & Fotos anhängen</li>
+          <li><span class="check">✓</span> Datenbank-Backup & Export</li>
+          <li><span class="check" style="color:var(--accent);">✓</span> <strong style="color:var(--text);">PDF-Export</strong></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Legal ─── -->
+  <div class="legal-section">
+    <p style="font-size:0.8125rem; color:var(--text-muted); margin-bottom:16px;">Rechtliche Dokumente</p>
+    <div class="legal-links">
+      <a href="/apps/spesenlaster/agb.html" class="legal-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        </svg>
+        AGB
+      </a>
+      <a href="/apps/spesenlaster/datenschutz.html" class="legal-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Datenschutzerklärung
+      </a>
+      <a href="/impressum.html" class="legal-link">Impressum</a>
+    </div>
+  </div>
 
   <footer>
     <div class="footer-links">
