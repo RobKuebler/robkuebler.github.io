@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutzerklärung – SpesenLaster</title>
+  <meta name="description" content="Datenschutzerklärung für die App SpesenLaster." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #080c14;
+      --surface:    #0e1421;
+      --card:       #141c2e;
+      --border:     #1e2a42;
+      --accent:     #6366f1;
+      --teal:       #2dd4bf;
+      --text:       #e2e8f0;
+      --text-muted: #7c8ba1;
+      --text-faint: #3d4f6a;
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,12,20,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(16px, 5vw, 80px);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--text); text-decoration: none; }
+    .nav-back svg { flex-shrink: 0; }
+
+    .nav-sep {
+      color: var(--text-faint);
+      font-size: 0.85rem;
+    }
+
+    .nav-title {
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: clamp(40px, 8vw, 80px) clamp(16px, 5vw, 80px) clamp(32px, 6vw, 64px);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 24px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .hero-meta {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    /* ─── Content ─── */
+    .content-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(32px, 6vw, 64px) clamp(16px, 5vw, 48px);
+    }
+
+    /* ─── Legal doc typography ─── */
+    .legal h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 40px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .legal h2:first-child { margin-top: 0; }
+
+    .legal h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 20px 0 8px;
+    }
+
+    .legal p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      margin-bottom: 14px;
+    }
+
+    .legal ul, .legal ol {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      padding-left: 24px;
+      margin-bottom: 14px;
+    }
+
+    .legal li { margin-bottom: 6px; }
+
+    .legal strong { color: var(--text); font-weight: 600; }
+
+    .legal .note {
+      background: rgba(45,212,191,0.07);
+      border: 1px solid rgba(45,212,191,0.2);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin: 16px 0;
+    }
+
+    .legal hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* ─── Permissions table ─── */
+    .perm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 20px;
+      font-size: 0.875rem;
+    }
+
+    .perm-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .perm-table td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      vertical-align: top;
+    }
+
+    .perm-table tr:nth-child(even) td { background: rgba(20,28,46,0.5); }
+
+    /* ─── Data row cards ─── */
+    .data-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 12px 0;
+    }
+
+    .data-card-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .data-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 4px 12px;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+    }
+
+    .data-label { color: var(--text-faint); font-weight: 500; }
+    .data-value { color: var(--text-muted); }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px clamp(16px, 5vw, 80px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .footer-links a:hover { color: var(--text); text-decoration: none; }
+
+    .footer-copy {
+      font-size: 0.8125rem;
+      color: var(--text-faint);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/spesenlaster/" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 12L6 8l4-4"/>
+      </svg>
+      SpesenLaster
+    </a>
+    <span class="nav-sep">/</span>
+    <span class="nav-title">Datenschutzerklärung</span>
+  </nav>
+
+  <div class="hero">
+    <div style="max-width:760px; margin:0 auto;">
+      <div class="hero-eyebrow">Rechtliches</div>
+      <h1>Datenschutzerklärung</h1>
+      <p class="hero-meta">SpesenLaster &nbsp;·&nbsp; Stand: Februar 2026</p>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="legal">
+
+      <h2>1. Verantwortlicher</h2>
+      <p>
+        <strong>Robert Kübler</strong><br>
+        Horstdyk 53<br>
+        47803 Krefeld<br>
+        Deutschland<br>
+        E-Mail: <a href="mailto:robert.jo.kuebler@gmail.com">robert.jo.kuebler@gmail.com</a>
+      </p>
+
+      <h2>2. Allgemeines zur Datenverarbeitung</h2>
+      <p>SpesenLaster ist eine mobile Anwendung zur Berechnung von Verpflegungspauschalen gemäß deutschem Steuerrecht (§ 9 Abs. 4a EStG). Die App speichert alle Daten lokal auf deinem Gerät. Es findet <strong>kein Datenaustausch</strong> mit Servern oder Dritten statt, sofern dies nicht explizit für die App-Funktionalität (z. B. Zahlungsabwicklung) erforderlich ist.</p>
+
+      <h2>3. Welche Daten wir verarbeiten</h2>
+
+      <div class="data-card">
+        <div class="data-card-title">3.1 Standortdaten (GPS)</div>
+        <div class="data-row">
+          <span class="data-label">Was</span>
+          <span class="data-value">Genaue Standortkoordinate (Breite/Länge)</span>
+          <span class="data-label">Wofür</span>
+          <span class="data-value">Automatische Länderbestimmung für die korrekte Steuerberechnung</span>
+          <span class="data-label">Dauer</span>
+          <span class="data-value">Nur während aktiver Nutzung; wird nicht dauerhaft gespeichert</span>
+          <span class="data-label">Weitergabe</span>
+          <span class="data-value">Nein – bleibt auf deinem Gerät</span>
+        </div>
+      </div>
+
+      <div class="data-card">
+        <div class="data-card-title">3.2 Fahrt- und Reisedaten</div>
+        <div class="data-row">
+          <span class="data-label">Was</span>
+          <span class="data-value">Beginn, Ende, Ort und Dauer von Dienstreisen</span>
+          <span class="data-label">Wofür</span>
+          <span class="data-value">Berechnung der Verpflegungspauschalen</span>
+          <span class="data-label">Speicher</span>
+          <span class="data-value">Lokal in der App-Datenbank (SQLite)</span>
+          <span class="data-label">Weitergabe</span>
+          <span class="data-value">Nein</span>
+        </div>
+      </div>
+
+      <div class="data-card">
+        <div class="data-card-title">3.3 Foto- und Belegdaten</div>
+        <div class="data-row">
+          <span class="data-label">Was</span>
+          <span class="data-value">Fotos für Belege und Quittungen</span>
+          <span class="data-label">Wofür</span>
+          <span class="data-value">Dokumentation von Übernachtungen und Mahlzeiten</span>
+          <span class="data-label">Speicher</span>
+          <span class="data-value">Lokal auf deinem Gerät</span>
+          <span class="data-label">Weitergabe</span>
+          <span class="data-value">Nein – die Fotos bleiben auf deinem Gerät; du kannst sie in PDFs exportieren</span>
+        </div>
+      </div>
+
+      <div class="data-card">
+        <div class="data-card-title">3.4 Fahrzeugdaten</div>
+        <div class="data-row">
+          <span class="data-label">Was</span>
+          <span class="data-value">Fahrzeuginformationen (Name, Kennzeichen, optional Foto)</span>
+          <span class="data-label">Wofür</span>
+          <span class="data-value">Verwaltung der Fahrzeuge in der App</span>
+          <span class="data-label">Speicher</span>
+          <span class="data-value">Lokal in der Datenbank</span>
+          <span class="data-label">Weitergabe</span>
+          <span class="data-value">Nein</span>
+        </div>
+      </div>
+
+      <div class="data-card">
+        <div class="data-card-title">3.5 Fahrerdaten</div>
+        <div class="data-row">
+          <span class="data-label">Was</span>
+          <span class="data-value">Dein Name (optional eingegeben)</span>
+          <span class="data-label">Wofür</span>
+          <span class="data-value">Personalisierung der App und PDFs</span>
+          <span class="data-label">Speicher</span>
+          <span class="data-value">Lokal</span>
+          <span class="data-label">Weitergabe</span>
+          <span class="data-value">Nein</span>
+        </div>
+      </div>
+
+      <div class="data-card">
+        <div class="data-card-title">3.6 Manuelle Datenweitergabe (Export)</div>
+        <div class="data-row">
+          <span class="data-label">Was</span>
+          <span class="data-value">PDFs, Belegzusammenfassungen oder Datenbank-Backups</span>
+          <span class="data-label">Wofür</span>
+          <span class="data-value">Weitergabe an Arbeitgeber, Steuerberater oder zur eigenen Sicherung</span>
+          <span class="data-label">Kontrolle</span>
+          <span class="data-value">Du entscheidest selbst, ob, wann und an wen du Daten über die „Teilen"-Funktion deines Betriebssystems versendest. Die App versendet diese Daten niemals eigenständig oder im Hintergrund.</span>
+        </div>
+      </div>
+
+      <h2>4. Berechtigungen der App</h2>
+      <p>SpesenLaster fordert folgende Systemberechtigungen an:</p>
+      <table class="perm-table">
+        <thead>
+          <tr>
+            <th>Berechtigung</th>
+            <th>Grund</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Standort (genau/grob)</strong></td>
+            <td>Automatische Länderbestimmung</td>
+          </tr>
+          <tr>
+            <td><strong>Kamera</strong></td>
+            <td>Fotografie von Belegen und Quittungen</td>
+          </tr>
+          <tr>
+            <td><strong>Bilder/Fotos</strong></td>
+            <td>Zugriff auf Galerie zum Hochladen von Bildern</td>
+          </tr>
+          <tr>
+            <td><strong>Internet</strong></td>
+            <td>Zahlungsabwicklung und Abonnement-Verwaltung über RevenueCat</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Alle Berechtigungen kannst du jederzeit in deinen Android-Einstellungen verwalten und deaktivieren.</p>
+
+      <h2>5. Datenverarbeitung durch externe Services</h2>
+
+      <h3>5.1 Zahlungsabwicklung und Abonnement-Verwaltung (RevenueCat)</h3>
+      <p>Um dir den Kauf von „SpesenLaster Pro" und die Verwaltung deines Abonnements zu ermöglichen, nutzen wir den Dienst <strong>RevenueCat</strong> (RevenueCat Inc., 1032 Elwell Ct Ste 211, Palo Alto, CA 94303, USA).</p>
+      <ul>
+        <li><strong>Was verarbeitet wird:</strong> Informationen über die Transaktion (Kaufdatum, Produkt-ID, Preis, Währung) sowie pseudonymisierte Gerätekennungen, um deinen Kaufstatus sicherzustellen.</li>
+        <li><strong>Wofür:</strong> Verifizierung des Pro-Status, Bereitstellung der Bezahlfunktionen und Verwaltung von In-App-Käufen.</li>
+        <li><strong>Datenweitergabe:</strong> RevenueCat erhält Informationen vom Google Play Store über deine Käufe. Wir erhalten über RevenueCat keine Kenntnis von deinen Klarnamen oder Bankdaten.</li>
+        <li><strong>Rechtsgrundlage:</strong> Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO).</li>
+        <li><strong>Datenschutzerklärung:</strong> <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a></li>
+      </ul>
+
+      <h3>5.2 Geocodierung (Google/Apple)</h3>
+      <p>Deine GPS-Koordinaten werden optional an die Systemdienste von Google (Android) oder Apple (iOS) gesendet, um Koordinaten in Ortsnamen umzuwandeln (Reverse Geocoding) und die korrekten Pauschbeträge anzuzeigen. Es erfolgt keine dauerhafte Speicherung deiner Standortdaten durch die App auf externen Servern.</p>
+
+      <div class="note">
+        <strong>Keine Analyse-Tools, kein Tracking</strong> (außer technisch notwendiger Kaufabwicklung), <strong>keine Werbung.</strong>
+      </div>
+
+      <h2>6. Deine Rechte</h2>
+      <p>Du hast das Recht auf:</p>
+      <ul>
+        <li><strong>Auskunft:</strong> Anforderung darüber, welche Daten über dich verarbeitet werden</li>
+        <li><strong>Berichtigung:</strong> Korrektur fehlerhafter Daten</li>
+        <li><strong>Löschung:</strong> Löschung deiner Daten (lokal über die App-Einstellungen möglich)</li>
+        <li><strong>Übertragbarkeit:</strong> Export deiner Daten in einem portablen Format</li>
+      </ul>
+      <p>Für Anfragen wende dich an: <a href="mailto:robert.jo.kuebler@gmail.com">robert.jo.kuebler@gmail.com</a></p>
+
+      <h2>7. Datensicherheit</h2>
+      <ul>
+        <li>Alle Daten werden lokal auf deinem Gerät mit SQLite gespeichert</li>
+        <li>Es gibt keine zentrale Datenbank oder Sicherungskopien in der Cloud</li>
+        <li>Dein Gerät trägt die Verantwortung für die Sicherheit (Bildschirmsperre, Verschlüsselung)</li>
+      </ul>
+
+      <h2>8. Keine Speicherung persönlicher Identifikationsmerkmale</h2>
+      <p>Abgesehen von den technisch notwendigen pseudonymen Kennungen für die Zahlungsabwicklung (siehe Punkt 5.1) speichert oder versendet die App <strong>keine</strong>:</p>
+      <ul>
+        <li>IP-Adressen</li>
+        <li>MAC-Adressen</li>
+        <li>IMEI-Nummern</li>
+        <li>oder sonstige direkt personenbezogene Gerätekennungen</li>
+      </ul>
+
+      <h2>9. Kontakt &amp; Datenschutz</h2>
+      <p>Falls du Fragen zur Datenschutzerklärung oder zur Datenverarbeitung in SpesenLaster hast, kontaktiere bitte:</p>
+      <p>
+        <strong>SpesenLaster Support</strong><br>
+        E-Mail: <a href="mailto:robert.jo.kuebler@gmail.com">robert.jo.kuebler@gmail.com</a>
+      </p>
+
+      <h2>10. Änderungen dieser Datenschutzerklärung</h2>
+      <p>Diese Datenschutzerklärung kann gelegentlich aktualisiert werden. Die aktuelle Fassung ist immer abrufbar unter: <a href="https://robkuebler.github.io/spesenlaster/datenschutz.html">robkuebler.github.io/spesenlaster/datenschutz.html</a></p>
+
+      <hr>
+      <div class="note">
+        <strong>Hinweis:</strong> Diese App ist für Privatpersonen und Unternehmer gedacht, die ihre Verpflegungspauschalen nach deutschem Steuerrecht berechnen möchten. Die Ergebnisse ersetzen keine Beratung durch einen Steuerberater.
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/spesenlaster/">SpesenLaster</a>
+      <a href="/spesenlaster/agb.html">AGB</a>
+    </div>
+    <span class="footer-copy">© 2026 Robert Kübler</span>
+  </footer>
+
+</body>
+</html>
