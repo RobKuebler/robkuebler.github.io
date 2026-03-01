@@ -1,0 +1,176 @@
+/* ─── Variables ─────────────────────────────────────────────── */
+/* Superset of all CSS variables used across pages */
+:root {
+  --bg:          #080c14;
+  --surface:     #0e1421;
+  --card:        #141c2e;
+  --card-hover:  #192035;
+  --border:      #1e2a42;
+  --accent:      #6366f1;
+  --accent-dim:  #4f51c7;
+  --accent-glow: rgba(99,102,241,0.15);
+  --teal:        #2dd4bf;
+  --text:        #e2e8f0;
+  --text-muted:  #7c8ba1;
+  --text-faint:  #3d4f6a;
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   20px;
+  --radius-pill: 24px;
+}
+
+/* ─── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Base ──────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Default link style — pages using color:inherit override in their <style> block */
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─── Nav ───────────────────────────────────────────────────── */
+/* index.html overrides this with its complex nav (logo, links, hamburger) */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,12,20,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 clamp(16px, 5vw, 80px);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Back-link used on all sub-pages */
+.nav-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--text); text-decoration: none; }
+.nav-back svg { flex-shrink: 0; }
+
+/* ─── Footer (centered variant) ─────────────────────────────── */
+/* SpesenLaster pages override with a flex space-between footer */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+  text-decoration: none;
+}
+
+.footer-links a:hover { color: var(--accent); text-decoration: none; }
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+/* ─── Hero eyebrow / platform badge (accent pill) ───────────── */
+/* Shared across impressum, agb, datenschutz, and apps/index.   */
+/* index.html overrides .hero-eyebrow to its plain-text variant. */
+.hero-eyebrow,
+.platform-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(99,102,241,0.12);
+  border: 1px solid rgba(99,102,241,0.25);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* ─── Section labels (index + spesenlaster pages) ───────────── */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 40px;
+  line-height: 1.25;
+}
+
+/* ─── Content wrapper (legal pages) ────────────────────────── */
+.content-wrap {
+  flex: 1;
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(32px, 6vw, 64px) clamp(16px, 5vw, 48px);
+}
+
+/* ─── Legal typography base (impressum, agb, datenschutz) ───── */
+/* agb + datenschutz extend these with ul/ol/blockquote/.note   */
+/* and override h2 font-size and margins in their own <style>   */
+.legal h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 32px 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.legal h2:first-child { margin-top: 0; }
+
+.legal p {
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  margin-bottom: 12px;
+}
+
+.legal strong { color: var(--text); font-weight: 600; }
+
+.legal hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
