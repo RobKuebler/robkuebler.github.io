@@ -82,6 +82,68 @@
 
     .nav-links a:hover { color: var(--text); }
 
+    /* Hamburger button — hidden on desktop */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-muted);
+      border-radius: 2px;
+      transition: all 0.25s;
+      transform-origin: center;
+    }
+
+    /* Animate to X when open */
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: rgba(8,12,20,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      z-index: 99;
+    }
+
+    .nav-drawer.open { display: block; }
+
+    .nav-drawer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-drawer a {
+      display: block;
+      padding: 14px 24px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .nav-drawer a:hover { color: var(--text); }
+
     /* ─── Layout helpers ────────────────────────────────────── */
     .container {
       max-width: 860px;
@@ -513,17 +575,14 @@
     }
 
     /* ─── Responsive ────────────────────────────────────────── */
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       .hero-inner { flex-direction: column; align-items: flex-start; }
       .avatar { width: 90px; height: 90px; }
       .timeline-item { grid-template-columns: 1fr; gap: 4px; }
       .timeline-meta { display: flex; gap: 16px; align-items: baseline; }
-      .nav-links { gap: 20px; }
       .writing-header { flex-direction: column; }
-    }
-
-    @media (max-width: 400px) {
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
     }
   </style>
 </head>
@@ -539,7 +598,39 @@
       <li><a href="#publications">Publications</a></li>
       <li><a href="#writing">Writing</a></li>
     </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-drawer" id="nav-drawer">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#writing">Writing</a></li>
+    </ul>
+  </div>
+
+  <script>
+    const hamburger = document.querySelector('.nav-hamburger');
+    const drawer = document.getElementById('nav-drawer');
+
+    hamburger.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+    });
+
+    // Close drawer when a link is clicked
+    drawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        drawer.classList.remove('open');
+        hamburger.classList.remove('open');
+      });
+    });
+  </script>
 
   <!-- ─── Hero ─────────────────────────────────────────────── -->
   <section id="hero">
