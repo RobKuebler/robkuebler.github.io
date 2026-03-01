@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Robert Kübler · Mathematician &amp; Data Scientist</title>
+  <meta name="description" content="PhD Mathematician and Senior Staff Data Scientist. Forecasting, Recommender Systems, Causal Inference. Technical Author with 90+ articles and 1M+ reads." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #080c14;
+      --surface:    #0e1421;
+      --card:       #141c2e;
+      --card-hover: #192035;
+      --border:     #1e2a42;
+      --accent:     #6366f1;
+      --accent-dim: #4f51c7;
+      --accent-glow:rgba(99,102,241,0.15);
+      --teal:       #2dd4bf;
+      --text:       #e2e8f0;
+      --text-muted: #7c8ba1;
+      --text-faint: #3d4f6a;
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  20px;
+      --radius-pill:24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Nav ───────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,12,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(16px, 5vw, 80px);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+      color: var(--text);
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ─── Layout helpers ────────────────────────────────────── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 clamp(16px, 5vw, 32px);
+    }
+
+    section { padding: 80px 0; }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 40px;
+      line-height: 1.25;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── Hero ──────────────────────────────────────────────── */
+    #hero {
+      padding: 96px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grid texture */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--text-faint) 1px, transparent 1px),
+        linear-gradient(90deg, var(--text-faint) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+    }
+
+    /* Photo */
+    .avatar {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      overflow: hidden;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-placeholder {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      max-width: 540px;
+    }
+
+    /* Social links */
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      background: var(--accent-glow);
+    }
+
+    .social-btn svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat { text-align: left; }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-number span { color: var(--accent); }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ─── About ─────────────────────────────────────────────── */
+    #about { background: var(--surface); }
+
+    .about-text {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 660px;
+    }
+
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    /* ─── Skills ────────────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      background: var(--card-hover);
+    }
+
+    .skill-card-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 14px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ─── Experience ────────────────────────────────────────── */
+    #experience { background: var(--surface); }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item:last-child { border-bottom: none; }
+
+    .timeline-meta {
+      padding-top: 2px;
+    }
+
+    .timeline-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .timeline-company {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      margin-top: 4px;
+    }
+
+    .timeline-role {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .timeline-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .timeline-bullets li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .timeline-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .timeline-bullets strong { color: var(--text); font-weight: 600; }
+
+    /* ─── Writing ───────────────────────────────────────────── */
+    .writing-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .writing-header .section-title { margin-bottom: 0; }
+
+    .writing-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.83rem;
+      font-weight: 600;
+      transition: background 0.2s, opacity 0.2s;
+      white-space: nowrap;
+      align-self: center;
+    }
+
+    .writing-cta:hover { background: var(--accent-dim); }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .article-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .article-card:hover {
+      border-color: var(--accent);
+      background: var(--card-hover);
+    }
+
+    .article-views {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .article-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .article-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .article-link {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .article-link:hover { text-decoration: underline; }
+
+    /* Writing stats row */
+    .writing-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 32px;
+      padding: 20px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .w-stat { display: flex; flex-direction: column; gap: 2px; }
+
+    .w-stat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .w-stat-label { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ─── Footer ────────────────────────────────────────────── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--text-faint);
+    }
+
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero-inner { flex-direction: column; align-items: flex-start; }
+      .avatar { width: 90px; height: 90px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 4px; }
+      .timeline-meta { display: flex; gap: 16px; align-items: baseline; }
+      .nav-links { gap: 20px; }
+      .writing-header { flex-direction: column; }
+    }
+
+    @media (max-width: 400px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Nav ──────────────────────────────────────────────── -->
+  <nav>
+    <span class="nav-logo">Robert <span>Kübler</span></span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#writing">Writing</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── Hero ─────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+
+        <div class="avatar">
+          <img src="avatar.jpg" alt="Robert Kübler" />
+        </div>
+
+        <div class="hero-text">
+          <p class="hero-eyebrow">// PhD Mathematics · Data Science</p>
+          <h1>Dr. Robert<br /><span>Kübler</span></h1>
+          <p class="hero-subtitle">
+            PhD mathematician with a love for theory who also ships things.
+            Specialising in <strong>time series forecasting</strong>,
+            <strong>recommender systems</strong>, and <strong>causal inference</strong>
+            across 6+ years in production data science.
+          </p>
+
+          <div class="social-links">
+            <a class="social-btn" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">
+              <!-- Medium icon -->
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+              Medium
+            </a>
+            <a class="social-btn" href="https://www.linkedin.com/in/robert-kuebler/" target="_blank" rel="noopener">
+              <!-- LinkedIn icon -->
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+            <a class="social-btn" href="https://github.com/RobKuebler" target="_blank" rel="noopener">
+              <!-- GitHub icon -->
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="stats-bar">
+        <div class="stat">
+          <div class="stat-number">90<span>+</span></div>
+          <div class="stat-label">Technical Articles</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">1M<span>+</span></div>
+          <div class="stat-label">Article Reads</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">6<span>+</span></div>
+          <div class="stat-label">Years in Production ML</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Peer-Reviewed Publications</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── About ────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label">// About</p>
+      <h2 class="section-title">Mathematician at heart,<br />pragmatist by necessity</h2>
+      <p class="about-text">
+        Hi, I'm Robert. I have a <strong>PhD in mathematics</strong> and I genuinely enjoy
+        the theoretical side of things: algorithms, probability, the elegance of a clean proof.
+        I'm also a Senior Staff Data Scientist at <strong>ALDI DX</strong>, where I own the
+        technical vision for a time-series forecasting product serving business planners
+        across 150+ series. When theory meets a real problem, I get practical and ship.
+      </p>
+      <br />
+      <p class="about-text">
+        I care a lot about <strong>sharing what I know</strong>. I write technical articles
+        on Medium (90+ articles, 1M+ reads), design the official
+        <strong>sktime forecasting curriculum</strong> for the German Center for Open Source AI,
+        and speak at meetups at companies like Zalando and Inovex.
+        My PhD research at Ruhr University Bochum was on
+        <strong>memory-efficient cryptographic algorithms</strong> for the Learning Parity
+        with Noise problem.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── Skills ───────────────────────────────────────────── -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label">// Skills</p>
+      <h2 class="section-title">Areas of expertise</h2>
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <div class="skill-card-title">ML &amp; Statistics</div>
+          <div class="tags">
+            <span class="tag">Time Series Forecasting</span>
+            <span class="tag">Causal Inference</span>
+            <span class="tag">Recommender Systems</span>
+            <span class="tag">Bayesian Statistics</span>
+            <span class="tag">Marketing Mix Modeling</span>
+            <span class="tag">A/B Testing</span>
+            <span class="tag">Deep Learning</span>
+            <span class="tag">NLP</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-title">Tools &amp; Frameworks</div>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">sktime</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">PyMC</span>
+            <span class="tag">LightGBM</span>
+            <span class="tag">CatBoost</span>
+            <span class="tag">pandas</span>
+            <span class="tag">polars</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-title">Infrastructure</div>
+          <div class="tags">
+            <span class="tag">GCP</span>
+            <span class="tag">Vertex AI</span>
+            <span class="tag">Kubeflow</span>
+            <span class="tag">MLflow</span>
+            <span class="tag">Docker</span>
+            <span class="tag">PySpark</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Git</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-title">Mathematics</div>
+          <div class="tags">
+            <span class="tag">Probability Theory</span>
+            <span class="tag">Cryptography</span>
+            <span class="tag">Algorithms</span>
+            <span class="tag">Discrete Math</span>
+            <span class="tag">Number Theory</span>
+            <span class="tag">Cryptanalysis</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Experience ──────────────────────────────────────── -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">// Experience</p>
+      <h2 class="section-title">Where I've worked</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Sep 2024<br/>Present</div>
+            <div class="timeline-company">ALDI DX</div>
+          </div>
+          <div>
+            <div class="timeline-role">Senior Staff Data Scientist</div>
+            <ul class="timeline-bullets">
+              <li>Own the technical vision for the forecasting product: model selection strategy and feature engineering</li>
+              <li>Introduced sktime to replace a Prophet-only setup, <strong>reducing MAPE by 10%</strong> across 150+ time series</li>
+              <li>Built a digital warehouse twin simulation prototype, later scaled to a dedicated team of 6</li>
+              <li>Guest speaker for 40+ data scientists; raised engineering standards (unit testing, Ruff, Black)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Jan 2022<br/>Aug 2024</div>
+            <div class="timeline-company">METRO.digital</div>
+          </div>
+          <div>
+            <div class="timeline-role">Senior Data Scientist</div>
+            <ul class="timeline-bullets">
+              <li>Built two real-time recommender systems (two-tower, TensorFlow) trained on <strong>billions of transactional rows</strong>, deployed on GCP / Vertex AI</li>
+              <li>Built a causal inference framework (S-learner) for assortment optimization, automating product delisting</li>
+              <li>Led technical hiring: screened 20+ candidates, co-led 5 interviews, onboarded 3 hires</li>
+              <li>Mentored 3 data scientists and led upskilling events for a team of 20</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Sep 2020<br/>Dec 2021</div>
+            <div class="timeline-company">MEDION AG (Lenovo)</div>
+          </div>
+          <div>
+            <div class="timeline-role">Senior Data Scientist</div>
+            <ul class="timeline-bullets">
+              <li>Developed and open-sourced <a href="https://github.com/RobKuebler/mamimo" target="_blank" rel="noopener" style="color:var(--accent)">mamimo</a>, a marketing mix modeling package (74 GitHub stars); results directly influenced marketing budget allocation</li>
+              <li>Owned 3 analytical workstreams end-to-end: forecasting, MMM, causal inference</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Apr 2025<br/>Present</div>
+            <div class="timeline-company">GC Open Source AI</div>
+          </div>
+          <div>
+            <div class="timeline-role">Forecasting Instructor, Official sktime Curriculum</div>
+            <ul class="timeline-bullets">
+              <li>Design and deliver the official sktime curriculum across 3 cohorts (15 professionals)</li>
+              <li>Active open-source contributor: fixed bugs in ForecastKnownValues and make_regression; proposed StackingForecaster improvements</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">2015<br/>2018</div>
+            <div class="timeline-company">Ruhr University Bochum</div>
+          </div>
+          <div>
+            <div class="timeline-role">Doctoral Researcher in Mathematics and Cryptography</div>
+            <ul class="timeline-bullets">
+              <li>Researched memory-efficient algorithms for the cryptographically relevant Learning Parity with Noise problem</li>
+              <li>4 peer-reviewed publications; taught exercise groups in cryptography, number theory, and discrete mathematics; supervised 5 theses</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Writing ──────────────────────────────────────────── -->
+  <section id="writing">
+    <div class="container">
+      <div class="writing-header">
+        <div>
+          <p class="section-label">// Writing</p>
+          <h2 class="section-title">Technical Articles</h2>
+        </div>
+        <a class="writing-cta" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">
+          All articles →
+        </a>
+      </div>
+
+      <div class="writing-stats">
+        <div class="w-stat">
+          <span class="w-stat-num">90+</span>
+          <span class="w-stat-label">Articles published</span>
+        </div>
+        <div class="w-stat">
+          <span class="w-stat-num">1M+</span>
+          <span class="w-stat-label">Total reads</span>
+        </div>
+        <div class="w-stat">
+          <span class="w-stat-num">5k+</span>
+          <span class="w-stat-label">Medium followers</span>
+        </div>
+        <div class="w-stat">
+          <span class="w-stat-num">3</span>
+          <span class="w-stat-label">Platforms (Medium · KDnuggets · VectorHub)</span>
+        </div>
+      </div>
+
+      <div class="articles-grid">
+
+        <div class="article-card">
+          <div class="article-views">41k views</div>
+          <div class="article-title">Upgraded Marketing Mix Modeling</div>
+          <div class="article-desc">A deep dive into modern MMM techniques, moving beyond simple regression into Bayesian approaches.</div>
+          <a class="article-link" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Read on Medium →</a>
+        </div>
+
+        <div class="article-card">
+          <div class="article-views">39k views</div>
+          <div class="article-title">Extensible Evolutionary Algorithms</div>
+          <div class="article-desc">Building flexible evolutionary algorithm frameworks in Python for real-world optimization problems.</div>
+          <a class="article-link" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Read on Medium →</a>
+        </div>
+
+        <div class="article-card">
+          <div class="article-views">32k views</div>
+          <div class="article-title">Embedding-Based Recommender Systems</div>
+          <div class="article-desc">How two-tower neural architectures power modern product recommendation at scale.</div>
+          <a class="article-link" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Read on Medium →</a>
+        </div>
+
+        <div class="article-card">
+          <div class="article-views">27k views</div>
+          <div class="article-title">Zero-Inflated Regression</div>
+          <div class="article-desc">Modeling count data with excess zeros: theory, implementation, and practical use cases in scikit-lego.</div>
+          <a class="article-link" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Read on Medium →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ───────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Medium</a>
+        <a href="https://www.linkedin.com/in/robert-kuebler/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/RobKuebler" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:robert.jo.kuebler@gmail.com">Email</a>
+      </div>
+      <p class="footer-copy">Dr. Robert Kübler</p>
+    </div>
+  </footer>
+
+</body>
+</html>
