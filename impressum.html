@@ -41,7 +41,102 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-        /* ─── Footer ─── */
+    /* ─── Nav ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,12,20,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(16px, 5vw, 80px);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--text); text-decoration: none; }
+    .nav-back svg { flex-shrink: 0; }
+
+    /* ─── Hero ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: clamp(40px, 8vw, 80px) clamp(16px, 5vw, 80px) clamp(32px, 6vw, 64px);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 24px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .hero-meta {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    /* ─── Content ─── */
+    .content-wrap {
+      flex: 1;
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: clamp(32px, 6vw, 64px) clamp(16px, 5vw, 48px);
+    }
+
+    .legal h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 32px 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .legal h2:first-child { margin-top: 0; }
+
+    .legal p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      margin-bottom: 12px;
+    }
+
+    .legal strong { color: var(--text); font-weight: 600; }
+
+    .legal hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* ─── Footer ─── */
     footer {
       background: var(--surface);
       border-top: 1px solid var(--border);
