@@ -473,6 +473,13 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      position: relative;
+    }
+
+    .article-card-link {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
     }
 
     .article-card:hover {
@@ -500,18 +507,6 @@
       line-height: 1.5;
       flex: 1;
     }
-
-    .article-link {
-      font-size: 0.78rem;
-      color: var(--accent);
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 4px;
-    }
-
-    .article-link:hover { text-decoration: underline; }
 
     /* Writing stats row */
     .writing-stats {
@@ -951,45 +946,45 @@
       <div class="articles-grid">
 
         <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/data-science-collective/an-upgraded-marketing-mix-modeling-in-python-5ebb3bddc1b6" target="_blank" rel="noopener" aria-label="Read: Upgraded Marketing Mix Modeling"></a>
           <div class="article-views">41k views</div>
           <div class="article-title">Upgraded Marketing Mix Modeling</div>
           <div class="article-desc">A deep dive into modern MMM techniques, moving beyond simple regression into Bayesian approaches.</div>
-          <a class="article-link" href="https://medium.com/data-science-collective/an-upgraded-marketing-mix-modeling-in-python-5ebb3bddc1b6" target="_blank" rel="noopener">Read on Medium →</a>
         </div>
 
         <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/data-science/an-extensible-evolutionary-algorithm-example-in-python-7372c56a557b" target="_blank" rel="noopener" aria-label="Read: Extensible Evolutionary Algorithms"></a>
           <div class="article-views">39k views</div>
           <div class="article-title">Extensible Evolutionary Algorithms</div>
           <div class="article-desc">Building flexible evolutionary algorithm frameworks in Python for real-world optimization problems.</div>
-          <a class="article-link" href="https://medium.com/data-science/an-extensible-evolutionary-algorithm-example-in-python-7372c56a557b" target="_blank" rel="noopener">Read on Medium →</a>
         </div>
 
         <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/p/f24152509ebb" target="_blank" rel="noopener" aria-label="Read: The Explainable Boosting Machine"></a>
           <div class="article-views">34k views</div>
           <div class="article-title">The Explainable Boosting Machine</div>
           <div class="article-desc">As accurate as gradient boosting and as interpretable as linear regression.</div>
-          <a class="article-link" href="https://medium.com/p/f24152509ebb" target="_blank" rel="noopener">Read on Medium →</a>
         </div>
 
         <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/data-science-collective/introduction-to-embedding-based-recommender-systems-956faceb1919" target="_blank" rel="noopener" aria-label="Read: Embedding-Based Recommender Systems"></a>
           <div class="article-views">32k views</div>
           <div class="article-title">Embedding-Based Recommender Systems</div>
           <div class="article-desc">How two-tower neural architectures power modern product recommendation at scale.</div>
-          <a class="article-link" href="https://medium.com/data-science-collective/introduction-to-embedding-based-recommender-systems-956faceb1919" target="_blank" rel="noopener">Read on Medium →</a>
         </div>
 
         <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/p/b4a23ef54c9e" target="_blank" rel="noopener" aria-label="Read: Where Machine Learning Meets Cryptography"></a>
           <div class="article-views">28k views</div>
           <div class="article-title">Where Machine Learning Meets Cryptography</div>
           <div class="article-desc">Solving the cryptographically-relevant Learning Parity with Noise problem via machine learning.</div>
-          <a class="article-link" href="https://medium.com/p/b4a23ef54c9e" target="_blank" rel="noopener">Read on Medium →</a>
         </div>
 
         <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/data-science/zero-inflated-regression-c7dfc656d8af" target="_blank" rel="noopener" aria-label="Read: Zero-Inflated Regression"></a>
           <div class="article-views">27k views</div>
           <div class="article-title">Zero-Inflated Regression</div>
           <div class="article-desc">Modeling count data with excess zeros: theory, implementation, and practical use cases in scikit-lego.</div>
-          <a class="article-link" href="https://medium.com/data-science/zero-inflated-regression-c7dfc656d8af" target="_blank" rel="noopener">Read on Medium →</a>
         </div>
 
       </div>
