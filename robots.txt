@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /impressum.html
-Disallow: /apps/spesenlaster/
+Disallow: /apps/spesenlaster/agb.html
+Disallow: /apps/spesenlaster/datenschutz.html
