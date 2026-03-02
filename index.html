@@ -443,6 +443,29 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
       color: var(--text-faint);
+      margin-bottom: 0;
+    }
+
+    .timeline-subrole-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .timeline-subrole-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .timeline-focus-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-bottom: 8px;
     }
 
@@ -830,16 +853,22 @@
           </div>
           <div>
             <div class="timeline-subrole">
-              <div class="timeline-role">Senior Data Scientist (Assortment Optimization)</div>
-              <div class="timeline-subperiod">Oct 2023 – Aug 2024</div>
+              <div class="timeline-subrole-header">
+                <span class="timeline-subrole-title">Senior Data Scientist</span>
+                <span class="timeline-subperiod">Oct 2023 – Aug 2024</span>
+              </div>
+              <div class="timeline-focus-label">Assortment Optimization</div>
               <ul class="timeline-bullets">
                 <li>Built a causal inference framework (S-learner) for assortment optimization, automating product delisting</li>
                 <li>Mentored junior and mid-level data scientists</li>
               </ul>
             </div>
             <div class="timeline-subrole">
-              <div class="timeline-role">Senior Data Scientist (Product Recommender)</div>
-              <div class="timeline-subperiod">Jan 2022 – Sep 2023</div>
+              <div class="timeline-subrole-header">
+                <span class="timeline-subrole-title">Senior Data Scientist</span>
+                <span class="timeline-subperiod">Jan 2022 – Sep 2023</span>
+              </div>
+              <div class="timeline-focus-label">Product Recommender</div>
               <ul class="timeline-bullets">
                 <li>Built two real-time recommender systems (two-tower, TensorFlow) trained on <strong>billions of transactional rows</strong>, deployed on GCP / Vertex AI; validated via A/B testing (GrowthBook)</li>
                 <li>Led technical hiring: screened 20+ candidates, co-led 5 interviews, onboarded 3 hires</li>
