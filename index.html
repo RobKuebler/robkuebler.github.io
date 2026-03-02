@@ -429,6 +429,23 @@
 
     .timeline-bullets strong { color: var(--text); font-weight: 600; }
 
+    .timeline-subrole {
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+    }
+
+    .timeline-subrole:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .timeline-subperiod {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-faint);
+      margin-bottom: 8px;
+    }
+
     /* ─── Writing ───────────────────────────────────────────── */
     .writing-header {
       display: flex;
@@ -583,6 +600,24 @@
 
     .w-stat-label { font-size: 0.75rem; color: var(--text-muted); }
 
+    /* ─── Education ─────────────────────────────────────────── */
+    #education { background: var(--surface); }
+
+    .awards-row {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .awards-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
     /* ─── Responsive ────────────────────────────────────────── */
     @media (max-width: 640px) {
       .hero-name-row { gap: 16px; }
@@ -603,10 +638,11 @@
     <span class="nav-logo">Dr. Robert <span>Kübler</span></span>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#publications">Publications</a></li>
       <li><a href="#writing">Writing</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#education">Education</a></li>
     </ul>
     <button class="nav-hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -617,10 +653,11 @@
   <div class="nav-drawer" id="nav-drawer">
     <ul>
       <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#publications">Publications</a></li>
       <li><a href="#writing">Writing</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#education">Education</a></li>
     </ul>
   </div>
 
@@ -702,7 +739,7 @@
           <div class="stat-label">Years in Production ML</div>
         </div>
         <div class="stat">
-          <div class="stat-number">4</div>
+          <div class="stat-number">3</div>
           <div class="stat-label">Peer-Reviewed Publications</div>
         </div>
       </div>
@@ -717,20 +754,223 @@
       <p class="about-text">
         Hi, I'm Robert. I have a <strong>PhD in mathematics</strong> and I genuinely enjoy
         the theoretical side of things: algorithms, probability, the elegance of a clean proof.
-        I'm also a Senior Staff Data Scientist at <strong>ALDI DX</strong>, where I own the
-        technical vision for a time-series forecasting product serving business planners
-        across 150+ series. When theory meets a real problem, I get practical and ship.
+        My PhD research at Ruhr University Bochum was on
+        <strong>memory-efficient cryptographic algorithms</strong> for the Learning Parity
+        with Noise problem. I'm also a Senior Staff Data Scientist at <strong>ALDI DX</strong>,
+        where I own the technical vision for a time-series forecasting product serving business
+        planners across 150+ series. When theory meets a real problem, I get practical and ship.
       </p>
       <br />
       <p class="about-text">
         I care a lot about <strong>sharing what I know</strong>. I write technical articles
         on Medium (90+ articles, 1M+ reads), design the official
         <strong>sktime forecasting curriculum</strong> for the German Center for Open Source AI,
-        and speak at meetups at companies like Zalando and Inovex.
-        My PhD research at Ruhr University Bochum was on
-        <strong>memory-efficient cryptographic algorithms</strong> for the Learning Parity
-        with Noise problem.
+        speak at meetups at companies like Zalando and Inovex, and contribute to open-source
+        libraries like <strong>scikit-lego</strong> and <strong>PyMC-Marketing</strong>.
       </p>
+    </div>
+  </section>
+
+  <!-- ─── Experience ──────────────────────────────────────── -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">// Experience</p>
+      <h2 class="section-title">Where I've worked</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Apr 2025<br/>Present</div>
+            <div class="timeline-company">GC Open Source AI</div>
+            <div class="timeline-type">Freelance</div>
+          </div>
+          <div>
+            <div class="timeline-role">Forecasting Instructor, Official sktime Curriculum</div>
+            <ul class="timeline-bullets">
+              <li>Design and deliver the official sktime curriculum across 3 cohorts (15 professionals)</li>
+              <li>Active open-source contributor: identified and fixed critical bugs in make_regression and ForecastKnownValues; proposed improvements to StackingForecaster, pipeline caching, and GroupByTransformer</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Sep 2024<br/>Present</div>
+            <div class="timeline-company">ALDI DX</div>
+          </div>
+          <div>
+            <div class="timeline-role">Senior Staff Data Scientist</div>
+            <ul class="timeline-bullets">
+              <li>Own the technical vision for the forecasting product: model selection strategy and feature engineering</li>
+              <li>Introduced sktime to replace a Prophet-only setup, <strong>reducing MAPE by 10%</strong> across 150+ time series</li>
+              <li>Guest speaker for 40+ data scientists; raised engineering standards (unit testing, Ruff, Black)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Mar 2024<br/>Present</div>
+            <div class="timeline-company">MMMLabs.ai</div>
+            <div class="timeline-type">Freelance</div>
+          </div>
+          <div>
+            <div class="timeline-role">Senior Data Scientist</div>
+            <ul class="timeline-bullets">
+              <li>Bayesian marketing mix modeling backend (PyMC-Marketing) for a SaaS analytics platform</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Jan 2022<br/>Aug 2024</div>
+            <div class="timeline-company">METRO.digital</div>
+          </div>
+          <div>
+            <div class="timeline-subrole">
+              <div class="timeline-role">Senior Data Scientist (Assortment Optimization)</div>
+              <div class="timeline-subperiod">Oct 2023 – Aug 2024</div>
+              <ul class="timeline-bullets">
+                <li>Built a causal inference framework (S-learner) for assortment optimization, automating product delisting</li>
+                <li>Mentored junior and mid-level data scientists</li>
+              </ul>
+            </div>
+            <div class="timeline-subrole">
+              <div class="timeline-role">Senior Data Scientist (Product Recommender)</div>
+              <div class="timeline-subperiod">Jan 2022 – Sep 2023</div>
+              <ul class="timeline-bullets">
+                <li>Built two real-time recommender systems (two-tower, TensorFlow) trained on <strong>billions of transactional rows</strong>, deployed on GCP / Vertex AI; validated via A/B testing (GrowthBook)</li>
+                <li>Led technical hiring: screened 20+ candidates, co-led 5 interviews, onboarded 3 hires</li>
+                <li>Mentored 3 data scientists and led upskilling events for a team of 20</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Sep 2020<br/>Dec 2021</div>
+            <div class="timeline-company">MEDION AG (Lenovo)</div>
+          </div>
+          <div>
+            <div class="timeline-role">Senior Data Scientist</div>
+            <ul class="timeline-bullets">
+              <li>Developed and open-sourced <a href="https://github.com/RobKuebler/mamimo" target="_blank" rel="noopener" style="color:var(--accent)">mamimo</a>, a marketing mix modeling package (74 GitHub stars); results directly influenced marketing budget allocation</li>
+              <li>Owned 3 analytical workstreams end-to-end: forecasting (Prophet, LightGBM, QlikSense dashboards), MMM, and causal inference</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Jun 2019<br/>Aug 2020</div>
+            <div class="timeline-company">Publicis Media</div>
+          </div>
+          <div>
+            <div class="timeline-role">Data Scientist</div>
+            <ul class="timeline-bullets">
+              <li>Predictive models (Random Forests, neural networks, boosting) with Python, scikit-learn, PyTorch, CatBoost</li>
+              <li>Statistical twin matching via Nearest Neighbor Search</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Apr 2018<br/>May 2019</div>
+            <div class="timeline-company">HSBC</div>
+          </div>
+          <div>
+            <div class="timeline-role">Trainee Risk</div>
+            <ul class="timeline-bullets">
+              <li>Process automation in Risk and Cyber Security (Python, SQL, VBA)</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Writing ──────────────────────────────────────────── -->
+  <section id="writing">
+    <div class="container">
+      <div class="writing-header">
+        <div>
+          <p class="section-label">// Writing</p>
+          <h2 class="section-title">Technical Articles</h2>
+        </div>
+        <a class="writing-cta" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">
+          All articles →
+        </a>
+      </div>
+
+      <div class="writing-stats">
+        <div class="w-stat">
+          <span class="w-stat-num">90+</span>
+          <span class="w-stat-label">Articles published</span>
+        </div>
+        <div class="w-stat">
+          <span class="w-stat-num">1M+</span>
+          <span class="w-stat-label">Total reads</span>
+        </div>
+        <div class="w-stat">
+          <span class="w-stat-num">5k+</span>
+          <span class="w-stat-label">Medium followers</span>
+        </div>
+        <div class="w-stat">
+          <span class="w-stat-num">3</span>
+          <span class="w-stat-label">Platforms (Medium · KDnuggets · VectorHub)</span>
+        </div>
+      </div>
+
+      <div class="articles-grid">
+
+        <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/data-science-collective/an-upgraded-marketing-mix-modeling-in-python-5ebb3bddc1b6" target="_blank" rel="noopener" aria-label="Read: Upgraded Marketing Mix Modeling"></a>
+          <div class="article-views">41k views</div>
+          <div class="article-title">Upgraded Marketing Mix Modeling</div>
+          <div class="article-desc">A deep dive into modern MMM techniques, moving beyond simple regression into Bayesian approaches.</div>
+        </div>
+
+        <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/data-science/an-extensible-evolutionary-algorithm-example-in-python-7372c56a557b" target="_blank" rel="noopener" aria-label="Read: Extensible Evolutionary Algorithms"></a>
+          <div class="article-views">39k views</div>
+          <div class="article-title">Extensible Evolutionary Algorithms</div>
+          <div class="article-desc">Building flexible evolutionary algorithm frameworks in Python for real-world optimization problems.</div>
+        </div>
+
+        <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/p/f24152509ebb" target="_blank" rel="noopener" aria-label="Read: The Explainable Boosting Machine"></a>
+          <div class="article-views">34k views</div>
+          <div class="article-title">The Explainable Boosting Machine</div>
+          <div class="article-desc">As accurate as gradient boosting and as interpretable as linear regression.</div>
+        </div>
+
+        <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/data-science-collective/introduction-to-embedding-based-recommender-systems-956faceb1919" target="_blank" rel="noopener" aria-label="Read: Embedding-Based Recommender Systems"></a>
+          <div class="article-views">32k views</div>
+          <div class="article-title">Embedding-Based Recommender Systems</div>
+          <div class="article-desc">How two-tower neural architectures power modern product recommendation at scale.</div>
+        </div>
+
+        <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/p/b4a23ef54c9e" target="_blank" rel="noopener" aria-label="Read: Where Machine Learning Meets Cryptography"></a>
+          <div class="article-views">28k views</div>
+          <div class="article-title">Where Machine Learning Meets Cryptography</div>
+          <div class="article-desc">Solving the cryptographically-relevant Learning Parity with Noise problem via machine learning.</div>
+        </div>
+
+        <div class="article-card">
+          <a class="article-card-link" href="https://medium.com/data-science/zero-inflated-regression-c7dfc656d8af" target="_blank" rel="noopener" aria-label="Read: Zero-Inflated Regression"></a>
+          <div class="article-views">27k views</div>
+          <div class="article-title">Zero-Inflated Regression</div>
+          <div class="article-desc">Modeling count data with excess zeros: theory, implementation, and practical use cases in scikit-lego.</div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -749,8 +989,9 @@
             <span class="tag">Recommenders</span>
             <span class="tag">Bayesian Statistics</span>
             <span class="tag">MMM</span>
-            <span class="tag">A/B Testing</span>
-            <span class="tag">Deep Learning</span>
+<span class="tag">Deep Learning</span>
+            <span class="tag">Optimization</span>
+            <span class="tag">Heuristics</span>
           </div>
         </div>
 
@@ -793,106 +1034,6 @@
             <span class="tag">Discrete Math</span>
             <span class="tag">Number Theory</span>
             <span class="tag">Cryptanalysis</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── Experience ──────────────────────────────────────── -->
-  <section id="experience">
-    <div class="container">
-      <p class="section-label">// Experience</p>
-      <h2 class="section-title">Where I've worked</h2>
-
-      <div class="timeline">
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">Apr 2025<br/>Present</div>
-            <div class="timeline-company">GC Open Source AI</div>
-            <div class="timeline-type">Freelance</div>
-          </div>
-          <div>
-            <div class="timeline-role">Forecasting Instructor, Official sktime Curriculum</div>
-            <ul class="timeline-bullets">
-              <li>Design and deliver the official sktime curriculum across 3 cohorts (15 professionals)</li>
-              <li>Active open-source contributor: fixed bugs in ForecastKnownValues and make_regression; proposed StackingForecaster improvements</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">Sep 2024<br/>Present</div>
-            <div class="timeline-company">ALDI DX</div>
-          </div>
-          <div>
-            <div class="timeline-role">Senior Staff Data Scientist</div>
-            <ul class="timeline-bullets">
-              <li>Own the technical vision for the forecasting product: model selection strategy and feature engineering</li>
-              <li>Introduced sktime to replace a Prophet-only setup, <strong>reducing MAPE by 10%</strong> across 150+ time series</li>
-              <li>Guest speaker for 40+ data scientists; raised engineering standards (unit testing, Ruff, Black)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">Mar 2024<br/>Present</div>
-            <div class="timeline-company">MMMLabs.ai</div>
-            <div class="timeline-type">Freelance</div>
-          </div>
-          <div>
-            <div class="timeline-role">Senior Data Scientist</div>
-            <ul class="timeline-bullets">
-              <li>Bayesian marketing mix modeling backend (PyMC-Marketing) for a SaaS analytics platform</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">Jan 2022<br/>Aug 2024</div>
-            <div class="timeline-company">METRO.digital</div>
-          </div>
-          <div>
-            <div class="timeline-role">Senior Data Scientist</div>
-            <ul class="timeline-bullets">
-              <li>Built two real-time recommender systems (two-tower, TensorFlow) trained on <strong>billions of transactional rows</strong>, deployed on GCP / Vertex AI</li>
-              <li>Built a causal inference framework (S-learner) for assortment optimization, automating product delisting</li>
-              <li>Led technical hiring: screened 20+ candidates, co-led 5 interviews, onboarded 3 hires</li>
-              <li>Mentored 3 data scientists and led upskilling events for a team of 20</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">Sep 2020<br/>Dec 2021</div>
-            <div class="timeline-company">MEDION AG (Lenovo)</div>
-          </div>
-          <div>
-            <div class="timeline-role">Senior Data Scientist</div>
-            <ul class="timeline-bullets">
-              <li>Developed and open-sourced <a href="https://github.com/RobKuebler/mamimo" target="_blank" rel="noopener" style="color:var(--accent)">mamimo</a>, a marketing mix modeling package (74 GitHub stars); results directly influenced marketing budget allocation</li>
-              <li>Owned 3 analytical workstreams end-to-end: forecasting, MMM, causal inference</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">2015<br/>2018</div>
-            <div class="timeline-company">Ruhr University Bochum</div>
-          </div>
-          <div>
-            <div class="timeline-role">Doctoral Researcher in Mathematics and Cryptography</div>
-            <ul class="timeline-bullets">
-              <li>Researched memory-efficient algorithms for the cryptographically relevant Learning Parity with Noise problem</li>
-              <li>4 peer-reviewed publications; taught exercise groups in cryptography, number theory, and discrete mathematics; supervised 5 theses</li>
-            </ul>
           </div>
         </div>
 
@@ -1007,80 +1148,134 @@
     </div>
   </section>
 
-  <!-- ─── Writing ──────────────────────────────────────────── -->
-  <section id="writing">
+  <!-- ─── Education ───────────────────────────────────────── -->
+  <section id="education">
     <div class="container">
-      <div class="writing-header">
-        <div>
-          <p class="section-label">// Writing</p>
-          <h2 class="section-title">Technical Articles</h2>
+      <p class="section-label">// Education</p>
+      <h2 class="section-title">Academic background</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">2015<br/>2018</div>
+            <div class="timeline-company">Ruhr University Bochum</div>
+          </div>
+          <div>
+            <div class="timeline-role">PhD, Mathematics (Cryptography)</div>
+            <ul class="timeline-bullets">
+              <li>Dissertation: <em>Time-Memory Trade-offs for the Learning Parity with Noise Problem</em>, focusing on memory-efficient algorithms for the cryptographically relevant LPN problem</li>
+              <li>3 peer-reviewed publications (CRYPTO 2017, CRYPTO 2018, FSTTCS 2021)</li>
+              <li>Taught cryptography, number theory, discrete mathematics; supervised 5 theses</li>
+            </ul>
+          </div>
         </div>
-        <a class="writing-cta" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">
-          All articles →
-        </a>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">2012<br/>2014</div>
+            <div class="timeline-company">Ruhr University Bochum</div>
+          </div>
+          <div>
+            <div class="timeline-role">MSc, Mathematics · Minor: Computer Science</div>
+            <ul class="timeline-bullets">
+              <li>Grade: 1.2 (top 5%)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">2013<br/>2014</div>
+            <div class="timeline-company">Osaka University</div>
+            <div class="timeline-type">Exchange</div>
+          </div>
+          <div>
+            <div class="timeline-role">Japanese Language &amp; Culture</div>
+            <ul class="timeline-bullets">
+              <li>Japanese language: A1 → B1</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">2009<br/>2012</div>
+            <div class="timeline-company">Ruhr University Bochum</div>
+          </div>
+          <div>
+            <div class="timeline-role">BSc, Mathematics · Minor: Computer Science</div>
+            <ul class="timeline-bullets">
+              <li>Grade: 1.0 (top 5%)</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
 
-      <div class="writing-stats">
-        <div class="w-stat">
-          <span class="w-stat-num">90+</span>
-          <span class="w-stat-label">Articles published</span>
-        </div>
-        <div class="w-stat">
-          <span class="w-stat-num">1M+</span>
-          <span class="w-stat-label">Total reads</span>
-        </div>
-        <div class="w-stat">
-          <span class="w-stat-num">5k+</span>
-          <span class="w-stat-label">Medium followers</span>
-        </div>
-        <div class="w-stat">
-          <span class="w-stat-num">3</span>
-          <span class="w-stat-label">Platforms (Medium · KDnuggets · VectorHub)</span>
+      <div class="awards-row">
+        <p class="awards-label">Recognition</p>
+        <div class="tags">
+          <span class="tag">Dobbertin Challenge</span>
+          <span class="tag">DAAD Scholarship</span>
+          <span class="tag">DMV Abitur Prize</span>
+          <span class="tag">JASSO Scholarship</span>
         </div>
       </div>
 
-      <div class="articles-grid">
+      <div class="awards-row">
+        <p class="awards-label">Certifications</p>
+        <div class="tags">
+          <span class="tag">CS191x: Quantum Computation</span>
+          <span class="tag">CS188.1x: Artificial Intelligence</span>
+          <span class="tag">Advanced NLP with spaCy</span>
+          <span class="tag">Azure Fundamentals</span>
+        </div>
+      </div>
 
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/data-science-collective/an-upgraded-marketing-mix-modeling-in-python-5ebb3bddc1b6" target="_blank" rel="noopener" aria-label="Read: Upgraded Marketing Mix Modeling"></a>
-          <div class="article-views">41k views</div>
-          <div class="article-title">Upgraded Marketing Mix Modeling</div>
-          <div class="article-desc">A deep dive into modern MMM techniques, moving beyond simple regression into Bayesian approaches.</div>
+      <div class="awards-row">
+        <p class="awards-label">Languages</p>
+        <div class="tags">
+          <span class="tag">German: Native</span>
+          <span class="tag">English: Full Professional</span>
+          <span class="tag">Japanese: Basic Conversations</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Volunteer ───────────────────────────────────────── -->
+  <section id="volunteer">
+    <div class="container">
+      <p class="section-label">// Volunteer</p>
+      <h2 class="section-title">Giving back</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Jan 2007<br/>Apr 2019</div>
+            <div class="timeline-company">Vorhilfe.de e.V.</div>
+          </div>
+          <div>
+            <div class="timeline-role">Moderator, matheraum.de</div>
+            <ul class="timeline-bullets">
+              <li>Supported school and university students with mathematical questions over <strong>12 years</strong></li>
+            </ul>
+          </div>
         </div>
 
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/data-science/an-extensible-evolutionary-algorithm-example-in-python-7372c56a557b" target="_blank" rel="noopener" aria-label="Read: Extensible Evolutionary Algorithms"></a>
-          <div class="article-views">39k views</div>
-          <div class="article-title">Extensible Evolutionary Algorithms</div>
-          <div class="article-desc">Building flexible evolutionary algorithm frameworks in Python for real-world optimization problems.</div>
-        </div>
-
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/p/f24152509ebb" target="_blank" rel="noopener" aria-label="Read: The Explainable Boosting Machine"></a>
-          <div class="article-views">34k views</div>
-          <div class="article-title">The Explainable Boosting Machine</div>
-          <div class="article-desc">As accurate as gradient boosting and as interpretable as linear regression.</div>
-        </div>
-
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/data-science-collective/introduction-to-embedding-based-recommender-systems-956faceb1919" target="_blank" rel="noopener" aria-label="Read: Embedding-Based Recommender Systems"></a>
-          <div class="article-views">32k views</div>
-          <div class="article-title">Embedding-Based Recommender Systems</div>
-          <div class="article-desc">How two-tower neural architectures power modern product recommendation at scale.</div>
-        </div>
-
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/p/b4a23ef54c9e" target="_blank" rel="noopener" aria-label="Read: Where Machine Learning Meets Cryptography"></a>
-          <div class="article-views">28k views</div>
-          <div class="article-title">Where Machine Learning Meets Cryptography</div>
-          <div class="article-desc">Solving the cryptographically-relevant Learning Parity with Noise problem via machine learning.</div>
-        </div>
-
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/data-science/zero-inflated-regression-c7dfc656d8af" target="_blank" rel="noopener" aria-label="Read: Zero-Inflated Regression"></a>
-          <div class="article-views">27k views</div>
-          <div class="article-title">Zero-Inflated Regression</div>
-          <div class="article-desc">Modeling count data with excess zeros: theory, implementation, and practical use cases in scikit-lego.</div>
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">May 2021<br/>Sep 2021</div>
+            <div class="timeline-company">TechLabs Düsseldorf</div>
+          </div>
+          <div>
+            <div class="timeline-role">Data Science Mentor</div>
+            <ul class="timeline-bullets">
+              <li>Guided aspiring data scientists through an end-to-end project predicting used car prices</li>
+            </ul>
+          </div>
         </div>
 
       </div>
