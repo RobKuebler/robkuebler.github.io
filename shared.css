@@ -4,15 +4,15 @@
   /* ── Core palette ── change these to retheme the whole site ── */
   --bg:          #080c14;   /* section background 1 (odd) */
   --surface:     #0e1421;   /* section background 2 (even) */
-  --accent:      #c084fc;   /* primary accent — "Kübler", links, highlights */
-  --teal:        #2dd4bf;   /* secondary accent — focus labels, eyebrow text */
+  --accent:      #38bdf8;   /* primary accent — "Kübler", links, highlights */
+  --teal:        #4ade80;   /* secondary accent — focus labels, eyebrow text */
 
   /* ── Derived / composite ──────────────────────────────────── */
   --card:        #141c2e;
   --card-hover:  #192035;
   --border:      #1e2a42;
-  --accent-dim:  #a855f7;
-  --accent-glow: rgba(192,132,252,0.15);
+  --accent-dim:  #0ea5e9;
+  --accent-glow: rgba(56,189,248,0.15);
   --bg-nav:      rgba(8,12,20,0.85);   /* nav bar (semi-transparent --bg) */
   --bg-drawer:   rgba(8,12,20,0.97);   /* mobile drawer (near-opaque --bg) */
   --text:        #e2e8f0;
@@ -112,8 +112,8 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(99,102,241,0.12);
-  border: 1px solid rgba(99,102,241,0.25);
+  background: rgba(56,189,248,0.12);
+  border: 1px solid rgba(56,189,248,0.25);
   border-radius: var(--radius-pill);
   padding: 4px 12px;
   font-size: 0.75rem;
