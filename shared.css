@@ -4,19 +4,19 @@
   /* ── Core palette ── change these to retheme the whole site ── */
   --bg:          #080c14;   /* section background 1 (odd) */
   --surface:     #0e1421;   /* section background 2 (even) */
-  --accent:      #818cf8;   /* primary accent — "Kübler", links, highlights */
+  --accent:      #c084fc;   /* primary accent — "Kübler", links, highlights */
   --teal:        #2dd4bf;   /* secondary accent — focus labels, eyebrow text */
 
   /* ── Derived / composite ──────────────────────────────────── */
   --card:        #141c2e;
   --card-hover:  #192035;
   --border:      #1e2a42;
-  --accent-dim:  #6366f1;
-  --accent-glow: rgba(129,140,248,0.15);
+  --accent-dim:  #a855f7;
+  --accent-glow: rgba(192,132,252,0.15);
   --bg-nav:      rgba(8,12,20,0.85);   /* nav bar (semi-transparent --bg) */
   --bg-drawer:   rgba(8,12,20,0.97);   /* mobile drawer (near-opaque --bg) */
   --text:        #e2e8f0;
-  --text-muted:  #7c8ba1;
+  --text-muted:  #94a3b8;   /* was #7c8ba1 (~4.1:1), now ~5.8:1 — solid AA */
   --text-faint:  #3d4f6a;
   --radius-sm:   8px;
   --radius-md:   16px;
@@ -65,9 +65,9 @@ nav {
 .nav-back {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   transition: color 0.15s;
 }
 .nav-back:hover { color: var(--text); text-decoration: none; }
@@ -87,7 +87,7 @@ footer {
   justify-content: center;
   flex-wrap: wrap;
   gap: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .footer-links a {
@@ -111,7 +111,7 @@ footer {
 .platform-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: rgba(99,102,241,0.12);
   border: 1px solid rgba(99,102,241,0.25);
   border-radius: var(--radius-pill);
@@ -139,7 +139,7 @@ footer {
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   line-height: 1.25;
 }
 
@@ -159,7 +159,7 @@ footer {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text);
-  margin: 32px 0 10px;
+  margin: 32px 0 8px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
 }
@@ -168,7 +168,7 @@ footer {
 
 .legal p {
   color: var(--text-muted);
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   margin-bottom: 12px;
 }
 
