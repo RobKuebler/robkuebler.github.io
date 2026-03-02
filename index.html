@@ -35,7 +35,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(8,12,20,0.85);
+      background: var(--bg-nav);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0 clamp(16px, 5vw, 80px);
@@ -105,7 +105,7 @@
       top: 56px;
       left: 0;
       right: 0;
-      background: rgba(8,12,20,0.97);
+      background: var(--bg-drawer);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 16px 0;
@@ -355,7 +355,7 @@
     }
 
     /* ─── Experience ────────────────────────────────────────── */
-    #experience { background: var(--surface); }
+    #experience { background: var(--bg); }
     #writing { background: var(--surface); }
 
     .timeline { display: flex; flex-direction: column; gap: 0; }
@@ -623,8 +623,17 @@
 
     .w-stat-label { font-size: 0.75rem; color: var(--text-muted); }
 
+    /* ─── Skills ────────────────────────────────────────────── */
+    #skills { background: var(--bg); }
+
+    /* ─── Publications ──────────────────────────────────────── */
+    #publications { background: var(--surface); }
+
     /* ─── Education ─────────────────────────────────────────── */
-    #education { background: var(--surface); }
+    #education { background: var(--bg); }
+
+    /* ─── Volunteer ─────────────────────────────────────────── */
+    #volunteer { background: var(--surface); }
 
     .awards-row {
       margin-top: 40px;
