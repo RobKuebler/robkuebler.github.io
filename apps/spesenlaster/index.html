@@ -16,7 +16,7 @@
 
     /* Override shared platform-badge with this page's specific values */
     .platform-badge {
-      background: rgba(99,102,241,0.1);
+      background: rgba(56,189,248,0.1);
       font-size: 0.72rem;
       letter-spacing: 0.08em;
       margin-bottom: 20px;
@@ -41,7 +41,7 @@
       transform: translateX(-50%);
       width: 600px;
       height: 600px;
-      background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -61,8 +61,8 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(99,102,241,0.1);
-      border: 1px solid rgba(99,102,241,0.25);
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.25);
       border-radius: var(--radius-pill);
       padding: 4px 12px;
       font-size: 0.72rem;
@@ -108,14 +108,14 @@
       align-items: center;
       gap: 8px;
       background: var(--accent);
-      color: #fff;
+      color: var(--bg);
       font-size: 0.875rem;
       font-weight: 600;
       padding: 12px 22px;
       border-radius: var(--radius-pill);
       transition: background 0.15s, transform 0.15s;
     }
-    .btn-primary:hover { background: #5254cc; transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--accent-dim); transform: translateY(-1px); }
 
     .btn-secondary {
       display: inline-flex;
@@ -180,8 +180,8 @@
     }
 
     .feature-icon.green  { background: rgba(46,125,50,0.2);   color: #4caf50; }
-    .feature-icon.purple { background: rgba(99,102,241,0.15); color: var(--accent); }
-    .feature-icon.teal   { background: rgba(45,212,191,0.12); color: var(--teal); }
+    .feature-icon.purple { background: rgba(56,189,248,0.15); color: var(--accent); }
+    .feature-icon.teal   { background: rgba(74,222,128,0.12); color: var(--teal); }
     .feature-icon.amber  { background: rgba(245,158,11,0.12); color: #f59e0b; }
 
     .feature-card h3 {
@@ -213,7 +213,7 @@
     }
 
     .pricing-card.featured {
-      border-color: rgba(99,102,241,0.45);
+      border-color: rgba(56,189,248,0.45);
       background: linear-gradient(145deg, #141c2e, #192035);
       position: relative;
     }
@@ -224,7 +224,7 @@
       left: 50%;
       transform: translateX(-50%);
       background: var(--accent);
-      color: #fff;
+      color: var(--bg);
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.08em;
