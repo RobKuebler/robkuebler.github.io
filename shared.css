@@ -5,7 +5,7 @@
   --bg:          #080c14;   /* section background 1 (odd) */
   --surface:     #0e1421;   /* section background 2 (even) */
   --accent:      #38bdf8;   /* primary accent — "Kübler", links, highlights */
-  --teal:        #4ade80;   /* secondary accent — focus labels, eyebrow text */
+  --sec:         #FA9F42;   /* secondary accent — focus labels, eyebrow text */
 
   /* ── Derived / composite ──────────────────────────────────── */
   --card:        #141c2e;
