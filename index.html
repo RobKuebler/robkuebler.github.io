@@ -625,17 +625,27 @@
 
     .w-stat-label { font-size: 0.75rem; color: var(--text-muted); }
 
+    /* ─── Projects ──────────────────────────────────────────── */
+    #projects { background: var(--bg); }
+
+    .project-launch {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: auto;
+    }
+
     /* ─── Skills ────────────────────────────────────────────── */
-    #skills { background: var(--bg); }
+    #skills { background: var(--surface); }
 
     /* ─── Publications ──────────────────────────────────────── */
-    #publications { background: var(--surface); }
+    #publications { background: var(--bg); }
 
     /* ─── Education ─────────────────────────────────────────── */
-    #education { background: var(--bg); }
+    #education { background: var(--surface); }
 
     /* ─── Volunteer ─────────────────────────────────────────── */
-    #volunteer { background: var(--surface); }
+    #volunteer { background: var(--bg); }
 
     .awards-row {
       margin-top: 48px;
@@ -674,6 +684,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#writing">Writing</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#education">Education</a></li>
@@ -689,6 +700,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#writing">Writing</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#education">Education</a></li>
@@ -1010,6 +1022,30 @@
           <div class="article-views">27k views</div>
           <div class="article-title">Zero-Inflated Regression</div>
           <div class="article-desc">Modeling count data with excess zeros: theory, implementation, and practical use cases in scikit-lego.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Projects ────────────────────────────────────────── -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">// Projects</p>
+      <h2 class="section-title">Interactive demos</h2>
+      <div class="articles-grid">
+
+        <div class="article-card">
+          <a class="article-card-link" href="/apps/politician-embeddings/" aria-label="Launch: Wer stimmt mit wem?"></a>
+          <div class="tags">
+            <span class="tag">UMAP</span>
+            <span class="tag">NLP</span>
+            <span class="tag">Streamlit</span>
+            <span class="tag">Python</span>
+          </div>
+          <div class="article-title">Wer stimmt mit wem?</div>
+          <div class="article-desc">Voting behaviour of all Bundestag members visualised. Dimensionality reduction reveals who votes alike, across party lines.</div>
+          <div class="project-launch">Launch demo →</div>
         </div>
 
       </div>
