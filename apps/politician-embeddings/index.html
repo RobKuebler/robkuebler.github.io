@@ -7,13 +7,14 @@
   <meta name="description" content="Abstimmungsverhalten aller Bundestagsabgeordneten visualisiert. KI-basierte Dimensionsreduktion zeigt, wer ähnlich abstimmt." />
   <link rel="stylesheet" href="/shared.css" />
   <style>
-    body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    body { display: flex; flex-direction: column; min-height: 100vh; }
     nav { flex-shrink: 0; }
     iframe {
       flex: 1;
       width: 100%;
       border: none;
       display: block;
+      min-height: 600px;
     }
   </style>
 </head>
@@ -33,6 +34,22 @@
     title="Wer stimmt mit wem?"
     loading="lazy"
   ></iframe>
+
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/robert-kuebler/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Medium</a>
+        <a href="https://github.com/RobKuebler" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=BHCd2EYAAAAJ" target="_blank" rel="noopener">Scholar</a>
+        <a href="/apps/">Apps</a>
+        <a href="mailto:robert.jo.kuebler@gmail.com">Email</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/impressum.html">Impressum</a>
+      </div>
+      <p class="footer-copy">© 2026 Dr. Robert Kübler</p>
+    </div>
+  </footer>
 
 </body>
 </html>
