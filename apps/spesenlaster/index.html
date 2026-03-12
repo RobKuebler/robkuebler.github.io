@@ -12,15 +12,7 @@
     a { color: inherit; }
     a:hover { text-decoration: none; }
 
-    /* Override shared platform-badge with this page's specific values */
-    .platform-badge {
-      background: rgba(56,189,248,0.1);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      margin-bottom: 20px;
-    }
-
-    /* ─── Hero ─── */
+    /* ─── Hero — centered marketing layout ─── */
     .hero {
       padding: clamp(64px, 12vw, 112px) clamp(16px, 5vw, 80px) clamp(48px, 8vw, 80px);
       display: flex;
@@ -47,6 +39,7 @@
       width: 80px;
       height: 80px;
       border-radius: var(--radius-lg);
+      /* Semantic green — SpesenLaster brand color, no theme-variable equivalent */
       background: linear-gradient(135deg, #2e7d32, #1b5e20);
       display: flex;
       align-items: center;
@@ -58,17 +51,17 @@
     .platform-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background: rgba(56,189,248,0.1);
       border: 1px solid rgba(56,189,248,0.25);
       border-radius: var(--radius-pill);
-      padding: 4px 12px;
+      padding: 4px 16px;
       font-size: 0.72rem;
       font-weight: 600;
       color: var(--accent);
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .hero h1 {
@@ -90,13 +83,13 @@
       color: var(--text-muted);
       font-size: clamp(0.95rem, 2vw, 1.1rem);
       max-width: 520px;
-      margin-bottom: 36px;
+      margin-bottom: 32px;
       line-height: 1.7;
     }
 
     .hero-actions {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       flex-wrap: wrap;
       justify-content: center;
     }
@@ -109,7 +102,7 @@
       color: var(--bg);
       font-size: 0.875rem;
       font-weight: 600;
-      padding: 12px 22px;
+      padding: 8px 24px;
       border-radius: var(--radius-pill);
       transition: background 0.15s, transform 0.15s;
     }
@@ -123,23 +116,30 @@
       color: var(--text-muted);
       font-size: 0.875rem;
       font-weight: 500;
-      padding: 12px 22px;
+      padding: 8px 24px;
       border-radius: var(--radius-pill);
       border: 1px solid var(--border);
       transition: border-color 0.15s, color 0.15s;
     }
     .btn-secondary:hover { border-color: var(--text-muted); color: var(--text); }
 
-    /* ─── Section shared ─── */
+    /* ─── Sections ─── */
     .section {
       padding: clamp(48px, 8vw, 80px) clamp(16px, 5vw, 80px);
+    }
+
+    /* Alternate-background section (pricing) */
+    #pricing {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
     /* Override shared section-title — this page uses a slightly smaller clamp */
     .section-title {
       font-size: clamp(1.4rem, 3vw, 1.9rem);
       font-weight: 700;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
       line-height: 1.25;
     }
 
@@ -177,19 +177,20 @@
       margin-bottom: 16px;
     }
 
+    /* Semantic colors — no theme-variable equivalent for feature category hues */
     .feature-icon.green  { background: rgba(46,125,50,0.2);   color: #4caf50; }
     .feature-icon.purple { background: rgba(56,189,248,0.15); color: var(--accent); }
     .feature-icon.teal   { background: rgba(74,222,128,0.12); color: var(--sec); }
-    .feature-icon.amber  { background: rgba(245,158,11,0.12); color: #f59e0b; }
+    .feature-icon.amber  { background: rgba(245,158,11,0.12); color: #f59e0b; /* semantic amber */ }
 
     .feature-card h3 {
-      font-size: 0.9375rem;
+      font-size: 0.9rem;
       font-weight: 600;
       margin-bottom: 8px;
     }
 
     .feature-card p {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
       line-height: 1.6;
     }
@@ -207,12 +208,12 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 28px 24px;
+      padding: 24px;
     }
 
     .pricing-card.featured {
       border-color: rgba(56,189,248,0.45);
-      background: linear-gradient(145deg, #141c2e, #192035);
+      background: linear-gradient(145deg, var(--card), var(--card-hover));
       position: relative;
     }
 
@@ -223,17 +224,17 @@
       transform: translateX(-50%);
       background: var(--accent);
       color: var(--bg);
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 3px 12px;
+      padding: 4px 16px;
       border-radius: var(--radius-pill);
       white-space: nowrap;
     }
 
     .pricing-name {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
@@ -254,9 +255,9 @@
     }
 
     .pricing-desc {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .pricing-features {
@@ -264,13 +265,14 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      margin-bottom: 16px;
     }
 
     .pricing-features li {
       display: flex;
       align-items: flex-start;
       gap: 8px;
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
     }
 
@@ -283,53 +285,59 @@
     .pricing-features li.muted .check { color: var(--text-faint); }
     .pricing-features li.muted { color: var(--text-faint); }
 
+    /* Accent overrides for the featured card's highlight row */
+    .pricing-card.featured .pricing-features .check { color: var(--accent); }
+    .pricing-card.featured .pricing-features strong { color: var(--text); }
+
+    /* Pricing detail rows at the bottom of the featured card */
+    .pricing-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    .pricing-breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    .pricing-breakdown-label { color: var(--text-muted); }
+    .pricing-breakdown-value { font-weight: 600; }
+
     /* ─── Legal links ─── */
     .legal-section {
       padding: clamp(32px, 5vw, 48px) clamp(16px, 5vw, 80px);
       border-top: 1px solid var(--border);
     }
 
+    .legal-section > p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
     .legal-links {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       flex-wrap: wrap;
     }
 
     .legal-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.8125rem;
+      gap: 8px;
+      font-size: 0.875rem;
       color: var(--text-muted);
       border: 1px solid var(--border);
       border-radius: var(--radius-pill);
-      padding: 6px 14px;
+      padding: 8px 16px;
       transition: border-color 0.15s, color 0.15s;
     }
     .legal-link:hover { border-color: var(--text-muted); color: var(--text); }
-
-    /* ─── Footer override — flex space-between, no surface background ─── */
-    footer {
-      background: transparent;
-      border-top: 1px solid var(--border);
-      padding: 24px clamp(16px, 5vw, 80px);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: space-between;
-      align-items: center;
-      text-align: left;
-    }
-
-    .footer-links {
-      justify-content: flex-start;
-      gap: 16px;
-      margin-bottom: 0;
-    }
-
-    .footer-links a { font-size: 0.8125rem; }
-
-    .footer-copy { font-size: 0.8125rem; }
   </style>
 </head>
 <body>
@@ -396,7 +404,7 @@
         <div class="feature-icon amber">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         </div>
-        <h3>PDF-Export <sup style="font-size:0.65rem;color:var(--accent);font-weight:700;">PRO</sup></h3>
+        <h3>PDF-Export <sup style="font-size:0.75rem;color:var(--accent);font-weight:700;">PRO</sup></h3>
         <p>Erstelle druckfertige Reisekostenabrechnungen als PDF für beliebige Zeiträume – direkt aus der App.</p>
       </div>
 
@@ -420,7 +428,7 @@
   </div>
 
   <!-- ─── Pricing ─── -->
-  <div class="section" id="pricing" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section" id="pricing">
     <p class="section-label">// Preise</p>
     <h2 class="section-title">Kostenlos mit optionalem Pro-Upgrade</h2>
     <div class="pricing-grid">
@@ -443,22 +451,22 @@
         <div class="featured-badge">Pro</div>
         <div class="pricing-name">SpesenLaster Pro</div>
         <div class="pricing-price">1,79 € <span>/ Monat</span></div>
-        <div class="pricing-desc" style="margin-bottom:12px;">Alles aus Free, plus PDF-Export</div>
-        <ul class="pricing-features" style="margin-bottom:20px;">
-          <li><span class="check" style="color:var(--accent);">✓</span> <strong style="color:var(--text);">PDF-Export</strong></li>
+        <div class="pricing-desc">Alles aus Free, plus PDF-Export</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> <strong>PDF-Export</strong></li>
         </ul>
-        <div style="display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--border); padding-top:16px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8125rem;">
-            <span style="color:var(--text-muted);">Monatlich</span>
-            <span style="font-weight:600;">1,79 € / Monat</span>
+        <div class="pricing-breakdown">
+          <div class="pricing-breakdown-row">
+            <span class="pricing-breakdown-label">Monatlich</span>
+            <span class="pricing-breakdown-value">1,79 € / Monat</span>
           </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8125rem;">
-            <span style="color:var(--text-muted);">Jährlich</span>
-            <span style="font-weight:600;">13,99 € / Jahr</span>
+          <div class="pricing-breakdown-row">
+            <span class="pricing-breakdown-label">Jährlich</span>
+            <span class="pricing-breakdown-value">13,99 € / Jahr</span>
           </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8125rem;">
-            <span style="color:var(--text-muted);">Lifetime</span>
-            <span style="font-weight:600;">35,99 € einmalig</span>
+          <div class="pricing-breakdown-row">
+            <span class="pricing-breakdown-label">Lifetime</span>
+            <span class="pricing-breakdown-value">35,99 € einmalig</span>
           </div>
         </div>
       </div>
@@ -468,7 +476,7 @@
 
   <!-- ─── Legal ─── -->
   <div class="legal-section">
-    <p style="font-size:0.8125rem; color:var(--text-muted); margin-bottom:16px;">Rechtliche Dokumente</p>
+    <p>Rechtliche Dokumente</p>
     <div class="legal-links">
       <a href="/apps/spesenlaster/agb.html" class="legal-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -492,11 +500,19 @@
   </div>
 
   <footer>
-    <div class="footer-links">
-      <a href="/apps/">Apps</a>
-      <a href="/impressum.html">Impressum</a>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/robert-kuebler/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Medium</a>
+        <a href="https://github.com/RobKuebler" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=BHCd2EYAAAAJ" target="_blank" rel="noopener">Scholar</a>
+        <a href="/apps/">Apps</a>
+        <a href="mailto:robert.jo.kuebler@gmail.com">Email</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/impressum.html">Impressum</a>
+      </div>
+      <p class="footer-copy">© 2026 Dr. Robert Kübler</p>
     </div>
-    <span class="footer-copy">© 2026 Dr. Robert Kübler</span>
   </footer>
 
 </body>

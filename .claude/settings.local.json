@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:arxiv.org)",
+      "WebFetch(domain:hss-opus.ub.ruhr-uni-bochum.de)",
+      "WebFetch(domain:eprint.iacr.org)",
+      "WebSearch",
+      "WebFetch(domain:medium.com)",
+      "Bash(sed:*)",
+      "Bash(python3:*)",
+      "Bash(done)",
+      "Bash(git push:*)",
+      "Bash(do:*)",
+      "WebFetch(domain:bibliographie.ub.rub.de)",
+      "WebFetch(domain:link.springer.com)",
+      "WebFetch(domain:scholar.google.com)",
+      "WebFetch(domain:colorhunt.co)",
+      "Bash(npx md-to-pdf:*)",
+      "Bash(ls:*)",
+      "Bash(git:*)",
+      "Bash(mkdir -p /c/Users/rober/Desktop/projects/robkuebler.github.io/fonts && curl -s -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap\" -o /c/Users/rober/Desktop/projects/robkuebler.github.io/fonts/google-raw.css && cat /c/Users/rober/Desktop/projects/robkuebler.github.io/fonts/google-raw.css)",
+      "Bash(cd /c/Users/rober/Desktop/projects/robkuebler.github.io/fonts && curl -s -o inter-latin.woff2 \"https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2\" && curl -s -o inter-latin-ext.woff2 \"https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2\" && curl -s -o jetbrains-mono-latin.woff2 \"https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2\" && curl -s -o jetbrains-mono-latin-ext.woff2 \"https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2\" && ls -la *.woff2)",
+      "WebFetch(domain:opr.vc)",
+      "WebFetch(domain:www.dr-datenschutz.de)",
+      "WebFetch(domain:www.revenuecat.com)",
+      "WebFetch(domain:www.bakerbotts.com)",
+      "WebFetch(domain:www.wilmerhale.com)",
+      "WebFetch(domain:www.ldi.nrw.de)",
+      "WebFetch(domain:www.adsimple.de)",
+      "WebFetch(domain:2b-advice.com)"
+    ]
+  }
+}

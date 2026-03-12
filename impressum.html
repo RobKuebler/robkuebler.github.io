@@ -8,29 +8,6 @@
   <meta name="description" content="Impressum gemäß § 5 DDG." />
   <link rel="stylesheet" href="/fonts/fonts.css" />
   <link rel="stylesheet" href="/shared.css" />
-  <style>
-    body { line-height: 1.7; }
-
-    /* ─── Hero ─── */
-    .hero {
-      background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
-      border-bottom: 1px solid var(--border);
-      padding: clamp(40px, 8vw, 80px) clamp(16px, 5vw, 80px) clamp(32px, 6vw, 64px);
-    }
-
-    .hero h1 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-
-    .hero-meta {
-      color: var(--text-muted);
-      font-size: 0.875rem;
-    }
-
-  </style>
 </head>
 <body>
 
@@ -44,7 +21,7 @@
   </nav>
 
   <div class="hero">
-    <div style="max-width:760px; margin:0 auto;">
+    <div class="hero-inner">
       <div class="hero-eyebrow">Rechtliches</div>
       <h1>Impressum</h1>
       <p class="hero-meta">Angaben gemäß § 5 DDG</p>
@@ -75,12 +52,8 @@
       <h2>Umsatzsteuer</h2>
       <p>Umsatzsteuerbefreit gemäß § 19 UStG (Kleinunternehmerregelung). Eine Umsatzsteuer-Identifikationsnummer ist nicht vorhanden.</p>
 
-      <hr>
-
       <h2>EU-Streitschlichtung</h2>
       <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>. Ich bin nicht verpflichtet und nicht bereit, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).</p>
-
-      <hr>
 
       <h2>Haftung für Inhalte</h2>
       <p>Als Diensteanbieter bin ich für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Eine Verpflichtung zur Überwachung übermittelter oder gespeicherter fremder Informationen besteht nicht (Art. 8 Abs. 1 der Verordnung (EU) 2022/2065). Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.</p>
@@ -95,15 +68,19 @@
   </div>
 
   <footer>
-    <div class="footer-links">
-      <a href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Medium</a>
-      <a href="https://www.linkedin.com/in/robert-kuebler/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/RobKuebler" target="_blank" rel="noopener">GitHub</a>
-      <a href="/apps/">Apps</a>
-      <a href="mailto:robert.jo.kuebler@gmail.com">Email</a>
-      <a href="/datenschutz.html">Datenschutz</a>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/robert-kuebler/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Medium</a>
+        <a href="https://github.com/RobKuebler" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=BHCd2EYAAAAJ" target="_blank" rel="noopener">Scholar</a>
+        <a href="/apps/">Apps</a>
+        <a href="mailto:robert.jo.kuebler@gmail.com">Email</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/impressum.html">Impressum</a>
+      </div>
+      <p class="footer-copy">© 2026 Dr. Robert Kübler</p>
     </div>
-    <p class="footer-copy">© 2026 Dr. Robert Kübler</p>
   </footer>
 
 </body>

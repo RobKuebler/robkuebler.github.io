@@ -12,36 +12,18 @@
     a { color: inherit; }
     a:hover { text-decoration: none; }
 
-    /* ─── Hero ─── */
+    /* ─── Hero — larger padding than legal pages ─── */
     .hero {
-      background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
-      border-bottom: 1px solid var(--border);
       padding: clamp(48px, 10vw, 96px) clamp(16px, 5vw, 80px) clamp(40px, 8vw, 80px);
     }
 
     .hero-inner { max-width: 720px; }
 
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(99,102,241,0.12);
-      border: 1px solid rgba(99,102,241,0.25);
-      border-radius: var(--radius-pill);
-      padding: 4px 12px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
     .hero h1 {
       font-size: clamp(1.8rem, 4vw, 2.8rem);
       font-weight: 700;
       line-height: 1.15;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .hero p {
@@ -70,14 +52,14 @@
       padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
       position: relative;
       transition: background 0.15s, border-color 0.15s, transform 0.15s;
     }
 
     .app-card:hover {
       background: var(--card-hover);
-      border-color: rgba(99,102,241,0.35);
+      border-color: rgba(56,189,248,0.35);
       transform: translateY(-2px);
     }
 
@@ -91,15 +73,15 @@
     .app-card-header {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
     .app-icon {
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       border-radius: var(--radius-md);
-      background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(45,212,191,0.15));
-      border: 1px solid rgba(99,102,241,0.2);
+      background: linear-gradient(135deg, var(--accent-glow), rgba(56,189,248,0.08));
+      border: 1px solid rgba(56,189,248,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -107,14 +89,14 @@
     }
 
     .app-name {
-      font-size: 1.0625rem;
+      font-size: 1rem;
       font-weight: 600;
     }
 
     .app-platform {
       font-size: 0.75rem;
       color: var(--text-faint);
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     .app-desc {
@@ -179,15 +161,19 @@
   </div>
 
   <footer>
-    <div class="footer-links">
-      <a href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Medium</a>
-      <a href="https://www.linkedin.com/in/robert-kuebler/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/RobKuebler" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:robert.jo.kuebler@gmail.com">Email</a>
-      <a href="/datenschutz.html">Datenschutz</a>
-      <a href="/impressum.html">Impressum</a>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/robert-kuebler/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">Medium</a>
+        <a href="https://github.com/RobKuebler" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=BHCd2EYAAAAJ" target="_blank" rel="noopener">Scholar</a>
+        <a href="/apps/">Apps</a>
+        <a href="mailto:robert.jo.kuebler@gmail.com">Email</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/impressum.html">Impressum</a>
+      </div>
+      <p class="footer-copy">© 2026 Dr. Robert Kübler</p>
     </div>
-    <p class="footer-copy">© 2026 Dr. Robert Kübler</p>
   </footer>
 
 </body>
