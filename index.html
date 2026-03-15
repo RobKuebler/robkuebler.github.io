@@ -347,6 +347,30 @@
 
     /* ─── Experience ────────────────────────────────────────── */
     #experience { background: var(--bg); }
+
+    .timeline-group-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      padding: 40px 0 16px;
+    }
+
+    .timeline-group-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .timeline-group-label:first-child {
+      padding-top: 0;
+    }
     #writing { background: var(--surface); }
 
     .timeline { display: flex; flex-direction: column; gap: 0; }
@@ -842,22 +866,8 @@
       <p class="section-label">// Experience</p>
       <h2 class="section-title">Where I've worked</h2>
 
+      <p class="timeline-group-label">Employment</p>
       <div class="timeline">
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">Apr 2025<br/>Present</div>
-            <div class="timeline-company">GC Open Source AI<br/>Remote</div>
-            <div class="timeline-type">Freelance</div>
-          </div>
-          <div>
-            <div class="timeline-role">Forecasting Instructor, Official sktime Curriculum</div>
-            <ul class="timeline-bullets">
-              <li>Design and deliver the official sktime curriculum across 3 cohorts (15 professionals)</li>
-              <li>Active open-source contributor: identified and fixed critical bugs in make_regression and ForecastKnownValues; proposed improvements to StackingForecaster, pipeline caching, and GroupByTransformer</li>
-            </ul>
-          </div>
-        </div>
 
         <div class="timeline-item">
           <div class="timeline-meta">
@@ -870,20 +880,6 @@
               <li>Set the technical direction for the forecasting product within a small DS team (flat hierarchy): model selection strategy and feature engineering</li>
               <li>Introduced sktime to replace a Prophet-only setup, <strong>reducing MAPE by 10%</strong> across 150+ time series</li>
               <li>Guest speaker for 40+ data scientists; raised engineering standards (unit testing, Ruff, Black)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">Mar 2024<br/>Present</div>
-            <div class="timeline-company">MMMLabs.ai<br/>Remote</div>
-            <div class="timeline-type">Freelance</div>
-          </div>
-          <div>
-            <div class="timeline-role">Senior Data Scientist</div>
-            <ul class="timeline-bullets">
-              <li>Bayesian marketing mix modeling backend (PyMC-Marketing) for a SaaS analytics platform</li>
             </ul>
           </div>
         </div>
@@ -957,6 +953,51 @@
             <div class="timeline-role">Trainee Risk</div>
             <ul class="timeline-bullets">
               <li>Automated processes in Risk and Cyber Security (Python, SQL, VBA), eliminating <strong>2 FTE-equivalent</strong> manual workloads</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="timeline-group-label">Freelance</p>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Mar 2024<br/>Present</div>
+            <div class="timeline-company">ScanmarQED<br/>Remote</div>
+          </div>
+          <div>
+            <div class="timeline-role">Senior Data Scientist</div>
+            <ul class="timeline-bullets">
+              <li>Bayesian marketing mix modeling backend (PyMC-Marketing) for a SaaS analytics platform; engagement continued under ScanmarQED after its acquisition of MMMLabs.ai (Feb 2026)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Apr 2025<br/>Present</div>
+            <div class="timeline-company">GC Open Source AI<br/>Remote</div>
+          </div>
+          <div>
+            <div class="timeline-role">Forecasting Instructor, Official sktime Curriculum</div>
+            <ul class="timeline-bullets">
+              <li>Design and deliver the official sktime curriculum across 3 cohorts (15 professionals)</li>
+              <li>Active open-source contributor: identified and fixed critical bugs in make_regression and ForecastKnownValues; proposed improvements to StackingForecaster, pipeline caching, and GroupByTransformer</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">2019<br/>Present</div>
+            <div class="timeline-company">Medium, VectorHub, KDNuggets<br/>Remote</div>
+          </div>
+          <div>
+            <div class="timeline-role">Technical Author</div>
+            <ul class="timeline-bullets">
+              <li>90+ articles on data science and ML topics, with 1M+ total reads across platforms</li>
             </ul>
           </div>
         </div>
