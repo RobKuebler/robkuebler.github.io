@@ -1,3 +1,6 @@
+/* ─── Font import ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+
 /* ─── Variables ─────────────────────────────────────────────── */
 /* Superset of all CSS variables used across pages */
 :root {
@@ -167,13 +170,15 @@ footer {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--sec);
   margin-bottom: 8px;
 }
 
 .section-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
   font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--text);
   margin-bottom: 32px;
   line-height: 1.25;

@@ -48,21 +48,7 @@
       box-shadow: 0 8px 32px rgba(46,125,50,0.35);
     }
 
-    .platform-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(56,189,248,0.1);
-      border: 1px solid rgba(56,189,248,0.25);
-      border-radius: var(--radius-pill);
-      padding: 4px 16px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
+    /* .platform-badge: uses shared.css definition */
 
     .hero h1 {
       font-size: clamp(2rem, 6vw, 3.2rem);
@@ -104,7 +90,7 @@
       font-weight: 600;
       padding: 8px 24px;
       border-radius: var(--radius-pill);
-      transition: background 0.15s, transform 0.15s;
+      transition: background 0.2s, transform 0.2s;
     }
     .btn-primary:hover { background: var(--accent-dim); transform: translateY(-1px); }
 
@@ -119,7 +105,7 @@
       padding: 8px 24px;
       border-radius: var(--radius-pill);
       border: 1px solid var(--border);
-      transition: border-color 0.15s, color 0.15s;
+      transition: border-color 0.2s, color 0.2s;
     }
     .btn-secondary:hover { border-color: var(--text-muted); color: var(--text); }
 
@@ -137,8 +123,9 @@
 
     /* Override shared section-title — this page uses a slightly smaller clamp */
     .section-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
       font-size: clamp(1.4rem, 3vw, 1.9rem);
-      font-weight: 700;
       margin-bottom: 32px;
       line-height: 1.25;
     }
@@ -335,7 +322,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-pill);
       padding: 8px 16px;
-      transition: border-color 0.15s, color 0.15s;
+      transition: border-color 0.2s, color 0.2s;
     }
     .legal-link:hover { border-color: var(--text-muted); color: var(--text); }
   </style>

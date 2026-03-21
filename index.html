@@ -15,16 +15,10 @@
 
     /* Override shared pill badge — hero eyebrow is plain monospace text here */
     .hero-eyebrow {
-      display: block;
+      display: flex;
       background: none;
       border: none;
       padding: 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--sec);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
     }
 
     /* ─── Nav ───────────────────────────────────────────────── */
@@ -136,6 +130,12 @@
       border-top: 1px solid var(--border);
     }
 
+    /* ─── Entrance animation ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     /* ─── Hero ──────────────────────────────────────────────── */
     #hero {
       padding: 96px 0 80px;
@@ -143,28 +143,33 @@
       overflow: hidden;
     }
 
-    /* subtle grid texture */
+    /* Ambient glow only — hex pattern is handled by inline SVG */
     #hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(var(--text-faint) 1px, transparent 1px),
-        linear-gradient(90deg, var(--text-faint) 1px, transparent 1px);
-      background-size: 48px 48px;
-      opacity: 0.07;
+      background: radial-gradient(ellipse 55% 60% at 78% 40%, rgba(56,189,248,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-hex-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
     }
 
     .hero-inner {
       position: relative;
+      animation: fadeUp 0.5s ease both;
     }
 
     .hero-name-row {
       display: flex;
       align-items: center;
-      gap: 24px;
-      margin-bottom: 24px;
+      gap: 28px;
+      margin-bottom: 20px;
     }
 
     .hero-name-row h1 { margin-bottom: 0; }
@@ -172,10 +177,11 @@
     /* Photo */
     .avatar {
       flex-shrink: 0;
-      width: 120px;
-      height: 120px;
+      width: 136px;
+      height: 136px;
       border-radius: 50%;
-      border: 2px solid var(--border);
+      border: 2px solid rgba(56,189,248,0.35);
+      box-shadow: 0 0 0 6px rgba(56,189,248,0.06);
       overflow: hidden;
       background: var(--card);
       display: flex;
@@ -196,30 +202,43 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-
     .hero-eyebrow {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--sec);
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--sec);
+      opacity: 0.7;
     }
 
     h1 {
-      font-size: clamp(2rem, 6vw, 3rem);
-      font-weight: 700;
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
       line-height: 1.1;
+      letter-spacing: -0.01em;
       margin-bottom: 8px;
     }
 
     h1 span { color: var(--accent); }
 
     .hero-subtitle {
-      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
       color: var(--text-muted);
-      margin-bottom: 24px;
-      max-width: 540px;
+      margin-bottom: 28px;
+      max-width: 520px;
+      line-height: 1.75;
     }
 
     /* Social links */
@@ -227,6 +246,11 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+    }
+
+    .social-links {
+      animation: fadeUp 0.5s ease both;
+      animation-delay: 0.08s;
     }
 
     .social-btn {
@@ -259,16 +283,44 @@
     .stats-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 32px;
+      gap: 0;
       margin-top: 48px;
-      padding-top: 48px;
-      border-top: 1px solid var(--border);
+      padding-top: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      overflow: hidden;
+      animation: fadeUp 0.55s ease both;
+      animation-delay: 0.15s;
     }
 
-    .stat { text-align: left; }
+    .stat {
+      text-align: left;
+      flex: 1;
+      min-width: 120px;
+      padding: 20px 24px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .stat:hover::before { opacity: 1; }
 
     .stat-number {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--text);
       font-family: 'JetBrains Mono', monospace;
@@ -277,7 +329,7 @@
     .stat-number span { color: var(--accent); }
 
     .stat-label {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       margin-top: 2px;
     }
@@ -290,6 +342,12 @@
       color: var(--text-muted);
       line-height: 1.8;
       max-width: 660px;
+    }
+
+    .about-text:first-of-type {
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.85;
     }
 
     .about-text strong { color: var(--text); font-weight: 600; }
@@ -410,7 +468,7 @@
       color: var(--text-faint);
       border: 1px solid var(--border);
       border-radius: var(--radius-pill);
-      padding: 2px 8px;
+      padding: 3px 10px;
     }
 
     .timeline-role {
@@ -600,13 +658,13 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: var(--radius-pill);
       border: 1px solid var(--border);
-      font-size: 0.8rem;
+      font-size: 0.83rem;
       font-weight: 500;
       color: var(--text-muted);
-      transition: border-color 0.15s, color 0.15s;
+      transition: border-color 0.2s, color 0.2s;
     }
 
     .pub-link:hover {
@@ -619,19 +677,29 @@
     .writing-stats {
       display: flex;
       flex-wrap: wrap;
-      gap: 24px;
+      gap: 0;
       margin-bottom: 32px;
-      padding: 24px;
-      background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
+      background: var(--card);
+      overflow: hidden;
     }
 
-    .w-stat { display: flex; flex-direction: column; gap: 2px; }
+    .w-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 120px;
+      padding: 20px 24px;
+      border-right: 1px solid var(--border);
+    }
+
+    .w-stat:last-child { border-right: none; }
 
     .w-stat-num {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--text);
     }
@@ -764,6 +832,30 @@
 
   <!-- ─── Hero ─────────────────────────────────────────────── -->
   <section id="hero">
+
+    <!-- Hex grid background pattern -->
+    <svg class="hero-hex-bg" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <!-- Pointy-top hex grid tile: R=35, tile 60×105 -->
+        <pattern id="hexgrid" x="0" y="0" width="60" height="105" patternUnits="userSpaceOnUse">
+          <path d="M 30,0 L 60,17.5 L 60,52.5 L 30,70 L 0,52.5 L 0,17.5 Z"
+                fill="none" stroke="rgba(56,189,248,0.22)" stroke-width="1"/>
+          <path d="M 0,52.5 L 30,70 L 30,105 L 0,122.5 L -30,105 L -30,70 Z"
+                fill="none" stroke="rgba(56,189,248,0.22)" stroke-width="1"/>
+        </pattern>
+        <!-- Fade mask: bright top-right, invisible bottom-left (where text lives) -->
+        <radialGradient id="hexfade" cx="72%" cy="30%" r="60%" gradientUnits="objectBoundingBox">
+          <stop offset="0%"   stop-color="white" stop-opacity="0.9"/>
+          <stop offset="45%"  stop-color="white" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="white" stop-opacity="0"/>
+        </radialGradient>
+        <mask id="hexmask">
+          <rect width="100%" height="100%" fill="url(#hexfade)"/>
+        </mask>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hexgrid)" mask="url(#hexmask)"/>
+    </svg>
+
     <div class="container">
       <div class="hero-inner">
 

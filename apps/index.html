@@ -8,62 +8,251 @@
   <link rel="stylesheet" href="/fonts/fonts.css" />
   <link rel="stylesheet" href="/shared.css" />
   <style>
-    /* This page uses color:inherit for links, no underlines on hover */
     a { color: inherit; }
     a:hover { text-decoration: none; }
 
-    /* ─── Hero — larger padding than legal pages ─── */
-    .hero {
-      padding: clamp(48px, 10vw, 96px) clamp(16px, 5vw, 80px) clamp(40px, 8vw, 80px);
+    /* ─── Page-level background atmosphere ─── */
+    body {
+      background-image:
+        radial-gradient(ellipse 60% 40% at 15% 0%, rgba(56,189,248,0.055) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 85% 90%, rgba(250,159,66,0.04) 0%, transparent 60%),
+        radial-gradient(rgba(56,189,248,0.06) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 36px 36px;
     }
 
-    .hero-inner { max-width: 720px; }
-
-    .hero h1 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 8px;
+    /* ─── Entrance keyframe ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    .hero p {
+    /* ─── Page hero ─── */
+    .page-hero {
+      padding: clamp(56px, 10vw, 100px) clamp(16px, 5vw, 80px) clamp(40px, 6vw, 64px);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .page-hero-inner { max-width: 1000px; }
+
+    .eyebrow-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sec);
+      margin-bottom: 20px;
+    }
+
+    .eyebrow-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--sec);
+      opacity: 0.7;
+    }
+
+    .page-hero h1 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .page-hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .page-hero p {
       color: var(--text-muted);
       font-size: 1rem;
-      max-width: 480px;
+      max-width: 400px;
+      line-height: 1.7;
     }
 
-    /* ─── App grid ─── */
+    /* ─── Section divider label ─── */
+    .section-marker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 14px;
+    }
+
+    /* ─── Featured hero card ─── */
+    .featured-section {
+      padding: 0 clamp(16px, 5vw, 80px) clamp(32px, 5vw, 48px);
+      animation: fadeUp 0.55s ease both;
+      animation-delay: 0.1s;
+    }
+
+    .hero-card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: clamp(28px, 5vw, 52px);
+      max-width: 1000px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 32px;
+      align-items: center;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    /* Gradient wash */
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(125deg, rgba(56,189,248,0.07) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Glowing top-left corner accent */
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(56,189,248,0.7) 0%, transparent 100%);
+      border-radius: 0 0 2px 0;
+    }
+
+    .hero-card:hover {
+      border-color: rgba(56,189,248,0.45);
+      transform: translateY(-3px);
+    }
+
+    .hero-card-link {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      z-index: 1;
+    }
+
+    .hero-card-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.22);
+      border-radius: var(--radius-pill);
+      padding: 4px 14px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .hero-card h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.015em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .hero-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+      max-width: 460px;
+    }
+
+    .hero-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      padding: 10px 22px;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.28);
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      position: relative;
+      z-index: 2;
+      transition: background 0.2s, border-color 0.2s, gap 0.2s;
+    }
+
+    .hero-card:hover .hero-card-cta {
+      background: rgba(56,189,248,0.18);
+      border-color: rgba(56,189,248,0.55);
+      gap: 12px;
+    }
+
+    /* ─── Network graph decoration ─── */
+    .hero-card-viz {
+      width: 220px;
+      height: 220px;
+      flex-shrink: 0;
+      opacity: 0.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+    }
+
+    .hero-card:hover .hero-card-viz { opacity: 0.75; }
+
+    @media (max-width: 640px) {
+      .hero-card { grid-template-columns: 1fr; }
+      .hero-card-viz { display: none; }
+    }
+
+    /* ─── Secondary app grid ─── */
     .grid-section {
       flex: 1;
-      padding: clamp(32px, 6vw, 64px) clamp(16px, 5vw, 80px);
+      padding: 0 clamp(16px, 5vw, 80px) clamp(56px, 8vw, 88px);
+      animation: fadeUp 0.6s ease both;
+      animation-delay: 0.2s;
     }
 
     .app-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
       max-width: 1000px;
+      margin-top: 14px;
     }
 
     .app-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 24px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
       position: relative;
-      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
     }
 
     .app-card:hover {
       background: var(--card-hover);
-      border-color: rgba(56,189,248,0.35);
+      border-color: rgba(250,159,66,0.35);
       transform: translateY(-2px);
     }
 
-    /* Stretched link covers the whole card */
     .app-card-link {
       position: absolute;
       inset: 0;
@@ -73,39 +262,42 @@
     .app-card-header {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .app-icon {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: var(--radius-md);
-      background: linear-gradient(135deg, var(--accent-glow), rgba(56,189,248,0.08));
-      border: 1px solid rgba(56,189,248,0.2);
+      background: linear-gradient(135deg, rgba(250,159,66,0.14), rgba(250,159,66,0.03));
+      border: 1px solid rgba(250,159,66,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      color: var(--sec);
     }
 
     .app-name {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
+      color: var(--text);
     }
 
     .app-platform {
-      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
       color: var(--text-faint);
-      margin-top: 4px;
+      margin-top: 3px;
+      letter-spacing: 0.04em;
     }
 
     .app-desc {
       color: var(--text-muted);
       font-size: 0.875rem;
-      line-height: 1.6;
+      line-height: 1.65;
       flex: 1;
     }
-
   </style>
 </head>
 <body>
@@ -119,35 +311,88 @@
     </a>
   </nav>
 
-  <div class="hero">
-    <div class="hero-inner">
-      <h1>Apps</h1>
-      <p>Side projects I build in my spare time.</p>
+  <!-- Page hero -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="eyebrow-label">Side Projects</div>
+      <h1>Things I<br><em>build.</em></h1>
+      <p>Apps and tools I create in my spare time, mostly around data, machine learning, and things that scratch a personal itch.</p>
     </div>
   </div>
 
+  <!-- Featured app -->
+  <div class="featured-section">
+    <div class="section-marker">// Featured</div>
+    <div class="hero-card">
+      <a href="/apps/parlascanned/" class="hero-card-link" aria-label="Parlascanned öffnen"></a>
+      <div>
+        <div class="hero-card-tag">
+          <svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" fill="currentColor"/></svg>
+          Web · Streamlit
+        </div>
+        <h2>Parlascanned</h2>
+        <p>Abstimmungsverhalten aller Bundestagsabgeordneten visualisiert. KI-basierte Dimensionsreduktion zeigt, wer ähnlich abstimmt und wo die echten Trennlinien verlaufen.</p>
+        <div class="hero-card-cta">
+          App öffnen
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </div>
+      </div>
+
+      <!-- Decorative network graph -->
+      <div class="hero-card-viz">
+        <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" width="220" height="220">
+          <!-- Outer ring edges -->
+          <line x1="110" y1="110" x2="42"  y2="62"  stroke="rgba(56,189,248,0.35)" stroke-width="1"/>
+          <line x1="110" y1="110" x2="178" y2="58"  stroke="rgba(56,189,248,0.35)" stroke-width="1"/>
+          <line x1="110" y1="110" x2="185" y2="148" stroke="rgba(56,189,248,0.35)" stroke-width="1"/>
+          <line x1="110" y1="110" x2="62"  y2="172" stroke="rgba(56,189,248,0.35)" stroke-width="1"/>
+          <line x1="110" y1="110" x2="28"  y2="140" stroke="rgba(56,189,248,0.35)" stroke-width="1"/>
+          <!-- Cross edges -->
+          <line x1="42"  y1="62"  x2="178" y2="58"  stroke="rgba(56,189,248,0.12)" stroke-width="0.75"/>
+          <line x1="178" y1="58"  x2="185" y2="148" stroke="rgba(56,189,248,0.12)" stroke-width="0.75"/>
+          <line x1="62"  y1="172" x2="28"  y2="140" stroke="rgba(56,189,248,0.12)" stroke-width="0.75"/>
+          <line x1="42"  y1="62"  x2="28"  y2="140" stroke="rgba(56,189,248,0.1)"  stroke-width="0.75"/>
+          <!-- 2nd-ring spokes -->
+          <line x1="42"  y1="62"  x2="18"  y2="28"  stroke="rgba(56,189,248,0.22)" stroke-width="0.75"/>
+          <line x1="42"  y1="62"  x2="72"  y2="22"  stroke="rgba(56,189,248,0.22)" stroke-width="0.75"/>
+          <line x1="178" y1="58"  x2="205" y2="25"  stroke="rgba(56,189,248,0.2)"  stroke-width="0.75"/>
+          <line x1="185" y1="148" x2="210" y2="170" stroke="rgba(56,189,248,0.2)"  stroke-width="0.75"/>
+          <line x1="62"  y1="172" x2="48"  y2="200" stroke="rgba(56,189,248,0.18)" stroke-width="0.75"/>
+          <!-- Hub glow -->
+          <circle cx="110" cy="110" r="18" fill="rgba(56,189,248,0.07)" stroke="rgba(56,189,248,0.2)" stroke-width="1"/>
+          <circle cx="110" cy="110" r="9"  fill="rgba(56,189,248,0.85)"/>
+          <!-- Primary nodes -->
+          <circle cx="42"  cy="62"  r="5.5" fill="rgba(56,189,248,0.75)"/>
+          <circle cx="178" cy="58"  r="4.5" fill="rgba(56,189,248,0.65)"/>
+          <circle cx="185" cy="148" r="5"   fill="rgba(56,189,248,0.6)"/>
+          <circle cx="62"  cy="172" r="4"   fill="rgba(56,189,248,0.55)"/>
+          <circle cx="28"  cy="140" r="3.5" fill="rgba(56,189,248,0.45)"/>
+          <!-- Secondary nodes -->
+          <circle cx="18"  cy="28"  r="2.5" fill="rgba(56,189,248,0.35)"/>
+          <circle cx="72"  cy="22"  r="2"   fill="rgba(56,189,248,0.3)"/>
+          <circle cx="205" cy="25"  r="2.5" fill="rgba(56,189,248,0.3)"/>
+          <circle cx="210" cy="170" r="2"   fill="rgba(56,189,248,0.25)"/>
+          <circle cx="48"  cy="200" r="2.5" fill="rgba(56,189,248,0.22)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Other apps -->
   <div class="grid-section">
+    <div class="section-marker">// More</div>
     <div class="app-grid">
 
       <div class="app-card">
-        <a href="/apps/parlascanned/" class="app-card-link" aria-label="Parlascanned – App öffnen"></a>
+        <a href="/apps/spesenlaster/" class="app-card-link" aria-label="SpesenLaster"></a>
         <div class="app-card-header">
           <div class="app-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="6" cy="17" r="2"/><circle cx="16" cy="14" r="2"/><line x1="11" y1="7" x2="16" y2="5"/><line x1="8" y1="9" x2="6" y2="15"/><line x1="11" y1="8" x2="15" y2="13"/><line x1="8" y1="17" x2="14" y2="14"/></svg>
-          </div>
-          <div>
-            <div class="app-name">Parlascanned</div>
-            <div class="app-platform">Web · Streamlit</div>
-          </div>
-        </div>
-        <p class="app-desc">Abstimmungsverhalten aller Bundestagsabgeordneten visualisiert. KI-basierte Dimensionsreduktion zeigt, wer ähnlich abstimmt und wo die echten Trennlinien verlaufen.</p>
-      </div>
-
-      <div class="app-card">
-        <a href="/apps/spesenlaster/" class="app-card-link" aria-label="SpesenLaster – Mehr erfahren"></a>
-        <div class="app-card-header">
-          <div class="app-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13" rx="1"/>
+              <path d="M16 8h4l3 5v4h-7V8z"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/>
+              <circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
           </div>
           <div>
             <div class="app-name">SpesenLaster</div>
