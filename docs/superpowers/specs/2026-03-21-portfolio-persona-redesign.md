@@ -25,24 +25,73 @@ Primary audience: recruiters and hiring managers. Secondary: business stakeholde
 
 **Subtitle**
 - Before: "PhD mathematician with a love for theory who also builds and deploys. Specialising in time series forecasting, recommender systems, and causal inference across 6+ years in production data science."
-- After: "I set technical direction for ML teams, ship forecasting systems, and translate complex models into business outcomes. PhD in mathematics. 6+ years at the intersection of research, production, and teaching."
+- After: "I set technical direction for ML teams, ship forecasting systems, and translate complex models into business outcomes. PhD in mathematics. 7+ years at the intersection of research, production, and teaching."
+- Note: "7+" counts from first ML role at Publicis (Jun 2019). This is the total career span in ML, not restricted to Senior titles.
 - Why: Opens with action verbs and impact framing. Removes "love for theory" (IC signal). PhD shifts from opening identity to supporting credential.
 
 **Stats bar** (4 items, same visual component)
 - Before: 6+ Years in Production ML / 90+ Technical Articles / 1M+ Article Reads / 150+ Research Citations
-- After: 6+ Years in Senior ML Roles / €10M+ Revenue Impact / 50+ Professionals Taught / 1M+ Article Reads
+- After: 5+ Years in Senior ML Roles / €10M+ Revenue Impact / 50+ Professionals Taught / 1M+ Article Reads
 - Why: Revenue impact and mentorship numbers signal business value and seniority. Article Reads stays (reach). Citations removed (academic signal).
+- Note on numbers: "5+" because first Senior title was at MEDION (Sep 2020); counting from Publicis (Jun 2019) would give 6+ but that role was not Senior. "50+" is the sum of: 40+ at ALDI DX (guest speaker), 15 in sktime curriculum (3 cohorts), 3 mentored at METRO.digital.
 
-**New: Pillars strip** (new HTML block below stats bar, same visual style as stats bar)
-Three panels using existing `.stats-bar` / `.stat` pattern or a new `.pillars` / `.pillar` class with the same border/background treatment:
+**New: Pillars strip** (new HTML block below stats bar)
 
-| Pillar | Title | Description |
-|--------|-------|-------------|
-| 1 | Lead | Technical direction, engineering standards, mentoring junior scientists |
-| 2 | Build | Forecasting, recommenders, causal inference in production |
-| 3 | Teach | 90+ articles, official ML curriculum, 1M+ readers |
+Uses new CSS classes `.pillars` and `.pillar` (do not reuse `.stats-bar` / `.stat` — those expect a number element). Add to the existing `<style>` block in `index.html`:
 
-The pillars strip sits below the stats bar with `margin-top: 16px`. Same card style: border, border-radius `--radius-lg`, background `--card`.
+```css
+.pillars {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  overflow: hidden;
+}
+.pillar {
+  flex: 1;
+  min-width: 160px;
+  padding: 20px 24px;
+  border-right: 1px solid var(--border);
+}
+.pillar:last-child { border-right: none; }
+.pillar-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.pillar-desc {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+```
+
+HTML structure (placed directly after the closing `</div>` of `.stats-bar`):
+
+```html
+<div class="pillars">
+  <div class="pillar">
+    <div class="pillar-title">Lead</div>
+    <div class="pillar-desc">Technical direction, engineering standards, mentoring junior scientists</div>
+  </div>
+  <div class="pillar">
+    <div class="pillar-title">Build</div>
+    <div class="pillar-desc">Forecasting, recommenders, causal inference in production</div>
+  </div>
+  <div class="pillar">
+    <div class="pillar-title">Teach</div>
+    <div class="pillar-desc">90+ articles, official ML curriculum, 1M+ readers</div>
+  </div>
+</div>
+```
+
+`min-width: 160px` with `flex-wrap: wrap` ensures pillars stack gracefully on mobile.
 
 ---
 
