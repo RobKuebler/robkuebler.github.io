@@ -1,23 +1,26 @@
+/* ─── Font import ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+
 /* ─── Variables ─────────────────────────────────────────────── */
 /* Superset of all CSS variables used across pages */
 :root {
   /* ── Core palette ── change these to retheme the whole site ── */
-  --bg:          #080c14;   /* section background 1 (odd) */
-  --surface:     #0e1421;   /* section background 2 (even) */
-  --accent:      #38bdf8;   /* primary accent — "Kübler", links, highlights */
-  --sec:         #FA9F42;   /* secondary accent — focus labels, eyebrow text */
+  --bg:          #f4f1ea;   /* warm cream */
+  --surface:     #ffffff;   /* white */
+  --accent:      #8a6820;   /* dark bronze-gold — readable on light */
+  --sec:         #b05828;   /* dark terra cotta */
 
   /* ── Derived / composite ──────────────────────────────────── */
-  --card:        #141c2e;
-  --card-hover:  #192035;
-  --border:      #1e2a42;
-  --accent-dim:  #0ea5e9;
-  --accent-glow: rgba(56,189,248,0.15);
-  --bg-nav:      rgba(8,12,20,0.85);   /* nav bar (semi-transparent --bg) */
-  --bg-drawer:   rgba(8,12,20,0.97);   /* mobile drawer (near-opaque --bg) */
-  --text:        #e2e8f0;
-  --text-muted:  #94a3b8;   /* was #7c8ba1 (~4.1:1), now ~5.8:1 — solid AA */
-  --text-faint:  #3d4f6a;
+  --card:        #faf8f4;
+  --card-hover:  #f0ece3;
+  --border:      #e3ddd0;
+  --accent-dim:  #755518;
+  --accent-glow: rgba(138,104,32,0.09);
+  --bg-nav:      rgba(244,241,234,0.92);  /* nav bar (semi-transparent --bg) */
+  --bg-drawer:   rgba(244,241,234,0.98);  /* mobile drawer (near-opaque --bg) */
+  --text:        #1c1825;
+  --text-muted:  #57516a;
+  --text-faint:  #a09ab5;
   --radius-sm:   8px;
   --radius-md:   16px;
   --radius-lg:   20px;
@@ -51,7 +54,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(8,12,20,0.85);
+  background: var(--bg-nav);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 0 clamp(16px, 5vw, 80px);
@@ -102,6 +105,13 @@ nav {
   font-size: 0.875rem;
 }
 
+/* ─── Global card elevation (light theme needs shadow for depth) ── */
+/* Use [class$="card"] (ends with) + specific overrides to avoid matching -title, -hover etc. */
+[class$="card"],
+[class*="card "] {
+  box-shadow: 0 1px 4px rgba(28,24,37,0.06), 0 0 0 1px var(--border);
+}
+
 /* ─── Layout helpers ────────────────────────────────────── */
 .container {
   max-width: 860px;
@@ -148,8 +158,8 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(56,189,248,0.12);
-  border: 1px solid rgba(56,189,248,0.25);
+  background: rgba(138,104,32,0.12);
+  border: 1px solid rgba(138,104,32,0.25);
   border-radius: var(--radius-pill);
   padding: 4px 16px;
   font-size: 0.75rem;
@@ -167,13 +177,15 @@ footer {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text-muted);
   margin-bottom: 8px;
 }
 
 .section-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
   font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--text);
   margin-bottom: 32px;
   line-height: 1.25;
@@ -222,7 +234,7 @@ footer {
 /* Note/callout box — uses accent-glow so it stays on-theme */
 .legal .note {
   background: var(--accent-glow);
-  border: 1px solid rgba(56,189,248,0.25);
+  border: 1px solid rgba(138,104,32,0.25);
   border-radius: var(--radius-sm);
   padding: 8px 16px;
   color: var(--text-muted);
