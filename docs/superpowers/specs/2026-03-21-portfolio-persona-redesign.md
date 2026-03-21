@@ -125,8 +125,9 @@ HTML structure (placed directly after the closing `</div>` of `.stats-bar`):
   - "Predictive models (Random Forests, neural networks, boosting) with Python, scikit-learn, PyTorch, CatBoost"
   - "Statistical twin matching via Nearest Neighbor Search"
 - After:
-  - "Built predictive audience models across multiple client verticals, owning the full pipeline from feature engineering to deployment"
-  - "Applied statistical matching methods for causal lift measurement in campaign analysis"
+  - "Predicted TV ad view-through rates for media clients: modeled what share of an advertising block audiences would watch"
+  - "Joined datasets without a common identifier using statistical record linkage (Nearest Neighbor matching)"
+  - "Built the data backend for a competitive benchmarking dashboard, enabling a client to compare performance against direct competitors across key metrics"
 - Why: All other bullets already lead with outcomes. Publicis was the only exception.
 
 All other experience bullets remain unchanged.
