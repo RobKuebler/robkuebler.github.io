@@ -836,12 +836,21 @@
     <!-- Hex grid background pattern -->
     <svg class="hero-hex-bg" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
       <defs>
-        <!-- Pointy-top hex grid tile: R=35, tile 60×105 -->
-        <pattern id="hexgrid" x="0" y="0" width="60" height="105" patternUnits="userSpaceOnUse">
-          <path d="M 30,0 L 60,17.5 L 60,52.5 L 30,70 L 0,52.5 L 0,17.5 Z"
-                fill="none" stroke="rgba(138,104,32,0.22)" stroke-width="1"/>
-          <path d="M 0,52.5 L 30,70 L 30,105 L 0,122.5 L -30,105 L -30,70 Z"
-                fill="none" stroke="rgba(138,104,32,0.22)" stroke-width="1"/>
+        <!-- Pointy-top hex grid: R=35, tile 60.62×105 (exact: W=35√3, H=3R) -->
+        <!-- 5 paths per tile: hex1 + hex2 in 4 quadrants to handle both x and y seam wrapping -->
+        <!-- Grout rect background + cream inset hexes — every grout gap drawn exactly once -->
+        <pattern id="hexgrid" x="0" y="0" width="60.62" height="105" patternUnits="userSpaceOnUse">
+          <rect width="60.62" height="105" fill="rgba(138,104,32,0.18)"/>
+          <!-- Hex 1: center (30.3, 35), R'=34.42 (δ=0.5px → 1px grout gap) -->
+          <path d="M 30.3,0.6 L 60.1,17.8 L 60.1,52.2 L 30.3,69.4 L 0.5,52.2 L 0.5,17.8 Z" fill="#f4f1ea"/>
+          <!-- Hex 2: center (0, 87.5) — right half visible -->
+          <path d="M 0,53.1 L 29.8,70.3 L 29.8,104.7 L 0,121.9 L -29.8,104.7 L -29.8,70.3 Z" fill="#f4f1ea"/>
+          <!-- Hex 2: center (60.62, 87.5) — left half, completes x seam -->
+          <path d="M 60.6,53.1 L 90.4,70.3 L 90.4,104.7 L 60.6,121.9 L 30.8,104.7 L 30.8,70.3 Z" fill="#f4f1ea"/>
+          <!-- Hex 2 bottom wrapped: center (0, -17.5) — completes y seam -->
+          <path d="M 0,-51.9 L 29.8,-35.2 L 29.8,-0.3 L 0,16.9 L -29.8,-0.3 L -29.8,-35.2 Z" fill="#f4f1ea"/>
+          <!-- Hex 2 bottom-right wrapped: center (60.62, -17.5) — completes x+y seam -->
+          <path d="M 60.6,-51.9 L 90.4,-35.2 L 90.4,-0.3 L 60.6,16.9 L 30.8,-0.3 L 30.8,-35.2 Z" fill="#f4f1ea"/>
         </pattern>
         <!-- Fade mask: bright top-right, invisible bottom-left (where text lives) -->
         <radialGradient id="hexfade" cx="72%" cy="30%" r="60%" gradientUnits="objectBoundingBox">
@@ -859,7 +868,7 @@
     <div class="container">
       <div class="hero-inner">
 
-        <p class="hero-eyebrow">// PhD Mathematics · Data Science · Algorithms</p>
+        <p class="hero-eyebrow">PhD Mathematics · Data Science · Algorithms</p>
 
         <div class="hero-name-row">
           <div class="avatar">
@@ -929,7 +938,7 @@
   <!-- ─── About ────────────────────────────────────────────── -->
   <section id="about">
     <div class="container">
-      <p class="section-label">// About</p>
+      <p class="section-label">/ About</p>
       <h2 class="section-title">Where theory meets production</h2>
       <p class="about-text">
         Hi, I'm Robert. I have a <strong>PhD in mathematics</strong> and I genuinely enjoy
@@ -955,7 +964,7 @@
   <!-- ─── Experience ──────────────────────────────────────── -->
   <section id="experience">
     <div class="container">
-      <p class="section-label">// Experience</p>
+      <p class="section-label">/ Experience</p>
       <h2 class="section-title">Where I've worked</h2>
 
       <p class="timeline-group-label">Employment</p>
@@ -1103,7 +1112,7 @@
     <div class="container">
       <div class="writing-header">
         <div>
-          <p class="section-label">// Writing</p>
+          <p class="section-label">/ Writing</p>
           <h2 class="section-title">Technical Articles</h2>
         </div>
         <a class="writing-cta" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">
@@ -1177,7 +1186,7 @@
   <!-- ─── Projects ────────────────────────────────────────── -->
   <section id="projects">
     <div class="container">
-      <p class="section-label">// Projects</p>
+      <p class="section-label">/ Projects</p>
       <h2 class="section-title">Interactive demos</h2>
       <div class="articles-grid">
 
@@ -1200,7 +1209,7 @@
   <!-- ─── Skills ───────────────────────────────────────────── -->
   <section id="skills">
     <div class="container">
-      <p class="section-label">// Skills</p>
+      <p class="section-label">/ Skills</p>
       <h2 class="section-title">Areas of expertise</h2>
       <div class="skills-grid">
 
@@ -1269,7 +1278,7 @@
     <div class="container">
       <div class="pub-header">
         <div>
-          <p class="section-label">// Publications</p>
+          <p class="section-label">/ Publications</p>
           <h2 class="section-title">Research papers</h2>
         </div>
         <a class="scholar-link" href="https://scholar.google.com/citations?user=BHCd2EYAAAAJ" target="_blank" rel="noopener">
@@ -1374,7 +1383,7 @@
   <!-- ─── Education ───────────────────────────────────────── -->
   <section id="education">
     <div class="container">
-      <p class="section-label">// Education</p>
+      <p class="section-label">/ Education</p>
       <h2 class="section-title">Academic background</h2>
 
       <div class="timeline">
@@ -1470,7 +1479,7 @@
   <!-- ─── Volunteer ───────────────────────────────────────── -->
   <section id="volunteer">
     <div class="container">
-      <p class="section-label">// Volunteer</p>
+      <p class="section-label">/ Volunteer</p>
       <h2 class="section-title">Giving back</h2>
 
       <div class="timeline">
@@ -1509,7 +1518,7 @@
   <section id="contact">
     <div class="container">
       <div class="contact-inner">
-        <p class="section-label">// Contact</p>
+        <p class="section-label">/ Contact</p>
         <h2 class="section-title">Get in touch</h2>
         <p class="contact-text">
           Open to selected freelance projects, speaking engagements, and collaborations around data science, forecasting, and causal inference. Also happy to chat about articles or open-source work.

@@ -54,7 +54,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(8,12,20,0.85);
+  background: var(--bg-nav);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 0 clamp(16px, 5vw, 80px);
@@ -106,7 +106,9 @@ nav {
 }
 
 /* ─── Global card elevation (light theme needs shadow for depth) ── */
-[class*="card"] {
+/* Use [class$="card"] (ends with) + specific overrides to avoid matching -title, -hover etc. */
+[class$="card"],
+[class*="card "] {
   box-shadow: 0 1px 4px rgba(28,24,37,0.06), 0 0 0 1px var(--border);
 }
 
@@ -175,7 +177,7 @@ footer {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--sec);
+  color: var(--text-muted);
   margin-bottom: 8px;
 }
 
