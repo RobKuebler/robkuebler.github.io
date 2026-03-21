@@ -334,6 +334,42 @@
       margin-top: 2px;
     }
 
+    /* ─── Pillars strip ─────────────────────────────────────── */
+    .pillars {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      overflow: hidden;
+    }
+
+    .pillar {
+      flex: 1;
+      min-width: 160px;
+      padding: 20px 24px;
+      border-right: 1px solid var(--border);
+    }
+
+    .pillar:last-child { border-right: none; }
+
+    .pillar-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .pillar-desc {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
     /* ─── About ─────────────────────────────────────────────── */
     #about { background: var(--surface); }
 
@@ -929,6 +965,22 @@
         <div class="stat">
           <div class="stat-number">1M<span>+</span></div>
           <div class="stat-label">Article Reads</div>
+        </div>
+      </div>
+
+      <!-- Pillars strip -->
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-title">Lead</div>
+          <div class="pillar-desc">Technical direction, engineering standards, mentoring junior scientists</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Build</div>
+          <div class="pillar-desc">Forecasting, recommenders, causal inference in production</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Teach</div>
+          <div class="pillar-desc">90+ articles, official ML curriculum, 1M+ readers</div>
         </div>
       </div>
     </div>
