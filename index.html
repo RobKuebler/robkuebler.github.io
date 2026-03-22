@@ -325,7 +325,7 @@
     .pillars {
       display: flex;
       flex-wrap: wrap;
-      margin-top: 16px;
+      margin-top: 24px;
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       background: var(--card);
@@ -412,17 +412,17 @@
     .about-sharing-detail strong { color: var(--text); font-weight: 600; }
 
     /* ─── Skills ────────────────────────────────────────────── */
-    .skills-grid {
+    .expertise-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
 
     @media (max-width: 640px) {
-      .skills-grid { grid-template-columns: 1fr; }
+      .expertise-grid { grid-template-columns: 1fr; }
     }
 
-    .skill-card {
+    .domain-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
@@ -430,31 +430,66 @@
       transition: border-color 0.2s, background 0.2s;
     }
 
-    .skill-card:hover {
-      border-color: var(--accent);
-      background: var(--card-hover);
-    }
+    .domain-card:hover { border-color: var(--accent); }
 
-    /* Leadership card spans full width, tinted to stand out */
-    .skills-grid .skill-card:first-child {
-      grid-column: 1 / -1;
+    .domain-card--lead {
       background: var(--accent-glow);
       border-color: rgba(138,104,32,0.28);
     }
 
-    .skills-grid .skill-card:first-child:hover {
-      background: rgba(138,104,32,0.15);
+    .domain-card--lead:hover {
+      background: rgba(138,104,32,0.13);
       border-color: var(--accent);
     }
 
-    .skill-card-title {
+    .domain-category {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .domain-card--sci .domain-category { color: var(--sec); }
+    .domain-card--eng .domain-category { color: var(--text-muted); }
+
+    .domain-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.25rem;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .domain-stance {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.55;
       margin-bottom: 16px;
-      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .domain-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .domain-tag {
+      font-size: 0.72rem;
+      padding: 3px 12px;
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .domain-card--lead .domain-tag {
+      background: rgba(255,255,255,0.6);
+      border-color: rgba(138,104,32,0.2);
     }
 
     /* ─── Experience ────────────────────────────────────────── */
@@ -1309,63 +1344,58 @@
     <div class="container">
       <p class="section-label">/ Skills</p>
       <h2 class="section-title">Areas of expertise</h2>
-      <div class="skills-grid">
+      <div class="expertise-grid">
 
-        <div class="skill-card">
-          <div class="skill-card-title">Leadership &amp; Communication</div>
-          <div class="tags">
-            <span class="tag">Technical Vision</span>
-            <span class="tag">Team Mentoring</span>
-            <span class="tag">Engineering Standards</span>
-            <span class="tag">Technical Writing</span>
-            <span class="tag">Curriculum Design</span>
-            <span class="tag">Public Speaking</span>
-            <span class="tag">Stakeholder Communication</span>
+        <div class="domain-card domain-card--lead">
+          <p class="domain-category">Leadership &amp; Vision</p>
+          <h3 class="domain-title">Setting direction, growing people</h3>
+          <p class="domain-stance">Bridging research and product: defining technical strategy, mentoring engineers, and making complex ideas land with any audience.</p>
+          <div class="domain-tags">
+            <span class="domain-tag">Technical Vision</span>
+            <span class="domain-tag">Team Mentoring</span>
+            <span class="domain-tag">Engineering Standards</span>
+            <span class="domain-tag">Technical Writing</span>
+            <span class="domain-tag">Curriculum Design</span>
+            <span class="domain-tag">Public Speaking</span>
+            <span class="domain-tag">Stakeholder Communication</span>
           </div>
         </div>
 
-        <div class="skill-card">
-          <div class="skill-card-title">ML &amp; Statistics</div>
-          <div class="tags">
-            <span class="tag">Forecasting</span>
-            <span class="tag">Causal Inference</span>
-            <span class="tag">Recommenders</span>
-            <span class="tag">Bayesian Statistics</span>
-            <span class="tag">MMM</span>
-<span class="tag">Deep Learning</span>
-            <span class="tag">Optimization</span>
-            <span class="tag">Heuristics</span>
+        <div class="domain-card domain-card--sci">
+          <p class="domain-category">ML &amp; Mathematics</p>
+          <h3 class="domain-title">Reasoning from first principles</h3>
+          <p class="domain-stance">Probabilistic thinking, Bayesian inference, and theoretical foundations applied to real forecasting and decision problems.</p>
+          <div class="domain-tags">
+            <span class="domain-tag">Forecasting</span>
+            <span class="domain-tag">Causal Inference</span>
+            <span class="domain-tag">Bayesian Statistics</span>
+            <span class="domain-tag">Deep Learning</span>
+            <span class="domain-tag">Recommenders</span>
+            <span class="domain-tag">MMM</span>
+            <span class="domain-tag">Optimization</span>
+            <span class="domain-tag">Probability Theory</span>
+            <span class="domain-tag">Algorithms</span>
+            <span class="domain-tag">Number Theory</span>
           </div>
         </div>
 
-        <div class="skill-card">
-          <div class="skill-card-title">Technical Stack</div>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">sktime</span>
-            <span class="tag">TensorFlow</span>
-            <span class="tag">PyTorch</span>
-            <span class="tag">PyMC</span>
-            <span class="tag">pandas</span>
-            <span class="tag">GCP</span>
-            <span class="tag">Vertex AI</span>
-            <span class="tag">MLflow</span>
-            <span class="tag">Docker</span>
-            <span class="tag">PySpark</span>
-            <span class="tag">SQL</span>
-            <span class="tag">Git</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-card-title">Mathematics</div>
-          <div class="tags">
-            <span class="tag">Probability Theory</span>
-            <span class="tag">Cryptography</span>
-            <span class="tag">Algorithms</span>
-            <span class="tag">Discrete Math</span>
-            <span class="tag">Number Theory</span>
-            <span class="tag">Cryptanalysis</span>
+        <div class="domain-card domain-card--eng">
+          <p class="domain-category">Engineering</p>
+          <h3 class="domain-title">Building reliable systems</h3>
+          <p class="domain-stance">Turning research-grade ideas into production-ready, maintainable systems on modern cloud infrastructure.</p>
+          <div class="domain-tags">
+            <span class="domain-tag">Python</span>
+            <span class="domain-tag">TensorFlow</span>
+            <span class="domain-tag">PyTorch</span>
+            <span class="domain-tag">PyMC</span>
+            <span class="domain-tag">GCP</span>
+            <span class="domain-tag">Vertex AI</span>
+            <span class="domain-tag">MLflow</span>
+            <span class="domain-tag">Docker</span>
+            <span class="domain-tag">PySpark</span>
+            <span class="domain-tag">SQL</span>
+            <span class="domain-tag">pandas</span>
+            <span class="domain-tag">sktime</span>
           </div>
         </div>
 
