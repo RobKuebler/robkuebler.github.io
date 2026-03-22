@@ -433,12 +433,10 @@
     .domain-card:hover { border-color: var(--accent); }
 
     .domain-card--lead {
-      background: var(--accent-glow);
-      border-color: rgba(138,104,32,0.28);
+      border-color: var(--accent-border);
     }
 
     .domain-card--lead:hover {
-      background: rgba(138,104,32,0.13);
       border-color: var(--accent);
     }
 
@@ -448,11 +446,14 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--accent);
+      color: var(--text-muted); /* default: gray for flanking cards */
       margin-bottom: 8px;
     }
 
-    .domain-card--sci .domain-category { color: var(--sec); }
+    /* same accent as "Kübler" in the hero/nav */
+    .domain-card--lead .domain-category { color: var(--accent); }
+
+    .domain-card--sci .domain-category { color: var(--text-muted); }
     .domain-card--eng .domain-category { color: var(--text-muted); }
 
     .domain-title {
@@ -488,8 +489,8 @@
     }
 
     .domain-card--lead .domain-tag {
-      background: rgba(255,255,255,0.6);
-      border-color: rgba(138,104,32,0.2);
+      background: var(--surface);
+      border-color: var(--border);
     }
 
     /* ─── Experience ────────────────────────────────────────── */
@@ -1347,21 +1348,6 @@
       <h2 class="section-title">Areas of expertise</h2>
       <div class="expertise-grid">
 
-        <div class="domain-card domain-card--lead">
-          <p class="domain-category">Leadership &amp; Vision</p>
-          <h3 class="domain-title">Setting direction, growing people</h3>
-          <p class="domain-stance">Bridging research and product: defining technical strategy, mentoring engineers, and making complex ideas land with any audience.</p>
-          <div class="domain-tags">
-            <span class="domain-tag">Technical Vision</span>
-            <span class="domain-tag">Team Mentoring</span>
-            <span class="domain-tag">Engineering Standards</span>
-            <span class="domain-tag">Technical Writing</span>
-            <span class="domain-tag">Curriculum Design</span>
-            <span class="domain-tag">Public Speaking</span>
-            <span class="domain-tag">Stakeholder Communication</span>
-          </div>
-        </div>
-
         <div class="domain-card domain-card--sci">
           <p class="domain-category">ML &amp; Mathematics</p>
           <h3 class="domain-title">Reasoning from first principles</h3>
@@ -1377,6 +1363,21 @@
             <span class="domain-tag">Probability Theory</span>
             <span class="domain-tag">Algorithms</span>
             <span class="domain-tag">Number Theory</span>
+          </div>
+        </div>
+
+        <div class="domain-card domain-card--lead">
+          <p class="domain-category">Leadership &amp; Vision</p>
+          <h3 class="domain-title">Setting direction, growing people</h3>
+          <p class="domain-stance">Bridging research and product: defining technical strategy, mentoring engineers, and making complex ideas land with any audience.</p>
+          <div class="domain-tags">
+            <span class="domain-tag">Technical Vision</span>
+            <span class="domain-tag">Team Mentoring</span>
+            <span class="domain-tag">Engineering Standards</span>
+            <span class="domain-tag">Technical Writing</span>
+            <span class="domain-tag">Curriculum Design</span>
+            <span class="domain-tag">Public Speaking</span>
+            <span class="domain-tag">Stakeholder Communication</span>
           </div>
         </div>
 
