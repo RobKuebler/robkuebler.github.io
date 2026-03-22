@@ -67,7 +67,7 @@ nav {
   align-items: center;
   gap: 8px;
   color: var(--text-muted);
-  font-size: 0.83rem;
+  font-size: 0.875rem;
   transition: color 0.15s;
 }
 .nav-back:hover { color: var(--text); text-decoration: none; }
@@ -106,7 +106,7 @@ nav {
 /* Use [class$="card"] (ends with) + specific overrides to avoid matching -title, -hover etc. */
 [class$="card"],
 [class*="card "] {
-  box-shadow: 0 1px 4px rgba(28,24,37,0.06), 0 0 0 1px var(--border);
+  box-shadow: 0 2px 8px rgba(28,24,37,0.07), 0 0 0 1px var(--border);
 }
 
 /* ─── Layout helpers ────────────────────────────────────── */
@@ -134,7 +134,7 @@ footer {
 }
 
 .footer-links a {
-  font-size: 0.83rem;
+  font-size: 0.875rem;
   color: var(--text-muted);
   transition: color 0.2s;
   text-decoration: none;
@@ -143,7 +143,7 @@ footer {
 .footer-links a:hover { color: var(--accent); text-decoration: none; }
 
 .footer-copy {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-faint);
 }
 
@@ -159,7 +159,7 @@ footer {
   border: 1px solid rgba(138,104,32,0.25);
   border-radius: var(--radius-pill);
   padding: 4px 16px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--accent);
   letter-spacing: 0.06em;
@@ -243,4 +243,35 @@ footer {
   border: none;
   border-top: 1px solid var(--border);
   margin: 32px 0;
+}
+
+/* ─── Entrance animation ─────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Section padding + divider ─────────────────────────── */
+section { padding: 80px 0; }
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Tag pills (skill/technology labels) ────────────────── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 0.8rem;
+  padding: 4px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-weight: 500;
 }

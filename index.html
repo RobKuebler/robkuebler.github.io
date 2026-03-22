@@ -39,7 +39,7 @@
 
     .nav-logo {
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 1rem;
       letter-spacing: 0.01em;
       color: var(--text);
     }
@@ -53,7 +53,7 @@
     }
 
     .nav-links a {
-      font-size: 0.83rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
       transition: color 0.2s;
       font-weight: 500;
@@ -115,26 +115,13 @@
     .nav-drawer a {
       display: block;
       padding: 16px 24px;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 500;
       color: var(--text-muted);
       transition: color 0.2s;
     }
 
     .nav-drawer a:hover { color: var(--text); }
-
-    section { padding: 80px 0; }
-
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-    }
-
-    /* ─── Entrance animation ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
 
     /* ─── Hero ──────────────────────────────────────────────── */
     #hero {
@@ -148,7 +135,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 55% 60% at 78% 40%, rgba(138,104,32,0.07) 0%, transparent 70%);
+      background: radial-gradient(ellipse 55% 60% at 78% 40%, rgba(138,104,32,0.09) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -168,8 +155,8 @@
     .hero-name-row {
       display: flex;
       align-items: center;
-      gap: 28px;
-      margin-bottom: 20px;
+      gap: 24px;
+      margin-bottom: 16px;
     }
 
     .hero-name-row h1 { margin-bottom: 0; }
@@ -211,7 +198,7 @@
       margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .hero-eyebrow::before {
@@ -236,7 +223,7 @@
     .hero-subtitle {
       font-size: clamp(1rem, 2.5vw, 1.1rem);
       color: var(--text-muted);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       max-width: 520px;
       line-height: 1.75;
     }
@@ -257,9 +244,9 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: var(--radius-pill);
-      font-size: 0.83rem;
+      font-size: 0.875rem;
       font-weight: 500;
       border: 1px solid var(--border);
       background: var(--card);
@@ -329,7 +316,7 @@
     .stat-number span { color: var(--accent); }
 
     .stat-label {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       margin-top: 2px;
     }
@@ -358,16 +345,18 @@
 
     .pillar-title {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--accent);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(138,104,32,0.18);
     }
 
     .pillar-desc {
-      font-size: 0.83rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
       line-height: 1.5;
     }
@@ -383,22 +372,53 @@
     }
 
     .about-text:first-of-type {
-      font-size: 1.05rem;
+      font-size: 1.125rem;
       color: var(--text);
       line-height: 1.85;
+      border-left: 2px solid var(--accent);
+      padding-left: 16px;
     }
 
     .about-text strong { color: var(--text); font-weight: 600; }
 
+    .about-sharing {
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-sharing-statement {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(1.2rem, 3vw, 1.55rem);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+
+    .about-sharing-statement em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .about-sharing-detail {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 620px;
+    }
+
+    .about-sharing-detail strong { color: var(--text); font-weight: 600; }
+
     /* ─── Skills ────────────────────────────────────────────── */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 640px) {
       .skills-grid { grid-template-columns: 1fr; }
     }
 
@@ -415,8 +435,20 @@
       background: var(--card-hover);
     }
 
+    /* Leadership card spans full width, tinted to stand out */
+    .skills-grid .skill-card:first-child {
+      grid-column: 1 / -1;
+      background: var(--accent-glow);
+      border-color: rgba(138,104,32,0.28);
+    }
+
+    .skills-grid .skill-card:first-child:hover {
+      background: rgba(138,104,32,0.15);
+      border-color: var(--accent);
+    }
+
     .skill-card-title {
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -425,36 +457,20 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tag {
-      font-size: 0.8rem;
-      padding: 4px 16px;
-      border-radius: var(--radius-pill);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
     /* ─── Experience ────────────────────────────────────────── */
     #experience { background: var(--bg); }
 
     .timeline-group-label {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--accent);
-      padding: 40px 0 16px;
+      padding: 32px 0 16px;
     }
 
     .timeline-group-label::after {
@@ -493,7 +509,7 @@
     }
 
     .timeline-company {
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       color: var(--text-faint);
       margin-top: 4px;
     }
@@ -506,7 +522,7 @@
       color: var(--text-faint);
       border: 1px solid var(--border);
       border-radius: var(--radius-pill);
-      padding: 3px 10px;
+      padding: 4px 8px;
     }
 
     .timeline-role {
@@ -524,7 +540,7 @@
     }
 
     .timeline-bullets li {
-      font-size: 0.83rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
       padding-left: 16px;
       position: relative;
@@ -565,7 +581,7 @@
     }
 
     .timeline-subrole-title {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
       color: var(--text);
     }
@@ -605,7 +621,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.83rem;
+      font-size: 0.875rem;
       font-weight: 500;
       color: var(--text-muted);
       align-self: center;
@@ -626,7 +642,7 @@
       border-radius: var(--radius-pill);
       background: var(--accent);
       color: var(--bg);
-      font-size: 0.83rem;
+      font-size: 0.875rem;
       font-weight: 600;
       transition: background 0.2s, opacity 0.2s;
       white-space: nowrap;
@@ -651,6 +667,7 @@
       flex-direction: column;
       gap: 8px;
       position: relative;
+      overflow: hidden;
     }
 
     .article-card-link {
@@ -672,14 +689,14 @@
     }
 
     .article-title {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
       color: var(--text);
       line-height: 1.4;
     }
 
     .article-desc {
-      font-size: 0.83rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
       line-height: 1.5;
       flex: 1;
@@ -696,10 +713,10 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: var(--radius-pill);
       border: 1px solid var(--border);
-      font-size: 0.83rem;
+      font-size: 0.875rem;
       font-weight: 500;
       color: var(--text-muted);
       transition: border-color 0.2s, color 0.2s;
@@ -709,6 +726,29 @@
       border-color: var(--accent);
       color: var(--accent);
       text-decoration: none;
+    }
+
+    /* Writing callout */
+    .writing-callout {
+      margin-bottom: 24px;
+    }
+
+    .writing-callout-number {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .writing-callout-number span { color: var(--accent); }
+
+    .writing-callout-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.5;
     }
 
     /* Writing stats row */
@@ -744,13 +784,13 @@
 
     .w-stat-num span { color: var(--accent); }
 
-    .w-stat-label { font-size: 0.75rem; color: var(--text-muted); }
+    .w-stat-label { font-size: 0.72rem; color: var(--text-muted); }
 
     /* ─── Projects ──────────────────────────────────────────── */
     #projects { background: var(--bg); }
 
     .project-launch {
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       font-weight: 500;
       color: var(--accent);
       margin-top: auto;
@@ -916,9 +956,9 @@
         </div>
 
         <p class="hero-subtitle">
-          I set technical direction for ML teams, ship forecasting systems, and translate
-          complex models into <strong>business outcomes</strong>. PhD in mathematics.
-          7+ years at the intersection of research, production, and teaching.
+          I set technical direction for ML teams, ship forecasting systems, translate
+          complex models into <strong>business outcomes</strong>, and grow the people around me.
+          PhD in mathematics. 7+ years at the intersection of research, production, and teaching.
         </p>
 
         <div class="social-links">
@@ -1001,14 +1041,15 @@
         <strong>PhD in mathematics</strong> gives me the depth to go from a whiteboard proof
         to a production model without losing either rigour or pragmatism.
       </p>
-      <br />
-      <p class="about-text">
-        I care a lot about <strong>sharing what I know</strong>. I write technical articles
-        on Medium (90+ articles, 1M+ reads), design the official
-        <strong>sktime forecasting curriculum</strong> for the German Center for Open Source AI,
-        speak at meetups at companies like Zalando and Inovex, and contribute to open-source
-        libraries like <strong>scikit-lego</strong> and <strong>PyMC-Marketing</strong>.
-      </p>
+      <div class="about-sharing">
+        <p class="about-sharing-statement">I care deeply about <em>sharing what I know</em> and making the people around me better.</p>
+        <p class="about-sharing-detail">
+          90+ articles on Medium with 1M+ reads, the official
+          <strong>sktime forecasting curriculum</strong> for the German Center for Open Source AI,
+          talks at companies like Zalando and Inovex, and contributions to open-source
+          libraries like <strong>scikit-lego</strong> and <strong>PyMC-Marketing</strong>.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -1172,18 +1213,23 @@
         </a>
       </div>
 
+      <div class="writing-callout">
+        <div class="writing-callout-number">1M<span>+</span></div>
+        <p class="writing-callout-label">people have read my work across 90+ articles on forecasting, Bayesian methods, recommender systems, and applied ML.</p>
+      </div>
+
       <div class="writing-stats">
         <div class="w-stat">
           <span class="w-stat-num">90<span>+</span></span>
           <span class="w-stat-label">Articles published</span>
         </div>
         <div class="w-stat">
-          <span class="w-stat-num">1M<span>+</span></span>
-          <span class="w-stat-label">Total reads</span>
-        </div>
-        <div class="w-stat">
           <span class="w-stat-num">5k<span>+</span></span>
           <span class="w-stat-label">Medium followers</span>
+        </div>
+        <div class="w-stat">
+          <span class="w-stat-num">6<span>+</span></span>
+          <span class="w-stat-label">Years publishing</span>
         </div>
       </div>
 
@@ -1293,27 +1339,16 @@
         </div>
 
         <div class="skill-card">
-          <div class="skill-card-title">Tools &amp; Frameworks</div>
+          <div class="skill-card-title">Technical Stack</div>
           <div class="tags">
             <span class="tag">Python</span>
-            <span class="tag">scikit-learn</span>
             <span class="tag">sktime</span>
             <span class="tag">TensorFlow</span>
             <span class="tag">PyTorch</span>
             <span class="tag">PyMC</span>
-            <span class="tag">LightGBM</span>
-            <span class="tag">CatBoost</span>
             <span class="tag">pandas</span>
-            <span class="tag">polars</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-card-title">Infrastructure</div>
-          <div class="tags">
             <span class="tag">GCP</span>
             <span class="tag">Vertex AI</span>
-            <span class="tag">Kubeflow</span>
             <span class="tag">MLflow</span>
             <span class="tag">Docker</span>
             <span class="tag">PySpark</span>
