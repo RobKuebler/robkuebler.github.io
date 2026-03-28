@@ -48,6 +48,7 @@
 
     .nav-links {
       display: flex;
+      align-items: center;
       gap: 32px;
       list-style: none;
     }
@@ -60,6 +61,48 @@
     }
 
     .nav-links a:hover { color: var(--text); }
+
+    /* Active nav link — underline in accent color */
+    .nav-links a.active {
+      color: var(--accent);
+      position: relative;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -4px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.7;
+    }
+
+    /* Contact pill */
+    .nav-contact {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      background: var(--accent);
+      color: var(--bg) !important;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .nav-contact:hover { background: var(--accent-dim); }
+
+    /* When contact section is active: outline style, matching other active links */
+    .nav-contact.active {
+      background: transparent;
+      color: var(--accent) !important;
+      border: 1px solid var(--accent);
+    }
+
+    .nav-contact.active::after { display: none; }
 
     /* Hamburger button — hidden on desktop */
     .nav-hamburger {
@@ -122,6 +165,12 @@
     }
 
     .nav-drawer a:hover { color: var(--text); }
+
+    .nav-drawer a.active { color: var(--accent); }
+
+    .nav-drawer .nav-contact {
+      margin: 8px 24px;
+    }
 
     /* ─── Hero ──────────────────────────────────────────────── */
     #hero {
@@ -905,7 +954,8 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#volunteer">Volunteer</a></li>
+      <li><a href="#contact" class="nav-contact">Contact</a></li>
     </ul>
     <button class="nav-hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -922,7 +972,8 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#volunteer">Volunteer</a></li>
+      <li><a href="#contact" class="nav-contact">Contact</a></li>
     </ul>
   </div>
 
@@ -1689,6 +1740,41 @@
       <p class="footer-copy">© 2026 Dr. Robert Kübler</p>
     </div>
   </footer>
+
+  <script>
+    // Active nav link on scroll — runs after all sections are in the DOM
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a[href^="#"], .nav-drawer a[href^="#"]');
+
+    const setActive = (id) => {
+      navAnchors.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    };
+
+    const visibleSections = new Map();
+
+    const pickActive = () => {
+      let best = null, bestRatio = 0;
+      visibleSections.forEach((ratio, id) => {
+        if (ratio > bestRatio) { bestRatio = ratio; best = id; }
+      });
+      if (best) setActive(best);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          visibleSections.set(entry.target.id, entry.intersectionRatio);
+        } else {
+          visibleSections.delete(entry.target.id);
+        }
+      });
+      pickActive();
+    }, { rootMargin: '0px', threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
 
 </body>
 </html>
