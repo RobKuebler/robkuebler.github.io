@@ -245,17 +245,17 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display: block;
     }
 
     .hero-eyebrow::before {
       content: '';
+      display: block;
       width: 20px;
       height: 1px;
       background: var(--sec);
       opacity: 0.7;
+      margin-bottom: 8px;
     }
 
     h1 {
@@ -301,6 +301,7 @@
       background: var(--card);
       color: var(--text-muted);
       transition: all 0.2s;
+      cursor: pointer;
     }
 
     .social-btn:hover {
@@ -365,7 +366,10 @@
     .stat-number span { color: var(--accent); }
 
     .stat-label {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--text-muted);
       margin-top: 2px;
     }
@@ -438,7 +442,7 @@
 
     .about-sharing-statement {
       font-family: 'DM Serif Display', Georgia, serif;
-      font-size: clamp(1.2rem, 3vw, 1.55rem);
+      font-size: 1.125rem;
       font-weight: 400;
       color: var(--text);
       line-height: 1.4;
@@ -482,7 +486,7 @@
     .domain-card:hover { border-color: var(--accent); }
 
     .domain-card--lead {
-      border-color: var(--accent-border);
+      border-color: var(--accent);
     }
 
     .domain-card--lead:hover {
@@ -507,7 +511,7 @@
 
     .domain-title {
       font-family: 'DM Serif Display', Georgia, serif;
-      font-size: 1.25rem;
+      font-size: 1.125rem;
       line-height: 1.25;
       color: var(--text);
       margin-bottom: 8px;
@@ -709,7 +713,7 @@
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--text-muted);
-      align-self: center;
+      align-self: flex-end;
       white-space: nowrap;
       transition: color 0.15s;
     }
@@ -723,18 +727,15 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 24px;
-      border-radius: var(--radius-pill);
-      background: var(--accent);
-      color: var(--bg);
       font-size: 0.875rem;
-      font-weight: 600;
-      transition: background 0.2s, opacity 0.2s;
+      font-weight: 500;
+      color: var(--text-muted);
+      align-self: flex-end;
       white-space: nowrap;
-      align-self: center;
+      transition: color 0.15s;
     }
 
-    .writing-cta:hover { background: var(--accent-dim); }
+    .writing-cta:hover { color: var(--accent); text-decoration: none; }
 
     .articles-grid {
       display: grid;
@@ -753,6 +754,7 @@
       gap: 8px;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
     }
 
     .article-card-link {
@@ -869,7 +871,7 @@
 
     .w-stat-num span { color: var(--accent); }
 
-    .w-stat-label { font-size: 0.72rem; color: var(--text-muted); }
+    .w-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
 
     /* ─── Projects ──────────────────────────────────────────── */
     #projects { background: var(--bg); }
@@ -929,15 +931,47 @@
     }
 
     /* ─── Responsive ────────────────────────────────────────── */
+
+    /* Nav collapses to hamburger earlier — 8 links need room */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
     @media (max-width: 640px) {
       .hero-name-row { gap: 16px; }
       .avatar { width: 90px; height: 90px; }
+      .social-links { justify-content: center; }
+      .social-btn { padding: 6px 12px; font-size: 0.8125rem; gap: 6px; }
+      .social-btn svg { width: 13px; height: 13px; }
+      /* Stats: 2x2 grid on mobile */
+      .stats-bar { display: grid; grid-template-columns: 1fr 1fr; }
+      .stat { min-width: 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat:nth-last-child(-n+2) { border-bottom: none; }
+      /* Pillars: vertical stack on mobile */
+      .pillars { flex-direction: column; }
+      .pillar { min-width: 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .pillar:last-child { border-bottom: none; }
       .timeline-item { grid-template-columns: 1fr; gap: 4px; }
       .timeline-meta { display: flex; gap: 16px; align-items: baseline; }
-      .pub-header { flex-direction: column; gap: 8px; }
-      .writing-header { flex-direction: column; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
+    }
+
+    /* Focus styles — on-theme, visible for keyboard nav */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-inner,
+      .social-links,
+      .stats-bar,
+      .pillars {
+        animation: none;
+      }
     }
   </style>
 </head>
@@ -1034,7 +1068,7 @@
     <div class="container">
       <div class="hero-inner">
 
-        <p class="hero-eyebrow">Senior Data Scientist · Educator · PhD Mathematician</p>
+        <p class="hero-eyebrow">Data Scientist · Educator · PhD Mathematician</p>
 
         <div class="hero-name-row">
           <div class="avatar">
