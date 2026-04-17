@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dr. Robert Kübler · Senior Data Scientist &amp; Educator</title>
   <meta name="description" content="Senior Staff Data Scientist setting technical direction for ML teams. PhD in mathematics. 7+ years in production ML, €10M+ revenue impact, 50+ professionals taught, 1M+ article reads." />
+  <link rel="preload" as="font" href="/assets/fonts/bricolage-grotesque-latin.woff2" type="font/woff2" crossorigin />
+  <link rel="preload" as="font" href="/assets/fonts/source-serif-4-latin.woff2" type="font/woff2" crossorigin />
+  <link rel="preload" as="font" href="/assets/fonts/jetbrains-mono-latin.woff2" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/fonts/fonts.css" />
   <link rel="stylesheet" href="/shared.css" />
+  <noscript><style>.scroll-animate{opacity:1!important;transform:none!important;transition:none!important}</style></noscript>
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
@@ -53,7 +57,7 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 20px;
       list-style: none;
     }
 
@@ -87,7 +91,7 @@
     .nav-contact {
       display: inline-flex;
       align-items: center;
-      padding: 6px 16px;
+      padding: 12px 16px;
       border-radius: var(--radius-pill);
       border: 1px solid transparent;
       background: var(--accent);
@@ -115,8 +119,8 @@
       align-items: center;
       justify-content: center;
       gap: 4px;
-      width: 36px;
-      height: 36px;
+      width: 44px;
+      height: 44px;
       background: none;
       border: none;
       cursor: pointer;
@@ -189,7 +193,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 55% 60% at 78% 40%, rgba(138,104,32,0.09) 0%, transparent 70%);
+      background: radial-gradient(ellipse 55% 60% at 78% 40%, var(--accent-glow) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -221,8 +225,8 @@
       width: 136px;
       height: 136px;
       border-radius: 50%;
-      border: 2px solid rgba(138,104,32,0.35);
-      box-shadow: 0 0 0 6px rgba(138,104,32,0.06);
+      border: 2px solid var(--accent-a35);
+      box-shadow: 0 0 0 6px var(--accent-a06);
       overflow: hidden;
       background: var(--card);
       display: flex;
@@ -246,7 +250,7 @@
     .hero-eyebrow {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
-      color: var(--sec);
+      color: var(--accent);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin-bottom: 12px;
@@ -258,24 +262,24 @@
       display: block;
       width: 20px;
       height: 1px;
-      background: var(--sec);
+      background: var(--accent);
       opacity: 0.7;
       margin-bottom: 8px;
     }
 
     h1 {
-      font-family: 'DM Serif Display', Georgia, serif;
-      font-weight: 400;
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      font-weight: 700;
       font-size: clamp(2.2rem, 6vw, 3.2rem);
-      line-height: 1.1;
-      letter-spacing: -0.01em;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
       margin-bottom: 8px;
     }
 
     h1 span { color: var(--accent); }
 
     .hero-subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      font-size: clamp(1rem, 2.5vw, 1.125rem);
       color: var(--text-muted);
       margin-bottom: 24px;
       max-width: 520px;
@@ -287,9 +291,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-    }
-
-    .social-links {
       animation: fadeUp 0.5s ease both;
       animation-delay: 0.08s;
     }
@@ -297,8 +298,9 @@
     .social-btn {
       display: inline-flex;
       align-items: center;
+      min-height: 44px;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 10px 16px;
       border-radius: var(--radius-pill);
       font-size: 0.875rem;
       font-weight: 500;
@@ -315,126 +317,68 @@
       background: var(--accent-glow);
     }
 
+    .social-btn--cta {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .social-btn--cta:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent-dim);
+      color: var(--bg);
+    }
+
     .social-btn svg {
       width: 15px;
       height: 15px;
       flex-shrink: 0;
     }
 
-    /* Stats bar */
-    .stats-bar {
+    /* ─── Impact figures (replaces stats-bar card) ─────────── */
+    /* Loose number row — no card border, not a dashboard panel */
+    .impact-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0;
+      gap: 32px;
       margin-top: 48px;
-      padding-top: 0;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--card);
-      overflow: hidden;
+      flex-wrap: wrap;
       animation: fadeUp 0.55s ease both;
       animation-delay: 0.15s;
     }
 
-    .stat {
-      text-align: left;
-      flex: 1;
-      min-width: 120px;
-      padding: 20px 24px;
-      border-right: 1px solid var(--border);
-      position: relative;
+    .impact-item {
+      display: flex;
+      flex-direction: column-reverse; /* dt first in DOM, dd (number) first visually */
+      gap: 4px;
     }
 
-    .stat:last-child { border-right: none; }
-
-    .stat::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .stat:hover::before { opacity: 1; }
-
-    .stat-number {
+    .impact-num {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
+      line-height: 1;
     }
 
-    .stat-number span { color: var(--accent); }
+    .impact-num .impact-plus { color: var(--accent); }
 
-    .stat-label {
+    .impact-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* ─── Pillars strip ─────────────────────────────────────── */
-    .pillars {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 24px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--card);
-      overflow: hidden;
-      animation: fadeUp 0.55s ease both;
-      animation-delay: 0.2s;
-    }
-
-    .pillar {
-      flex: 1;
-      min-width: 160px;
-      padding: 20px 24px;
-      border-right: 1px solid var(--border);
-    }
-
-    .pillar:last-child { border-right: none; }
-
-    .pillar-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 8px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(138,104,32,0.18);
-    }
-
-    .pillar-desc {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.5;
     }
 
     /* ─── About ─────────────────────────────────────────────── */
     #about { background: var(--surface); }
 
     .about-text {
-      font-size: 1rem;
-      color: var(--text-muted);
-      line-height: 1.8;
-      max-width: 660px;
-    }
-
-    .about-text:first-of-type {
       font-size: 1.125rem;
       color: var(--text);
       line-height: 1.85;
-      border-left: 2px solid var(--accent);
-      padding-left: 16px;
+      max-width: 660px;
     }
 
     .about-text strong { color: var(--text); font-weight: 600; }
@@ -446,11 +390,11 @@
     }
 
     .about-sharing-statement {
-      font-family: 'DM Serif Display', Georgia, serif;
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
       font-size: 1.125rem;
-      font-weight: 400;
+      font-weight: 600;
       color: var(--text);
-      line-height: 1.4;
+      line-height: 1.35;
       letter-spacing: -0.01em;
       margin-bottom: 16px;
     }
@@ -472,12 +416,8 @@
     /* ─── Skills ────────────────────────────────────────────── */
     .expertise-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
-    }
-
-    @media (max-width: 640px) {
-      .expertise-grid { grid-template-columns: 1fr; }
     }
 
     .domain-card {
@@ -491,6 +431,7 @@
     .domain-card:hover { border-color: var(--accent); }
 
     .domain-card--lead {
+      grid-column: 1 / -1;
       border-color: var(--accent);
     }
 
@@ -515,8 +456,9 @@
     .domain-card--eng .domain-category { color: var(--text-muted); }
 
     .domain-title {
-      font-family: 'DM Serif Display', Georgia, serif;
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
       font-size: 1.125rem;
+      font-weight: 600;
       line-height: 1.25;
       color: var(--text);
       margin-bottom: 8px;
@@ -537,6 +479,7 @@
     }
 
     .domain-tag {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       padding: 3px 12px;
       border-radius: var(--radius-pill);
@@ -551,8 +494,46 @@
       border-color: var(--border);
     }
 
+    /* Lead card: two-panel layout when spanning full width */
+    @media (min-width: 640px) {
+      .domain-card--lead {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 32px;
+        padding: 32px;
+      }
+
+      .domain-card--lead .domain-category { grid-column: 1; grid-row: 1; }
+
+      .domain-card--lead .domain-title {
+        grid-column: 1;
+        grid-row: 2;
+        font-size: 1.25rem;
+      }
+
+      .domain-card--lead .domain-stance {
+        grid-column: 1;
+        grid-row: 3;
+        margin-bottom: 0;
+      }
+
+      .domain-card--lead .domain-tags {
+        grid-column: 2;
+        grid-row: 1 / 4;
+        align-self: center;
+      }
+    }
+
+    /* Expertise grid: single column on narrow viewports */
+    @media (max-width: 600px) {
+      .expertise-grid { grid-template-columns: 1fr; }
+    }
+
     /* ─── Experience ────────────────────────────────────────── */
     #experience { background: var(--bg); }
+
+    /* ─── Community ─────────────────────────────────────────── */
+    #community { background: var(--surface); }
 
     .timeline-group-label {
       display: flex;
@@ -574,7 +555,8 @@
       background: var(--border);
     }
 
-    .timeline-group-label:first-child {
+    /* Remove top padding when the group label directly follows the section title */
+    .section-title + .timeline-group-label {
       padding-top: 0;
     }
     #writing { background: var(--surface); }
@@ -604,7 +586,7 @@
 
     .timeline-company {
       font-size: 0.875rem;
-      color: var(--text-faint);
+      color: var(--text-muted);
       margin-top: 4px;
     }
 
@@ -631,6 +613,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      max-width: 65ch;
     }
 
     .timeline-bullets li {
@@ -684,14 +667,50 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       font-weight: 600;
-      color: var(--sec);
+      color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 8px;
     }
 
+    /* ─── Open Source (within Experience) ──────────────────── */
+    .os-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 8px 0;
+    }
+
+    .os-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .os-project {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .os-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .os-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     /* ─── Writing ───────────────────────────────────────────── */
-    .writing-header {
+    .writing-header,
+    .pub-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
@@ -700,17 +719,10 @@
       margin-bottom: 32px;
     }
 
-    .writing-header .section-title { margin-bottom: 0; }
-
-    .pub-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 32px;
-    }
-
+    .writing-header .section-title,
     .pub-header .section-title { margin-bottom: 0; }
 
+    .writing-cta,
     .scholar-link {
       display: inline-flex;
       align-items: center;
@@ -723,24 +735,8 @@
       transition: color 0.15s;
     }
 
-    .scholar-link:hover {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .writing-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      align-self: flex-end;
-      white-space: nowrap;
-      transition: color 0.15s;
-    }
-
-    .writing-cta:hover { color: var(--accent); text-decoration: none; }
+    .writing-cta:hover,
+    .scholar-link:hover { color: var(--accent); text-decoration: none; }
 
     .articles-grid {
       display: grid;
@@ -820,63 +816,104 @@
       text-decoration: none;
     }
 
-    /* Writing callout */
-    .writing-callout {
-      margin-bottom: 24px;
+    /* ─── Article cards: editorial layout ──────────────────── */
+    /* Two featured articles at top, remaining four as a list */
+    .articles-featured {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
     }
 
-    .writing-callout-number {
-      font-family: 'DM Serif Display', Georgia, serif;
-      font-size: clamp(3rem, 8vw, 5rem);
-      font-weight: 400;
-      color: var(--text);
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-
-    .writing-callout-number span { color: var(--accent); }
-
-    .writing-callout-label {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-top: 8px;
-      line-height: 1.5;
-    }
-
-    /* Writing stats row */
-    .writing-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0;
-      margin-bottom: 32px;
+    .article-featured {
+      background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      background: var(--card);
+      padding: 32px;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .article-featured:hover {
+      border-color: var(--accent);
+      background: var(--card-hover);
+    }
+
+    .article-featured-title {
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .articles-list {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
       overflow: hidden;
     }
 
-    .w-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      flex: 1;
-      min-width: 120px;
-      padding: 20px 24px;
-      border-right: 1px solid var(--border);
+    .article-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 20px;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+      color: inherit;
+      text-decoration: none;
+      transition: background 0.15s;
+      position: relative;
     }
 
-    .w-stat:last-child { border-right: none; }
+    .article-row:last-child { border-bottom: none; }
+    .article-row:hover { background: var(--accent-glow); }
 
-    .w-stat-num {
+    .article-row-views {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text);
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 500;
+      text-align: right;
     }
 
-    .w-stat-num span { color: var(--accent); }
+    .article-row-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+    }
 
-    .w-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .article-row-arrow {
+      color: var(--text-faint);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .article-row:hover .article-row-arrow { opacity: 1; }
+
+    @media (max-width: 640px) {
+      .articles-featured { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 400px) {
+      .article-row { grid-template-columns: 44px 1fr; }
+      .article-row-arrow { display: none; }
+    }
+
+    /* ─── Section intro (used in Projects) ─────────────────── */
+    .section-intro {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      max-width: 65ch;
+    }
 
     /* ─── Projects ──────────────────────────────────────────── */
     #projects { background: var(--bg); }
@@ -885,20 +922,78 @@
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--accent);
-      margin-top: auto;
+    }
+
+    /* Featured project — full-width, two-panel layout */
+    .project-featured {
+      background: var(--card);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .project-featured:hover { background: var(--card-hover); }
+
+    .project-featured-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .project-featured-title {
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .project-featured-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 60ch;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .project-featured {
+        display: grid;
+        grid-template-columns: 1fr 180px;
+        gap: 32px;
+        align-items: start;
+      }
     }
 
     /* ─── Skills ────────────────────────────────────────────── */
-    #skills { background: var(--surface); }
+    #skills { background: var(--bg); }
 
     /* ─── Publications ──────────────────────────────────────── */
-    #publications { background: var(--bg); }
+    #publications { background: var(--surface); }
+
+    #publications .section-intro {
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    #publications .timeline {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
 
     /* ─── Education ─────────────────────────────────────────── */
-    #education { background: var(--surface); }
+    #education { background: var(--bg); }
 
     /* ─── Volunteer ─────────────────────────────────────────── */
-    #volunteer { background: var(--bg); }
 
     .awards-row {
       margin-top: 48px;
@@ -937,8 +1032,8 @@
 
     /* ─── Responsive ────────────────────────────────────────── */
 
-    /* Nav collapses to hamburger earlier — 8 links need room */
-    @media (max-width: 900px) {
+    /* Nav collapses to hamburger — 7 links + contact need room */
+    @media (max-width: 1023px) {
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
     }
@@ -951,17 +1046,23 @@
       .social-links { justify-content: center; }
       .social-btn { padding: 6px 12px; font-size: 0.8125rem; gap: 6px; }
       .social-btn svg { width: 13px; height: 13px; }
-      /* Stats: 2x2 grid on mobile */
-      .stats-bar { display: grid; grid-template-columns: 1fr 1fr; }
-      .stat { min-width: 0; border-right: none; border-bottom: 1px solid var(--border); }
-      .stat:nth-child(odd) { border-right: 1px solid var(--border); }
-      .stat:nth-last-child(-n+2) { border-bottom: none; }
-      /* Pillars: vertical stack on mobile */
-      .pillars { flex-direction: column; }
-      .pillar { min-width: 0; border-right: none; border-bottom: 1px solid var(--border); }
-      .pillar:last-child { border-bottom: none; }
+      .impact-row { gap: 24px; }
       .timeline-item { grid-template-columns: 1fr; gap: 4px; }
       .timeline-meta { display: flex; gap: 16px; align-items: baseline; }
+    }
+
+    /* ─── Scroll entrance animations ───────────────────────── */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: opacity, transform;
+    }
+
+    .scroll-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+      will-change: auto; /* free compositor layer once animation completes */
     }
 
     /* Focus styles — on-theme, visible for keyboard nav */
@@ -975,45 +1076,48 @@
     @media (prefers-reduced-motion: reduce) {
       .hero-inner,
       .social-links,
-      .stats-bar,
-      .pillars {
+      .impact-row,
+      .scroll-animate {
         animation: none;
+        transition: none;
+        opacity: 1;
+        transform: none;
       }
     }
   </style>
 </head>
 <body>
 
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- ─── Nav ──────────────────────────────────────────────── -->
-  <nav>
+  <nav aria-label="Main navigation">
     <span class="nav-logo">Dr. Robert <span>Kübler</span></span>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#community">Community</a></li>
       <li><a href="#writing">Writing</a></li>
-      <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#education">Education</a></li>
-      <li><a href="#volunteer">Volunteer</a></li>
       <li><a href="#contact" class="nav-contact">Contact</a></li>
     </ul>
-    <button class="nav-hamburger" aria-label="Toggle menu">
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-drawer">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
   <!-- Mobile nav drawer -->
-  <div class="nav-drawer" id="nav-drawer">
+  <div class="nav-drawer" id="nav-drawer" role="navigation" aria-label="Mobile navigation">
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#community">Community</a></li>
       <li><a href="#writing">Writing</a></li>
-      <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#education">Education</a></li>
-      <li><a href="#volunteer">Volunteer</a></li>
       <li><a href="#contact" class="nav-contact">Contact</a></li>
     </ul>
   </div>
@@ -1025,6 +1129,7 @@
     hamburger.addEventListener('click', () => {
       const open = drawer.classList.toggle('open');
       hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
     });
 
     // Close drawer when a link is clicked
@@ -1032,10 +1137,13 @@
       a.addEventListener('click', () => {
         drawer.classList.remove('open');
         hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
     });
 
   </script>
+
+  <main id="main-content">
 
   <!-- ─── Hero ─────────────────────────────────────────────── -->
   <section id="hero">
@@ -1047,17 +1155,17 @@
         <!-- 5 paths per tile: hex1 + hex2 in 4 quadrants to handle both x and y seam wrapping -->
         <!-- Grout rect background + cream inset hexes — every grout gap drawn exactly once -->
         <pattern id="hexgrid" x="0" y="0" width="60.62" height="105" patternUnits="userSpaceOnUse">
-          <rect width="60.62" height="105" fill="rgba(138,104,32,0.18)"/>
+          <rect width="60.62" height="105" fill="var(--accent-a18)"/>
           <!-- Hex 1: center (30.3, 35), R'=34.42 (δ=0.5px → 1px grout gap) -->
-          <path d="M 30.3,0.6 L 60.1,17.8 L 60.1,52.2 L 30.3,69.4 L 0.5,52.2 L 0.5,17.8 Z" fill="#f4f1ea"/>
+          <path d="M 30.3,0.6 L 60.1,17.8 L 60.1,52.2 L 30.3,69.4 L 0.5,52.2 L 0.5,17.8 Z" fill="var(--bg)"/>
           <!-- Hex 2: center (0, 87.5) — right half visible -->
-          <path d="M 0,53.1 L 29.8,70.3 L 29.8,104.7 L 0,121.9 L -29.8,104.7 L -29.8,70.3 Z" fill="#f4f1ea"/>
+          <path d="M 0,53.1 L 29.8,70.3 L 29.8,104.7 L 0,121.9 L -29.8,104.7 L -29.8,70.3 Z" fill="var(--bg)"/>
           <!-- Hex 2: center (60.62, 87.5) — left half, completes x seam -->
-          <path d="M 60.6,53.1 L 90.4,70.3 L 90.4,104.7 L 60.6,121.9 L 30.8,104.7 L 30.8,70.3 Z" fill="#f4f1ea"/>
+          <path d="M 60.6,53.1 L 90.4,70.3 L 90.4,104.7 L 60.6,121.9 L 30.8,104.7 L 30.8,70.3 Z" fill="var(--bg)"/>
           <!-- Hex 2 bottom wrapped: center (0, -17.5) — completes y seam -->
-          <path d="M 0,-51.9 L 29.8,-35.2 L 29.8,-0.3 L 0,16.9 L -29.8,-0.3 L -29.8,-35.2 Z" fill="#f4f1ea"/>
+          <path d="M 0,-51.9 L 29.8,-35.2 L 29.8,-0.3 L 0,16.9 L -29.8,-0.3 L -29.8,-35.2 Z" fill="var(--bg)"/>
           <!-- Hex 2 bottom-right wrapped: center (60.62, -17.5) — completes x+y seam -->
-          <path d="M 60.6,-51.9 L 90.4,-35.2 L 90.4,-0.3 L 60.6,16.9 L 30.8,-0.3 L 30.8,-35.2 Z" fill="#f4f1ea"/>
+          <path d="M 60.6,-51.9 L 90.4,-35.2 L 90.4,-0.3 L 60.6,16.9 L 30.8,-0.3 L 30.8,-35.2 Z" fill="var(--bg)"/>
         </pattern>
         <!-- Fade mask: bright top-right, invisible bottom-left (where text lives) -->
         <radialGradient id="hexfade" cx="72%" cy="30%" r="60%" gradientUnits="objectBoundingBox">
@@ -1079,15 +1187,15 @@
 
         <div class="hero-name-row">
           <div class="avatar">
-            <img src="/assets/images/avatar.jpg" alt="Robert Kübler" />
+            <img src="/assets/images/avatar.jpg" alt="Robert Kübler" width="136" height="136" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-placeholder').style.display='flex'" />
           </div>
           <h1>Dr. Robert<br /><span>Kübler</span></h1>
         </div>
 
         <p class="hero-subtitle">
-          I set technical direction for ML teams, ship forecasting systems, translate
-          complex models into <strong>business outcomes</strong>, and grow the people around me.
-          PhD in mathematics. 7+ years at the intersection of research, production, and teaching.
+          I take ML problems from proof to production, mostly in forecasting, causal inference, and Bayesian methods,
+          and I put real effort into making the people around me better at the same.
+          <strong>PhD in mathematics.</strong> 7+ years across research, engineering, and leadership.
         </p>
 
         <div class="social-links">
@@ -1116,52 +1224,36 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               Email
             </a>
+            <a class="social-btn social-btn--cta" href="#contact">
+              Get in touch
+            </a>
         </div>
       </div>
 
-      <!-- Stats bar -->
-      <div class="stats-bar">
-        <div class="stat">
-          <div class="stat-number">5<span>+</span></div>
-          <div class="stat-label">Years in Senior ML Roles</div>
+      <!-- Impact figures — loose numbers, not a dashboard panel -->
+      <dl class="impact-row">
+        <div class="impact-item">
+          <dt class="impact-label">Revenue impact</dt>
+          <dd class="impact-num">€10M<span class="impact-plus">+</span></dd>
         </div>
-        <div class="stat">
-          <div class="stat-number">€10M<span>+</span></div>
-          <div class="stat-label">Revenue Impact</div>
+        <div class="impact-item">
+          <dt class="impact-label">Article reads</dt>
+          <dd class="impact-num">1M<span class="impact-plus">+</span></dd>
         </div>
-        <div class="stat">
-          <div class="stat-number">50<span>+</span></div>
-          <div class="stat-label">Professionals Taught</div>
+        <div class="impact-item">
+          <dt class="impact-label">Professionals taught</dt>
+          <dd class="impact-num">50<span class="impact-plus">+</span></dd>
         </div>
-        <div class="stat">
-          <div class="stat-number">1M<span>+</span></div>
-          <div class="stat-label">Article Reads</div>
-        </div>
-      </div>
+      </dl>
 
-      <!-- Pillars strip -->
-      <div class="pillars">
-        <div class="pillar">
-          <div class="pillar-title">Lead</div>
-          <div class="pillar-desc">Technical direction, engineering standards, mentoring junior scientists</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-title">Build</div>
-          <div class="pillar-desc">Forecasting, recommenders, causal inference in production</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-title">Teach</div>
-          <div class="pillar-desc">90+ articles, official ML curriculum, 1M+ readers</div>
-        </div>
-      </div>
     </div>
   </section>
 
   <!-- ─── About ────────────────────────────────────────────── -->
-  <section id="about">
+  <section id="about" class="scroll-animate">
     <div class="container">
-      <p class="section-label">/ About</p>
-      <h2 class="section-title">Research depth. Production reality.</h2>
+      <p class="section-label">About</p>
+      <h2 class="section-title">From pure math to production ML</h2>
       <p class="about-text">
         Hi, I'm Robert. I'm a Senior Staff Data Scientist at <strong>ALDI DX</strong>,
         where I set the technical direction for a supply chain forecasting product
@@ -1173,7 +1265,7 @@
       <div class="about-sharing">
         <p class="about-sharing-statement">I care deeply about <em>sharing what I know</em> and making the people around me better.</p>
         <p class="about-sharing-detail">
-          90+ articles on Medium with 1M+ reads, the official
+          90+ articles on Medium, the official
           <strong>sktime forecasting curriculum</strong> for the German Center for Open Source AI,
           talks at data science meetups (Zalando, Inovex), and shipped features to open-source
           libraries including <strong>scikit-lego</strong> and <strong>PyMC-Marketing</strong>.
@@ -1183,9 +1275,9 @@
   </section>
 
   <!-- ─── Experience ──────────────────────────────────────── -->
-  <section id="experience">
+  <section id="experience" class="scroll-animate">
     <div class="container">
-      <p class="section-label">/ Experience</p>
+      <p class="section-label">Experience</p>
       <h2 class="section-title">Roles &amp; impact</h2>
 
       <p class="timeline-group-label">Employment</p>
@@ -1197,7 +1289,7 @@
             <div class="timeline-company">ALDI DX<br/>Mülheim an der Ruhr</div>
           </div>
           <div>
-            <div class="timeline-role">Senior Staff Data Scientist</div>
+            <h3 class="timeline-role">Senior Staff Data Scientist</h3>
             <ul class="timeline-bullets">
               <li>Set the technical direction for a supply chain forecasting product optimizing warehouse staff planning, and championed sktime adoption beyond the immediate team, driving uptake across additional teams in the organization</li>
               <li>Introduced sktime to replace a Prophet-only setup, achieving a <strong>10% reduction in offline MAPE</strong> across 150+ time series to improve workforce allocation</li>
@@ -1214,7 +1306,7 @@
           <div>
             <div class="timeline-subrole">
               <div class="timeline-subrole-header">
-                <span class="timeline-subrole-title">Senior Data Scientist</span>
+                <h4 class="timeline-subrole-title">Senior Data Scientist</h4>
                 <span class="timeline-subperiod">Oct 2023 – Aug 2024</span>
               </div>
               <div class="timeline-focus-label">Assortment Optimization</div>
@@ -1225,7 +1317,7 @@
             </div>
             <div class="timeline-subrole">
               <div class="timeline-subrole-header">
-                <span class="timeline-subrole-title">Senior Data Scientist</span>
+                <h4 class="timeline-subrole-title">Senior Data Scientist</h4>
                 <span class="timeline-subperiod">Jan 2022 – Sep 2023</span>
               </div>
               <div class="timeline-focus-label">Product Recommender</div>
@@ -1244,7 +1336,7 @@
             <div class="timeline-company">MEDION AG (Lenovo)<br/>Essen</div>
           </div>
           <div>
-            <div class="timeline-role">Senior Data Scientist</div>
+            <h3 class="timeline-role">Senior Data Scientist</h3>
             <ul class="timeline-bullets">
               <li>Developed and open-sourced <a href="https://github.com/RobKuebler/mamimo" target="_blank" rel="noopener" style="color:var(--accent)">mamimo</a>, a marketing mix modeling package (74 GitHub stars); results directly influenced marketing budget allocation</li>
               <li>Owned 3 analytical workstreams end-to-end: forecasting (Prophet, LightGBM, QlikSense dashboards), MMM, and causal inference</li>
@@ -1259,7 +1351,7 @@
             <div class="timeline-company">Publicis Media<br/>Düsseldorf</div>
           </div>
           <div>
-            <div class="timeline-role">Data Scientist</div>
+            <h3 class="timeline-role">Data Scientist</h3>
             <ul class="timeline-bullets">
               <li>Predicted TV ad view-through rates for media clients: modeled what share of an advertising block audiences would watch</li>
               <li>Joined datasets without a common identifier using statistical record linkage (Nearest Neighbor matching)</li>
@@ -1274,7 +1366,7 @@
             <div class="timeline-company">HSBC<br/>Düsseldorf</div>
           </div>
           <div>
-            <div class="timeline-role">Trainee Risk</div>
+            <h3 class="timeline-role">Trainee Risk</h3>
             <ul class="timeline-bullets">
               <li>Automated processes in Risk and Cyber Security (Python, SQL, VBA), eliminating <strong>2 FTE-equivalent</strong> manual workloads</li>
             </ul>
@@ -1288,27 +1380,27 @@
 
         <div class="timeline-item">
           <div class="timeline-meta">
-            <div class="timeline-period">Mar 2024<br/>Present</div>
-            <div class="timeline-company">ScanmarQED<br/>Remote</div>
+            <div class="timeline-period">Apr 2025<br/>Present</div>
+            <div class="timeline-company">GC Open Source AI<br/>Remote</div>
           </div>
           <div>
-            <div class="timeline-role">Consulting Data Scientist (Part-Time)</div>
+            <h3 class="timeline-role">Guest Instructor &amp; Open-Source Contributor</h3>
             <ul class="timeline-bullets">
-              <li>Part-time advisory and backend engineering (PyMC-Marketing) for a SaaS analytics platform; engagement continued under ScanmarQED after its acquisition of MMMLabs.ai (Feb 2026)</li>
+              <li>Design and deliver the official sktime curriculum across 3 cohorts (15 professionals)</li>
+              <li>Active open-source contributor: proposed improvements to StackingForecaster, pipeline caching, and GroupByTransformer</li>
             </ul>
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-meta">
-            <div class="timeline-period">Apr 2025<br/>Present</div>
-            <div class="timeline-company">GC Open Source AI<br/>Remote</div>
+            <div class="timeline-period">Mar 2024<br/>Present</div>
+            <div class="timeline-company">ScanmarQED<br/>Remote</div>
           </div>
           <div>
-            <div class="timeline-role">Guest Instructor &amp; Open-Source Contributor</div>
+            <h3 class="timeline-role">Consulting Data Scientist (Part-Time)</h3>
             <ul class="timeline-bullets">
-              <li>Design and deliver the official sktime curriculum across 3 cohorts (15 professionals)</li>
-              <li>Active open-source contributor: proposed improvements to StackingForecaster, pipeline caching, and GroupByTransformer</li>
+              <li>Part-time advisory and backend engineering (PyMC-Marketing) for a SaaS analytics platform; engagement continued under ScanmarQED after its acquisition of MMMLabs.ai (Feb 2026)</li>
             </ul>
           </div>
         </div>
@@ -1319,7 +1411,7 @@
             <div class="timeline-company">Medium, VectorHub, KDNuggets<br/>Remote</div>
           </div>
           <div>
-            <div class="timeline-role">Technical Author</div>
+            <h3 class="timeline-role">Technical Author</h3>
             <ul class="timeline-bullets">
               <li>90+ articles on data science and ML topics, with 1M+ total reads across platforms</li>
             </ul>
@@ -1328,54 +1420,138 @@
 
       </div>
 
+
+
+
+    </div>
+  </section>
+
+  <!-- ─── Community ─────────────────────────────────────────── -->
+  <section id="community" class="scroll-animate">
+    <div class="container">
+      <p class="section-label">Community</p>
+      <h2 class="section-title">Open source, talks, and volunteering</h2>
+
       <p class="timeline-group-label">Open Source</p>
+      <div class="os-grid">
+
+        <div class="os-row">
+          <span class="os-project">scikit-lego</span>
+          <p class="os-desc">Regression models for zero-heavy, imbalanced, and uncertain count data.</p>
+          <div class="os-links">
+            <a class="pub-link" href="https://koaning.github.io/scikit-lego/api/meta/#sklego.meta.zero_inflated_regressor.ZeroInflatedRegressor" target="_blank" rel="noopener">ZeroInflatedRegressor</a>
+            <a class="pub-link" href="https://koaning.github.io/scikit-lego/api/linear-model/#sklego.linear_model.QuantileRegression" target="_blank" rel="noopener">QuantileRegression</a>
+            <a class="pub-link" href="https://koaning.github.io/scikit-lego/api/linear-model/#sklego.linear_model.LADRegression" target="_blank" rel="noopener">LADRegression</a>
+            <a class="pub-link" href="https://koaning.github.io/scikit-lego/api/linear-model/#sklego.linear_model.ImbalancedLinearRegression" target="_blank" rel="noopener">ImbalancedLinearRegression</a>
+          </div>
+        </div>
+
+        <div class="os-row">
+          <span class="os-project">sktime</span>
+          <p class="os-desc">Forecasting component fixes and multi-series support improvements.</p>
+          <div class="os-links">
+            <a class="pub-link" href="https://www.sktime.net/en/latest/api_reference/auto_generated/sktime.forecasting.dummy.ForecastKnownValues.html" target="_blank" rel="noopener">ForecastKnownValues</a>
+            <a class="pub-link" href="https://www.sktime.net/en/stable/api_reference/auto_generated/sktime.transformations.compose.IxToX.html" target="_blank" rel="noopener">IxToX</a>
+          </div>
+        </div>
+
+        <div class="os-row">
+          <span class="os-project">PyMC-Marketing</span>
+          <p class="os-desc">Channel contribution attribution charts for marketing mix models.</p>
+          <div class="os-links">
+            <a class="pub-link" href="https://www.pymc-marketing.io/en/stable/api/generated/classmethods/pymc_marketing.mmm.base.BaseValidateMMM.plot_grouped_contribution_breakdown_over_time.html" target="_blank" rel="noopener">contribution breakdown</a>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="timeline-group-label">Talks</p>
       <div class="timeline">
 
         <div class="timeline-item">
           <div class="timeline-meta">
-            <div class="timeline-company">scikit-lego</div>
+            <div class="timeline-period">2025</div>
+            <div class="timeline-company">Zalando Meetup<br/>Dortmund</div>
           </div>
           <div>
+            <h3 class="timeline-role">Introduction to sktime</h3>
             <ul class="timeline-bullets">
-              <li>Implemented <a href="https://koaning.github.io/scikit-lego/api/meta/#sklego.meta.zero_inflated_regressor.ZeroInflatedRegressor" target="_blank" rel="noopener" style="color:var(--accent)">ZeroInflatedRegressor</a> for modeling count data with excess zeros</li>
-              <li>Implemented <a href="https://koaning.github.io/scikit-lego/api/linear-model/#sklego.linear_model.ImbalancedLinearRegression" target="_blank" rel="noopener" style="color:var(--accent)">ImbalancedLinearRegression</a>, <a href="https://koaning.github.io/scikit-lego/api/linear-model/#sklego.linear_model.QuantileRegression" target="_blank" rel="noopener" style="color:var(--accent)">QuantileRegression</a>, and <a href="https://koaning.github.io/scikit-lego/api/linear-model/#sklego.linear_model.LADRegression" target="_blank" rel="noopener" style="color:var(--accent)">LADRegression</a></li>
+              <li>Data science meetup talk covering sktime's forecasting API and pipeline design for practitioners</li>
             </ul>
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-meta">
-            <div class="timeline-company">sktime</div>
+            <div class="timeline-period">2023</div>
+            <div class="timeline-company">inovex Meetup<br/>Cologne</div>
           </div>
           <div>
+            <h3 class="timeline-role">How we recommend alternatives</h3>
             <ul class="timeline-bullets">
-              <li>Major rewrite of <a href="https://www.sktime.net/en/latest/api_reference/auto_generated/sktime.forecasting.dummy.ForecastKnownValues.html" target="_blank" rel="noopener" style="color:var(--accent)">ForecastKnownValues</a>: fixed critical bugs and extended support to panel data</li>
-              <li>Extended <a href="https://www.sktime.net/en/stable/api_reference/auto_generated/sktime.transformations.compose.IxToX.html" target="_blank" rel="noopener" style="color:var(--accent)">IxToX</a> with flexible index-level selection for panel data use cases</li>
+              <li>Talk on recommending alternative products when preferred items are unavailable, enabling customers to continue shopping seamlessly</li>
             </ul>
+            <div class="pub-links">
+              <a class="pub-link" href="/presentations/how_we_recommend_alternatives.pdf" target="_blank" rel="noopener">Slides</a>
+            </div>
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-meta">
-            <div class="timeline-company">PyMC-Marketing</div>
+            <div class="timeline-period">2021</div>
+            <div class="timeline-company">Metro.digital Meetup<br/>Düsseldorf</div>
           </div>
           <div>
+            <h3 class="timeline-role">A/B Testing at Metro</h3>
             <ul class="timeline-bullets">
-              <li>Implemented <a href="https://www.pymc-marketing.io/en/stable/api/generated/classmethods/pymc_marketing.mmm.base.BaseValidateMMM.plot_grouped_contribution_breakdown_over_time.html" target="_blank" rel="noopener" style="color:var(--accent)">plot_grouped_contribution_breakdown_over_time</a> for visualizing channel contribution over time in marketing mix models</li>
+              <li>General introduction to A/B testing concepts and experiment design for a business-focused audience</li>
             </ul>
           </div>
         </div>
 
       </div>
+
+      <p class="timeline-group-label">Volunteer</p>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">Jan 2007<br/>Apr 2019</div>
+            <div class="timeline-company">Vorhilfe.de e.V.</div>
+          </div>
+          <div>
+            <h3 class="timeline-role">Moderator, matheraum.de</h3>
+            <ul class="timeline-bullets">
+              <li>Supported school and university students with mathematical questions over <strong>12 years</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <div class="timeline-period">May 2021<br/>Sep 2021</div>
+            <div class="timeline-company">TechLabs Düsseldorf</div>
+          </div>
+          <div>
+            <h3 class="timeline-role">Data Science Mentor</h3>
+            <ul class="timeline-bullets">
+              <li>Guided aspiring data scientists through an end-to-end project predicting used car prices</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </section>
 
   <!-- ─── Writing ──────────────────────────────────────────── -->
-  <section id="writing">
+  <section id="writing" class="scroll-animate">
     <div class="container">
       <div class="writing-header">
         <div>
-          <p class="section-label">/ Writing</p>
+          <p class="section-label">Writing</p>
           <h2 class="section-title">Technical articles</h2>
         </div>
         <a class="writing-cta" href="https://dr-robert-kuebler.medium.com/" target="_blank" rel="noopener">
@@ -1383,123 +1559,56 @@
         </a>
       </div>
 
-      <div class="writing-callout">
-        <div class="writing-callout-number">1M<span>+</span></div>
-        <p class="writing-callout-label">people have read my work across 90+ articles on forecasting, Bayesian methods, recommender systems, and applied ML.</p>
-      </div>
+      <div class="articles-featured">
 
-      <div class="writing-stats">
-        <div class="w-stat">
-          <span class="w-stat-num">90<span>+</span></span>
-          <span class="w-stat-label">Articles published</span>
-        </div>
-        <div class="w-stat">
-          <span class="w-stat-num">5k<span>+</span></span>
-          <span class="w-stat-label">Medium followers</span>
-        </div>
-        <div class="w-stat">
-          <span class="w-stat-num">6<span>+</span></span>
-          <span class="w-stat-label">Years publishing</span>
-        </div>
-      </div>
-
-      <div class="articles-grid">
-
-        <div class="article-card">
+        <article class="article-featured">
           <a class="article-card-link" href="https://medium.com/data-science-collective/an-upgraded-marketing-mix-modeling-in-python-5ebb3bddc1b6" target="_blank" rel="noopener" aria-label="Read: Upgraded Marketing Mix Modeling"></a>
           <div class="article-views">41k views</div>
-          <div class="article-title">Upgraded Marketing Mix Modeling</div>
-          <div class="article-desc">A deep dive into modern MMM techniques, moving beyond simple regression into Bayesian approaches.</div>
-        </div>
+          <h3 class="article-featured-title">Upgraded Marketing Mix Modeling</h3>
+          <p class="article-desc">A deep dive into modern MMM techniques, moving beyond simple regression into Bayesian approaches.</p>
+        </article>
 
-        <div class="article-card">
+        <article class="article-featured">
           <a class="article-card-link" href="https://medium.com/data-science/an-extensible-evolutionary-algorithm-example-in-python-7372c56a557b" target="_blank" rel="noopener" aria-label="Read: Extensible Evolutionary Algorithms"></a>
           <div class="article-views">39k views</div>
-          <div class="article-title">Extensible Evolutionary Algorithms</div>
-          <div class="article-desc">Building flexible evolutionary algorithm frameworks in Python for real-world optimization problems.</div>
-        </div>
-
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/p/f24152509ebb" target="_blank" rel="noopener" aria-label="Read: The Explainable Boosting Machine"></a>
-          <div class="article-views">34k views</div>
-          <div class="article-title">The Explainable Boosting Machine</div>
-          <div class="article-desc">As accurate as gradient boosting and as interpretable as linear regression.</div>
-        </div>
-
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/data-science-collective/introduction-to-embedding-based-recommender-systems-956faceb1919" target="_blank" rel="noopener" aria-label="Read: Embedding-Based Recommender Systems"></a>
-          <div class="article-views">32k views</div>
-          <div class="article-title">Embedding-Based Recommender Systems</div>
-          <div class="article-desc">How two-tower neural architectures power modern product recommendation at scale.</div>
-        </div>
-
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/p/b4a23ef54c9e" target="_blank" rel="noopener" aria-label="Read: Where Machine Learning Meets Cryptography"></a>
-          <div class="article-views">28k views</div>
-          <div class="article-title">Where Machine Learning Meets Cryptography</div>
-          <div class="article-desc">Solving the cryptographically-relevant Learning Parity with Noise problem via machine learning.</div>
-        </div>
-
-        <div class="article-card">
-          <a class="article-card-link" href="https://medium.com/data-science/zero-inflated-regression-c7dfc656d8af" target="_blank" rel="noopener" aria-label="Read: Zero-Inflated Regression"></a>
-          <div class="article-views">27k views</div>
-          <div class="article-title">Zero-Inflated Regression</div>
-          <div class="article-desc">Modeling count data with excess zeros: theory, implementation, and practical use cases in scikit-lego.</div>
-        </div>
+          <h3 class="article-featured-title">Extensible Evolutionary Algorithms</h3>
+          <p class="article-desc">Building flexible evolutionary algorithm frameworks in Python for real-world optimization problems.</p>
+        </article>
 
       </div>
-    </div>
-  </section>
 
-  <!-- ─── Projects ────────────────────────────────────────── -->
-  <section id="projects">
-    <div class="container">
-      <p class="section-label">/ Projects</p>
-      <h2 class="section-title">Interactive demos</h2>
-      <div class="articles-grid">
-
-        <div class="article-card">
-          <a class="article-card-link" href="/apps/parlascanned/" aria-label="Launch: Parlascanned"></a>
-          <div class="tags">
-            <span class="tag">Web</span>
-            <span class="tag">PyTorch</span>
-            <span class="tag">Next.js</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">D3.js</span>
-          </div>
-          <div class="article-title">Parlascanned</div>
-          <div class="article-desc">Voting patterns, party demographics, and side income of all Bundestag members: three interactive views into the German parliament.</div>
-          <div class="project-launch">Launch demo →</div>
-        </div>
-
+      <div class="articles-list">
+        <a class="article-row" href="https://medium.com/p/f24152509ebb" target="_blank" rel="noopener">
+          <span class="article-row-views">34k</span>
+          <span class="article-row-title">The Explainable Boosting Machine</span>
+          <svg class="article-row-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+        <a class="article-row" href="https://medium.com/data-science-collective/introduction-to-embedding-based-recommender-systems-956faceb1919" target="_blank" rel="noopener">
+          <span class="article-row-views">32k</span>
+          <span class="article-row-title">Embedding-Based Recommender Systems</span>
+          <svg class="article-row-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+        <a class="article-row" href="https://medium.com/p/b4a23ef54c9e" target="_blank" rel="noopener">
+          <span class="article-row-views">28k</span>
+          <span class="article-row-title">Where Machine Learning Meets Cryptography</span>
+          <svg class="article-row-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+        <a class="article-row" href="https://medium.com/data-science/zero-inflated-regression-c7dfc656d8af" target="_blank" rel="noopener">
+          <span class="article-row-views">27k</span>
+          <span class="article-row-title">Zero-Inflated Regression</span>
+          <svg class="article-row-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
       </div>
+
     </div>
   </section>
 
   <!-- ─── Skills ───────────────────────────────────────────── -->
-  <section id="skills">
+  <section id="skills" class="scroll-animate">
     <div class="container">
-      <p class="section-label">/ Skills</p>
+      <p class="section-label">Skills</p>
       <h2 class="section-title">Areas of expertise</h2>
       <div class="expertise-grid">
-
-        <div class="domain-card domain-card--sci">
-          <p class="domain-category">ML &amp; Mathematics</p>
-          <h3 class="domain-title">Reasoning from first principles</h3>
-          <p class="domain-stance">Probabilistic thinking, Bayesian inference, and theoretical foundations applied to real forecasting and decision problems.</p>
-          <div class="domain-tags">
-            <span class="domain-tag">Forecasting</span>
-            <span class="domain-tag">Causal Inference</span>
-            <span class="domain-tag">Bayesian Statistics</span>
-            <span class="domain-tag">Deep Learning</span>
-            <span class="domain-tag">Recommenders</span>
-            <span class="domain-tag">MMM</span>
-            <span class="domain-tag">Optimization</span>
-            <span class="domain-tag">Probability Theory</span>
-            <span class="domain-tag">Algorithms</span>
-            <span class="domain-tag">Number Theory</span>
-          </div>
-        </div>
 
         <div class="domain-card domain-card--lead">
           <p class="domain-category">Leadership &amp; Vision</p>
@@ -1509,12 +1618,21 @@
             <span class="domain-tag">Technical Vision</span>
             <span class="domain-tag">Team Mentoring</span>
             <span class="domain-tag">Engineering Standards</span>
-            <span class="domain-tag">Technical Writing</span>
             <span class="domain-tag">Curriculum Design</span>
-            <span class="domain-tag">Public Speaking</span>
             <span class="domain-tag">Stakeholder Communication</span>
-            <span class="domain-tag">Agile / Scrum</span>
-            <span class="domain-tag">International Teams</span>
+          </div>
+        </div>
+
+        <div class="domain-card domain-card--sci">
+          <p class="domain-category">ML &amp; Mathematics</p>
+          <h3 class="domain-title">Reasoning from first principles</h3>
+          <p class="domain-stance">Probabilistic thinking, Bayesian inference, and theoretical foundations applied to real forecasting and decision problems.</p>
+          <div class="domain-tags">
+            <span class="domain-tag">Forecasting</span>
+            <span class="domain-tag">Causal Inference</span>
+            <span class="domain-tag">Bayesian Statistics</span>
+            <span class="domain-tag">Recommenders</span>
+            <span class="domain-tag">MMM</span>
           </div>
         </div>
 
@@ -1524,36 +1642,32 @@
           <p class="domain-stance">Turning research-grade ideas into production-ready, maintainable systems on modern cloud infrastructure.</p>
           <div class="domain-tags">
             <span class="domain-tag">Python</span>
-            <span class="domain-tag">TensorFlow</span>
-            <span class="domain-tag">PyTorch</span>
             <span class="domain-tag">PyMC</span>
+            <span class="domain-tag">TensorFlow</span>
             <span class="domain-tag">GCP</span>
-            <span class="domain-tag">Vertex AI</span>
-            <span class="domain-tag">MLflow</span>
-            <span class="domain-tag">Docker</span>
-            <span class="domain-tag">PySpark</span>
-            <span class="domain-tag">SQL</span>
-            <span class="domain-tag">pandas</span>
             <span class="domain-tag">sktime</span>
           </div>
         </div>
 
       </div>
+
     </div>
   </section>
 
+
   <!-- ─── Publications ────────────────────────────────────── -->
-  <section id="publications">
+  <section id="publications" class="scroll-animate">
     <div class="container">
       <div class="pub-header">
         <div>
-          <p class="section-label">/ Publications</p>
+          <p class="section-label">Publications</p>
           <h2 class="section-title">Research papers</h2>
         </div>
         <a class="scholar-link" href="https://scholar.google.com/citations?user=BHCd2EYAAAAJ" target="_blank" rel="noopener">
           Google Scholar →
         </a>
       </div>
+      <p class="section-intro">My PhD was about attacking a learning problem deliberately designed to be unsolvable. LPN (Learning Parity with Noise) is a machine learning problem engineered to resist efficient algorithms, which is precisely what makes it useful for cryptography. Building dedicated algorithms with precise runtime, memory, and success-probability guarantees developed the tools I reach for in production ML every day: probabilistic reasoning, algorithmic thinking, and comfort with problems that resist easy answers.</p>
 
       <div class="timeline">
 
@@ -1563,7 +1677,7 @@
             <div class="timeline-company">FSTTCS 2021</div>
           </div>
           <div>
-            <div class="timeline-role">A Faster Algorithm for Finding Closest Pairs in Hamming Metric</div>
+            <h3 class="timeline-role">A Faster Algorithm for Finding Closest Pairs in Hamming Metric</h3>
             <ul class="timeline-bullets">
               <li>Presents a faster randomized algorithm for finding the closest pair of vectors under Hamming distance, with improved complexity for small dimensions relative to dataset size</li>
             </ul>
@@ -1586,7 +1700,7 @@
             <div class="timeline-company">PhD Dissertation</div>
           </div>
           <div>
-            <div class="timeline-role">Time-Memory Trade-offs for the Learning Parity with Noise Problem</div>
+            <h3 class="timeline-role">Time-Memory Trade-offs for the Learning Parity with Noise Problem</h3>
             <ul class="timeline-bullets">
               <li>Investigates algorithms that trade memory for runtime when solving the LPN problem, a hard problem underlying several post-quantum cryptographic schemes</li>
             </ul>
@@ -1605,7 +1719,7 @@
             <div class="timeline-company">CRYPTO 2018</div>
           </div>
           <div>
-            <div class="timeline-role">Dissection-BKW</div>
+            <h3 class="timeline-role">Dissection-BKW</h3>
             <ul class="timeline-bullets">
               <li>Applies dissection techniques to the BKW algorithm for solving LPN, improving the memory-runtime tradeoff</li>
             </ul>
@@ -1628,7 +1742,7 @@
             <div class="timeline-company">CRYPTO 2017</div>
           </div>
           <div>
-            <div class="timeline-role">LPN Decoded</div>
+            <h3 class="timeline-role">LPN Decoded</h3>
             <ul class="timeline-bullets">
               <li>A unified framework for analysing and comparing LPN solvers, introducing the first quantum algorithm for LPN and demonstrating practical attacks on medium-parameter instances</li>
             </ul>
@@ -1650,9 +1764,9 @@
   </section>
 
   <!-- ─── Education ───────────────────────────────────────── -->
-  <section id="education">
+  <section id="education" class="scroll-animate">
     <div class="container">
-      <p class="section-label">/ Education</p>
+      <p class="section-label">Education</p>
       <h2 class="section-title">Academic background</h2>
 
       <div class="timeline">
@@ -1663,7 +1777,7 @@
             <div class="timeline-company">Ruhr University Bochum</div>
           </div>
           <div>
-            <div class="timeline-role">PhD, Mathematics (Cryptography)</div>
+            <h3 class="timeline-role">PhD, Mathematics (Cryptography)</h3>
             <ul class="timeline-bullets">
               <li>Dissertation: <em>Time-Memory Trade-offs for the Learning Parity with Noise Problem</em>, focusing on memory-efficient algorithms for the cryptographically relevant LPN problem</li>
               <li>3 peer-reviewed publications (CRYPTO 2017, CRYPTO 2018, FSTTCS 2021)</li>
@@ -1678,7 +1792,7 @@
             <div class="timeline-company">Ruhr University Bochum</div>
           </div>
           <div>
-            <div class="timeline-role">MSc, Mathematics · Minor: Computer Science</div>
+            <h3 class="timeline-role">MSc, Mathematics · Minor: Computer Science</h3>
             <ul class="timeline-bullets">
               <li>Grade: 1.2 (top 5%)</li>
             </ul>
@@ -1692,7 +1806,7 @@
             <div class="timeline-type">Exchange</div>
           </div>
           <div>
-            <div class="timeline-role">Japanese Language &amp; Culture</div>
+            <h3 class="timeline-role">Japanese Language &amp; Culture</h3>
             <ul class="timeline-bullets">
               <li>Japanese language: A1 → B1</li>
             </ul>
@@ -1705,7 +1819,7 @@
             <div class="timeline-company">Ruhr University Bochum</div>
           </div>
           <div>
-            <div class="timeline-role">BSc, Mathematics · Minor: Computer Science</div>
+            <h3 class="timeline-role">BSc, Mathematics · Minor: Computer Science</h3>
             <ul class="timeline-bullets">
               <li>Grade: 1.0 (top 5%)</li>
             </ul>
@@ -1745,52 +1859,43 @@
     </div>
   </section>
 
-  <!-- ─── Volunteer ───────────────────────────────────────── -->
-  <section id="volunteer">
+
+  <!-- ─── Projects ────────────────────────────────────────── -->
+  <section id="projects" class="scroll-animate">
     <div class="container">
-      <p class="section-label">/ Volunteer</p>
-      <h2 class="section-title">Giving back</h2>
-
-      <div class="timeline">
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">Jan 2007<br/>Apr 2019</div>
-            <div class="timeline-company">Vorhilfe.de e.V.</div>
-          </div>
-          <div>
-            <div class="timeline-role">Moderator, matheraum.de</div>
-            <ul class="timeline-bullets">
-              <li>Supported school and university students with mathematical questions over <strong>12 years</strong></li>
-            </ul>
-          </div>
+      <p class="section-label">Projects</p>
+      <h2 class="section-title">Open demos</h2>
+      <div class="project-featured">
+        <a class="article-card-link" href="/apps/parlascanned/" aria-label="Launch Parlascanned demo"></a>
+        <div>
+          <p class="project-featured-name">parlascanned</p>
+          <h3 class="project-featured-title">Three views into the German parliament</h3>
+          <p class="project-featured-desc">
+            Voting patterns, party demographics, and side income for all Bundestag members,
+            built from public disclosure data. Three interconnected D3.js views: party vote
+            breakdowns, individual member profiles, and a side-income scatter plot.
+          </p>
+          <span class="project-launch">Launch demo →</span>
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-meta">
-            <div class="timeline-period">May 2021<br/>Sep 2021</div>
-            <div class="timeline-company">TechLabs Düsseldorf</div>
-          </div>
-          <div>
-            <div class="timeline-role">Data Science Mentor</div>
-            <ul class="timeline-bullets">
-              <li>Guided aspiring data scientists through an end-to-end project predicting used car prices</li>
-            </ul>
-          </div>
+        <div class="tags">
+          <span class="tag">Web</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">D3.js</span>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- ─── Contact ─────────────────────────────────────────── -->
-  <section id="contact">
+  <section id="contact" class="scroll-animate">
     <div class="container">
       <div class="contact-inner">
-        <p class="section-label">/ Contact</p>
+        <p class="section-label">Contact</p>
         <h2 class="section-title">Get in touch</h2>
         <p class="contact-text">
-          Open to speaking engagements, collaborations, and selected consulting around data science, forecasting, and causal inference. Also happy to chat about articles or open-source work.
+          Open to speaking engagements, consulting, and collaborations around data science, forecasting, and causal inference. Feel free to reach out about anything: articles, open-source work, career questions, or just to say hello. I read everything.
         </p>
         <div class="contact-actions">
           <a class="social-btn" href="mailto:robert.jo.kuebler@gmail.com">
@@ -1805,6 +1910,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- ─── Footer ───────────────────────────────────────────── -->
   <footer>
@@ -1822,6 +1929,22 @@
       <p class="footer-copy">© 2026 Dr. Robert Kübler</p>
     </div>
   </footer>
+
+  <script>
+    // Scroll entrance animations — reveal sections as they enter the viewport
+    const animateObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          animateObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.scroll-animate').forEach(el => {
+      animateObserver.observe(el);
+    });
+  </script>
 
   <script>
     // Active nav link on scroll — runs after all sections are in the DOM

@@ -5,7 +5,6 @@
   --bg:          #f4f1ea;   /* warm cream */
   --surface:     #ffffff;   /* white */
   --accent:      #8a6820;   /* dark bronze-gold — readable on light */
-  --sec:         #b05828;   /* dark terra cotta */
 
   /* ── Derived / composite ──────────────────────────────────── */
   --card:        #faf8f4;
@@ -13,11 +12,17 @@
   --border:      #e3ddd0;
   --accent-dim:  #755518;
   --accent-glow: rgba(138,104,32,0.09);
-  --bg-nav:      rgba(244,241,234,0.92);  /* nav bar (semi-transparent --bg) */
-  --bg-drawer:   rgba(244,241,234,0.98);  /* mobile drawer (near-opaque --bg) */
+  --bg-nav:      rgba(244,241,234,0.92);  /* nav bar — semi-transparent --bg; explicit rgba for broad browser support */
+  --bg-drawer:   rgba(244,241,234,0.98);  /* mobile drawer — near-opaque --bg; explicit rgba for broad browser support */
   --text:        #1c1825;
   --text-muted:  #57516a;
-  --text-faint:  #a09ab5;
+  --text-faint:  #726887;   /* darkened from #a09ab5 — passes WCAG AA 4.5:1 on --bg */
+
+  /* ── Accent alpha variants (avoid hardcoding rgba in components) ── */
+  --accent-a06:  rgba(138,104,32,0.06);
+  --accent-a18:  rgba(138,104,32,0.18);
+  --accent-a35:  rgba(138,104,32,0.35);
+  /* --accent-glow (defined above) is the canonical 9%-opacity accent tint */
   --radius-sm:   8px;
   --radius-md:   16px;
   --radius-lg:   20px;
@@ -31,7 +36,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
@@ -44,6 +49,23 @@ body {
 /* Default link style — pages using color:inherit override in their <style> block */
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
+
+/* ─── Skip link (keyboard accessibility) ────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  z-index: 999;
+  border-radius: 0 0 var(--radius-sm) 0;
+  transition: top 0.15s;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; }
 
 /* ─── Nav ───────────────────────────────────────────────────── */
 /* index.html overrides this with its complex nav (logo, links, hamburger) */
@@ -122,12 +144,10 @@ footer {
   background: var(--surface);
   border-top: 1px solid var(--border);
   padding: 40px 0;
-  text-align: center;
 }
 
 .footer-links {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 24px;
   margin-bottom: 16px;
@@ -179,8 +199,8 @@ footer {
 }
 
 .section-title {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-weight: 400;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-weight: 600;
   font-size: clamp(1.5rem, 4vw, 2rem);
   letter-spacing: -0.01em;
   color: var(--text);
@@ -267,8 +287,8 @@ section { padding: 80px 0; }
 }
 
 .tag {
-  font-size: 0.8rem;
-  padding: 4px 16px;
+  font-size: 0.875rem;
+  padding: 8px 16px;
   border-radius: var(--radius-pill);
   background: var(--surface);
   border: 1px solid var(--border);
