@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dr. Robert Kübler · Senior Data Scientist &amp; Educator</title>
   <meta name="description" content="Senior Staff Data Scientist setting technical direction for ML teams. PhD in mathematics. 7+ years in production ML, €10M+ revenue impact, 50+ professionals taught, 1M+ article reads." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Dr. Robert Kübler · Senior Data Scientist &amp; Educator" />
+  <meta property="og:description" content="Senior Staff Data Scientist setting technical direction for ML teams. PhD in mathematics. 7+ years in production ML, €10M+ revenue impact, 50+ professionals taught, 1M+ article reads." />
+  <meta property="og:url" content="https://robkuebler.github.io/" />
+  <meta property="og:image" content="https://robkuebler.github.io/assets/images/avatar.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Dr. Robert Kübler · Senior Data Scientist &amp; Educator" />
+  <meta name="twitter:description" content="Senior Staff Data Scientist setting technical direction for ML teams. PhD in mathematics. 7+ years in production ML, €10M+ revenue impact, 50+ professionals taught, 1M+ article reads." />
+  <meta name="twitter:image" content="https://robkuebler.github.io/assets/images/avatar.jpg" />
   <link rel="preload" as="font" href="/assets/fonts/bricolage-grotesque-latin.woff2" type="font/woff2" crossorigin />
   <link rel="preload" as="font" href="/assets/fonts/source-serif-4-latin.woff2" type="font/woff2" crossorigin />
   <link rel="preload" as="font" href="/assets/fonts/jetbrains-mono-latin.woff2" type="font/woff2" crossorigin />
@@ -91,6 +100,7 @@
     .nav-contact {
       display: inline-flex;
       align-items: center;
+      min-height: 44px;
       padding: 12px 16px;
       border-radius: var(--radius-pill);
       border: 1px solid transparent;
@@ -428,14 +438,10 @@
       transition: border-color 0.2s, background 0.2s;
     }
 
-    .domain-card:hover { border-color: var(--accent); }
+    .domain-card:hover { border-color: var(--accent); background: var(--card-hover); }
 
     .domain-card--lead {
       grid-column: 1 / -1;
-      border-color: var(--accent);
-    }
-
-    .domain-card--lead:hover {
       border-color: var(--accent);
     }
 
@@ -532,6 +538,9 @@
     /* ─── Experience ────────────────────────────────────────── */
     #experience { background: var(--bg); }
 
+    /* Inline accent links within timeline bullets (e.g. open-source project links) */
+    .timeline-link { color: var(--accent); }
+
     /* ─── Community ─────────────────────────────────────────── */
     #community { background: var(--surface); }
 
@@ -559,7 +568,6 @@
     .section-title + .timeline-group-label {
       padding-top: 0;
     }
-    #writing { background: var(--bg); }
 
     .timeline { display: flex; flex-direction: column; gap: 0; }
 
@@ -709,6 +717,8 @@
     }
 
     /* ─── Writing ───────────────────────────────────────────── */
+    #writing { background: var(--bg); }
+
     .writing-header,
     .pub-header {
       display: flex;
@@ -744,29 +754,10 @@
       gap: 16px;
     }
 
-    .article-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      transition: border-color 0.2s, background 0.2s;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
     .article-card-link {
       position: absolute;
       inset: 0;
       border-radius: inherit;
-    }
-
-    .article-card:hover {
-      border-color: var(--accent);
-      background: var(--card-hover);
     }
 
     .article-views {
@@ -774,13 +765,6 @@
       font-size: 0.72rem;
       color: var(--accent);
       font-weight: 500;
-    }
-
-    .article-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.4;
     }
 
     .article-desc {
@@ -1338,7 +1322,7 @@
           <div>
             <h3 class="timeline-role">Senior Data Scientist</h3>
             <ul class="timeline-bullets">
-              <li>Developed and open-sourced <a href="https://github.com/RobKuebler/mamimo" target="_blank" rel="noopener" style="color:var(--accent)">mamimo</a>, a marketing mix modeling package (74 GitHub stars); results directly influenced marketing budget allocation</li>
+              <li>Developed and open-sourced <a href="https://github.com/RobKuebler/mamimo" target="_blank" rel="noopener" class="timeline-link">mamimo</a>, a marketing mix modeling package (74 GitHub stars); results directly influenced marketing budget allocation</li>
               <li>Owned 3 analytical workstreams end-to-end: forecasting (Prophet, LightGBM, QlikSense dashboards), MMM, and causal inference</li>
               <li>Mentored 2 junior data scientists</li>
             </ul>
