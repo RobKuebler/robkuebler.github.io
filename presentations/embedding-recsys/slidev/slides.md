@@ -114,7 +114,8 @@ Things to build:
 
 <div class="mt-2 ml-4 flex flex-col gap-1 text-sm">
   <div class="flex items-center gap-3">
-    <v-click :at="2"><span style="position: relative; display: inline-block;">1. <strong>collaborative filtering</strong>: only use user_id and movie_id to predict user_rating<RightLabel text="← focus on this first" :visible="$clicks >= 5" /></span></v-click>
+    <v-click :at="2"><span>1. <strong>collaborative filtering</strong>: only use user_id and movie_id to predict user_rating</span></v-click>
+    <v-click :at="5"><span class="font-mono text-blue-500">&lt;- focus on this first</span></v-click>
   </div>
   <v-click :at="3"><div>2. <strong>content-based recommender</strong>: only use user features (gender, age, ...) and movie features (genre, year, ...)</div></v-click>
   <v-click :at="4"><div>3. <strong>hybrid approach</strong>: use everything</div></v-click>
@@ -207,7 +208,8 @@ disabled: true
 class: flex flex-col
 ---
 
-# How **not** to do it: Use IDs directly
+# How **not** to do it
+#### Part I: Use IDs directly
 
 <div class="flex-1 flex flex-col justify-center gap-8">
 <p class="text-sm opacity-70">It might be tempting to just pass the IDs directly into the model as numerical features. After all, we already have numbers.</p>
@@ -223,7 +225,8 @@ layout: two-cols-header
 clicks: 1
 ---
 
-# How **not** to do it: One-hot encoding
+# How **not** to do it
+#### Part II: One-hot encoding
 
 ::left::
 
@@ -242,22 +245,22 @@ clicks: 1
 <div class="flex justify-center mt-4">
   <div class="relative" style="width:360px;height:320px">
     <svg class="absolute inset-0" width="360" height="320" viewBox="0 0 360 320">
-      <polygon points="60,90 300,90 180,250" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <polygon points="180,90 300,250 60,250" fill="none" stroke="#94a3b8" stroke-width="2"/>
     </svg>
-    <!-- top edge label -->
-    <div class="absolute text-xs text-slate-400" style="top:55px;left:50%;transform:translateX(-50%)"><Math tex="d=\sqrt{2}" /></div>
+    <!-- bottom edge label -->
+    <div class="absolute text-xs text-slate-400" style="top:258px;left:50%;transform:translateX(-50%)"><Math tex="d=\sqrt{2}" /></div>
     <!-- left edge label -->
-    <div class="absolute text-xs text-slate-400" style="top:162px;left:50px"><Math tex="d=\sqrt{2}" /></div>
+    <div class="absolute text-xs text-slate-400" style="top:162px;left:40px"><Math tex="d=\sqrt{2}" /></div>
     <!-- right edge label -->
-    <div class="absolute text-xs text-slate-400" style="top:162px;right:50px"><Math tex="d=\sqrt{2}" /></div>
-    <div class="absolute flex justify-center" style="top:5%;left:0%">
+    <div class="absolute text-xs text-slate-400" style="top:162px;right:40px"><Math tex="d=\sqrt{2}" /></div>
+    <div class="absolute flex justify-center" style="top:5%;left:50%;transform:translateX(-50%)">
+      <OneHotVector :length="3" :hotIndex="0" label="hot" size="sm" />
+    </div>
+    <div class="absolute" style="bottom:15px;left:0%">
       <OneHotVector :length="3" :hotIndex="1" label="mild" size="sm" />
     </div>
-    <div class="absolute flex justify-center" style="top:5%;right:0%">
+    <div class="absolute" style="bottom:15px;right:0">
       <OneHotVector :length="3" :hotIndex="2" label="cold" size="sm" />
-    </div>
-    <div class="absolute flex justify-center" style="bottom:25px;left:50%;transform:translateX(-50%)">
-      <OneHotVector :length="3" :hotIndex="0" label="hot" size="sm" />
     </div>
   </div>
 </div>
@@ -270,7 +273,8 @@ clicks: 1
 class: flex flex-col
 ---
 
-# How **not** to do it: One-hot encoding
+# How **not** to do it
+#### Part II: One-hot encoding
 
 <div class="flex-1 flex flex-col justify-center items-center gap-8">
   <OneHotVector :length="30" :hotIndex="7" size="sm" />
@@ -291,7 +295,7 @@ class: flex flex-col
 # Embeddings
 
 <div class="flex-1 flex flex-col justify-center items-center gap-8">
-  <div style="position: relative; display: inline-block;">
+  <div class="flex items-center gap-4">
     <EmbeddingVector
       size="lg"
       :visible="$clicks"
@@ -300,7 +304,10 @@ class: flex flex-col
       :values="[0.32, -0.81, 0.55, -0.12, 0.70, 0.04, -0.46, 0.93]"
       label="user 42"
     />
-    <RightLabel text="← to be learned" :visible="$clicks >= 12" />
+    <span
+      class="font-mono text-sm transition-all duration-300"
+      :style="{ color: 'rgb(59,130,246)', opacity: $clicks >= 12 ? 1 : 0, transform: $clicks >= 12 ? 'translateX(0)' : 'translateX(-6px)' }"
+    >← to be learned</span>
   </div>
   <p class="caption">Shorter vectors, more meaning.</p>
 </div>
