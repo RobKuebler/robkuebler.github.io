@@ -318,39 +318,59 @@ class: flex flex-col
 
 
 ---
+clicks: 2
+class: flex flex-col
+---
 
 # Same trick powers NLP
 
-<div class="flex flex-col gap-2 items-center">
-  <div class="flex items-center gap-3">
-    <span class="font-mono text-sm w-10 text-right">The</span>
-    <EmbeddingVector size="sm" :showValues="false" :values="[0.3, -0.6, 0.4, 0.1, -0.2, 0.5]" />
-  </div>
-  
-  <div class="flex items-center gap-3">
-    <span class="font-mono text-sm w-10 text-right">cat</span>
-    <EmbeddingVector size="sm" :showValues="false" :values="[0.8, 0.2, -0.5, 0.6, -0.1, 0.3]" />
+<div class="flex-1 flex items-center justify-center gap-8">
+
+  <!-- Word embeddings: always fully visible, no movement -->
+  <div class="flex flex-col gap-2">
+    <div class="flex items-center gap-3">
+      <span class="font-mono text-sm w-10 text-right">The</span>
+      <EmbeddingVector size="sm" :showValues="false" :values="[0.3, -0.6, 0.4, 0.1, -0.2, 0.5]" />
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="font-mono text-sm w-10 text-right">cat</span>
+      <EmbeddingVector size="sm" :showValues="false" :values="[0.8, 0.2, -0.5, 0.6, -0.1, 0.3]" />
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="font-mono text-sm w-10 text-right">sat</span>
+      <EmbeddingVector size="sm" :showValues="false" :values="[-0.4, 0.3, 0.7, -0.2, 0.5, -0.1]" />
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="font-mono text-sm w-10 text-right">on</span>
+      <EmbeddingVector size="sm" :showValues="false" :values="[0.1, -0.3, 0.2, 0.8, -0.4, 0.6]" />
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="font-mono text-sm w-10 text-right">the</span>
+      <EmbeddingVector size="sm" :showValues="false" :values="[-0.2, 0.4, 0.1, -0.5, 0.7, 0.2]" />
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="font-mono text-sm w-10 text-right">mat</span>
+      <EmbeddingVector size="sm" :showValues="false" :values="[0.5, -0.1, 0.6, 0.3, -0.4, 0.8]" />
+    </div>
   </div>
 
-  <div class="flex items-center gap-3">
-    <span class="font-mono text-sm w-10 text-right">sat</span>
-    <EmbeddingVector size="sm" :showValues="false" :values="[-0.4, 0.3, 0.7, -0.2, 0.5, -0.1]" />
+  <!-- Arrow + LLM box: appears on click 1 -->
+  <div v-click="1" class="flex items-center gap-4">
+    <span class="text-2xl" style="color: var(--p-faint)">→</span>
+    <div
+      class="border-2 rounded-xl px-6 py-5 text-center"
+      style="border-color: var(--p-accent); color: var(--p-accent)"
+    >
+      <div class="font-mono text-sm font-bold uppercase tracking-wider">LLM</div>
+    </div>
   </div>
 
-  <div class="flex items-center gap-3">
-    <span class="font-mono text-sm w-10 text-right">on</span>
-    <EmbeddingVector size="sm" :showValues="false" :values="[0.1, -0.3, 0.2, 0.8, -0.4, 0.6]" />
+  <!-- Arrow + predicted word: appears on click 2 -->
+  <div v-click="2" class="flex items-center gap-4">
+    <span class="text-2xl" style="color: var(--p-faint)">→</span>
+    <span class="font-mono text-xl font-bold" style="color: var(--p-text)">"purring"</span>
   </div>
 
-  <div class="flex items-center gap-3">
-    <span class="font-mono text-sm w-10 text-right">the</span>
-    <EmbeddingVector size="sm" :showValues="false" :values="[-0.2, 0.4, 0.1, -0.5, 0.7, 0.2]" />
-  </div>
-
-  <div class="flex items-center gap-3">
-    <span class="font-mono text-sm w-10 text-right">mat</span>
-    <EmbeddingVector size="sm" :showValues="false" :values="[0.5, -0.1, 0.6, 0.3, -0.4, 0.8]" />
-  </div>
 </div>
 
 <p class="caption">Every LLM is built on top of this idea.</p>
