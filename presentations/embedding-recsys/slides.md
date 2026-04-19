@@ -321,52 +321,35 @@ class: flex flex-col
 
 # Same trick powers NLP
 
-<div class="flex gap-3 items-end justify-center mt-6 overflow-hidden w-full">
-  <div class="flex flex-col items-center gap-1">
+<div class="flex flex-col gap-2 items-center">
+  <div class="flex items-center gap-3">
+    <span class="font-mono text-sm w-10 text-right">The</span>
     <EmbeddingVector size="sm" :showValues="false" :values="[0.3, -0.6, 0.4, 0.1, -0.2, 0.5]" />
-    <span class="font-mono text-sm">The</span>
   </div>
-  <div class="flex flex-col items-center gap-1">
+  
+  <div class="flex items-center gap-3">
+    <span class="font-mono text-sm w-10 text-right">cat</span>
     <EmbeddingVector size="sm" :showValues="false" :values="[0.8, 0.2, -0.5, 0.6, -0.1, 0.3]" />
-    <span class="font-mono text-sm">cat</span>
   </div>
-  <div class="flex flex-col items-center gap-1">
-    <EmbeddingVector size="sm" :showValues="false" :values="[-0.4, 0.3, 0.7, -0.2, 0.5, -0.1]" />
-    <span class="font-mono text-sm">sat</span>
-  </div>
-  <div class="flex flex-col items-center gap-1">
-    <EmbeddingVector size="sm" :showValues="false" :values="[0.1, -0.3, 0.2, 0.8, -0.4, 0.6]" />
-    <span class="font-mono text-sm">on</span>
-  </div>
-  <div class="flex flex-col items-center gap-1">
-    <EmbeddingVector size="sm" :showValues="false" :values="[-0.2, 0.4, 0.1, -0.5, 0.7, 0.2]" />
-    <span class="font-mono text-sm">the</span>
-  </div>
-  <div class="flex flex-col items-center gap-1">
-    <EmbeddingVector size="sm" :showValues="false" :values="[0.5, -0.1, 0.6, 0.3, -0.4, 0.8]" />
-    <span class="font-mono text-sm">mat</span>
-  </div>
-</div>
 
-<div class="flex gap-3 items-center justify-center mt-10 font-mono">
-  <div class="flex flex-col items-center gap-1">
-    <EmbeddingVector size="sm" :showValues="false" :values="[0.6, 0.4, -0.2, 0.8, 0.1]" />
-    <span>king</span>
+  <div class="flex items-center gap-3">
+    <span class="font-mono text-sm w-10 text-right">sat</span>
+    <EmbeddingVector size="sm" :showValues="false" :values="[-0.4, 0.3, 0.7, -0.2, 0.5, -0.1]" />
   </div>
-  <span class="text-2xl">−</span>
-  <div class="flex flex-col items-center gap-1">
-    <EmbeddingVector size="sm" :showValues="false" :values="[0.3, 0.1, -0.4, 0.2, -0.1]" />
-    <span>man</span>
+
+  <div class="flex items-center gap-3">
+    <span class="font-mono text-sm w-10 text-right">on</span>
+    <EmbeddingVector size="sm" :showValues="false" :values="[0.1, -0.3, 0.2, 0.8, -0.4, 0.6]" />
   </div>
-  <span class="text-2xl">+</span>
-  <div class="flex flex-col items-center gap-1">
-    <EmbeddingVector size="sm" :showValues="false" :values="[-0.2, 0.6, 0.1, 0.3, 0.4]" />
-    <span>woman</span>
+
+  <div class="flex items-center gap-3">
+    <span class="font-mono text-sm w-10 text-right">the</span>
+    <EmbeddingVector size="sm" :showValues="false" :values="[-0.2, 0.4, 0.1, -0.5, 0.7, 0.2]" />
   </div>
-  <span class="text-2xl">≈</span>
-  <div class="flex flex-col items-center gap-1">
-    <EmbeddingVector size="sm" :showValues="false" :values="[0.1, 0.9, -0.5, 0.9, 0.6]" />
-    <span>queen</span>
+
+  <div class="flex items-center gap-3">
+    <span class="font-mono text-sm w-10 text-right">mat</span>
+    <EmbeddingVector size="sm" :showValues="false" :values="[0.5, -0.1, 0.6, 0.3, -0.4, 0.8]" />
   </div>
 </div>
 
