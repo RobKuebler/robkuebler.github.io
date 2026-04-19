@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { colorFor, textColorFor } from './colorScale.js'
 
 const props = defineProps({
   values: { type: Array, required: true },
@@ -20,26 +21,6 @@ const sizeMap = {
   lg: { cell: 56, font: 15, gap: 4 },
 }
 const dims = computed(() => sizeMap[props.size] ?? sizeMap.md)
-
-// Map value in [-vmax, vmax] to a diverging blue -> white -> red color
-function colorFor(v) {
-  const t = Math.max(-1, Math.min(1, v / props.vmax))
-  const cold = [59, 130, 246]
-  const warm = [239, 68, 68]
-  const neutral = [245, 245, 245]
-  const target = t < 0 ? cold : warm
-  const mix = Math.abs(t)
-  const r = Math.round(neutral[0] + (target[0] - neutral[0]) * mix)
-  const g = Math.round(neutral[1] + (target[1] - neutral[1]) * mix)
-  const b = Math.round(neutral[2] + (target[2] - neutral[2]) * mix)
-  return `rgb(${r}, ${g}, ${b})`
-}
-
-// Text color for readability against the background color
-function textColorFor(v) {
-  const t = Math.abs(Math.max(-1, Math.min(1, v / props.vmax)))
-  return t > 0.55 ? '#ffffff' : '#1f2937'
-}
 
 const isVisible = (i) =>
   props.visible === null || props.visible === undefined ? true : i < props.visible
@@ -64,8 +45,8 @@ const cellLabel = (i) => props.labels[i] ?? ''
             width: dims.cell + 'px',
             height: dims.cell + 'px',
             fontSize: dims.font + 'px',
-            background: colorFor(v),
-            color: textColorFor(v),
+            background: colorFor(v, props.vmax),
+            color: textColorFor(v, props.vmax),
           }"
         >
           <span v-if="showValues">{{ v >= 0 ? ' ' : '' }}{{ v.toFixed(2) }}</span>

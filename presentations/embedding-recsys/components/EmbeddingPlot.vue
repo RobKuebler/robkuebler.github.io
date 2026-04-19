@@ -77,7 +77,10 @@ const tx = (pt) =>
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 1rem;
+}
+.wrap .caption {
+  margin-top: 0;
 }
 .label {
   font-family: 'JetBrains Mono', ui-monospace, monospace;

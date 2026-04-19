@@ -38,7 +38,7 @@ onMounted(() => {
 <template>
   <div class="stat-counter">
     <span class="number">{{ Math.round(current) }}{{ suffix }}</span>
-    <span v-if="caption" class="caption">{{ caption }}</span>
+    <span v-if="caption" class="stat-label">{{ caption }}</span>
   </div>
 </template>
 
@@ -57,7 +57,7 @@ onMounted(() => {
   line-height: 1;
 }
 
-.caption {
+.stat-label {
   margin-top: 8px;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 0.75rem;
