@@ -1,0 +1,196 @@
+- generic [ref=e2]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e9]:
+        - heading "Introduction to Embedding-Based Recommender Systems" [level=1] [ref=e10]:
+          - text: Introduction to Embedding-Based
+          - text: Recommender Systems
+        - paragraph [ref=e11]: Matrix factorization from scratch in PyTorch
+        - generic [ref=e12]: Dr. Robert Kübler
+      - img
+    - navigation [ref=e14]:
+      - generic [ref=e15]:
+        - button "Enter fullscreen" [ref=e16] [cursor=pointer]:
+          - generic [ref=e17]: Enter fullscreen
+          - img [ref=e18]
+        - button "Go to previous slide":
+          - generic: Go to previous slide
+          - img
+        - button "Go to next slide" [ref=e20] [cursor=pointer]:
+          - generic [ref=e21]: Go to next slide
+          - img [ref=e22]
+        - button "Show slide overview" [ref=e24] [cursor=pointer]:
+          - generic [ref=e25]: Show slide overview
+          - img [ref=e26]
+        - button "Switch to dark mode theme" [ref=e28] [cursor=pointer]:
+          - generic [ref=e29]: Switch to dark mode theme
+          - img [ref=e30]
+        - button "Toggle camera view" [ref=e33] [cursor=pointer]:
+          - generic [ref=e34]: Toggle camera view
+          - img [ref=e35]
+        - button "Record video" [ref=e38] [cursor=pointer]:
+          - generic [ref=e39]: Record video
+          - img [ref=e40]
+        - button "Select recording device" [ref=e43] [cursor=pointer]:
+          - button "Select recording device" [ref=e44]:
+            - generic [ref=e45]: Select recording device
+            - img [ref=e46]
+        - button "Show drawing toolbar" [ref=e49] [cursor=pointer]:
+          - generic [ref=e50]: Show drawing toolbar
+          - img [ref=e51]
+        - button "Presenter Mode" [ref=e54] [cursor=pointer]:
+          - generic [ref=e55]: Presenter Mode
+          - img [ref=e56]
+        - button "Show editor" [ref=e59] [cursor=pointer]:
+          - generic [ref=e60]: Show editor
+          - img [ref=e61]
+        - button "Show info" [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]: Show info
+          - img [ref=e67]
+        - button "Adjust settings" [ref=e71] [cursor=pointer]:
+          - button "Adjust settings" [ref=e72]:
+            - generic [ref=e73]: Adjust settings
+            - img [ref=e74]
+        - generic [ref=e78]: 1 / 30
+  - generic:
+    - button "Draw with stylus":
+      - generic: Draw with stylus
+      - img
+    - button "Draw a line":
+      - generic: Draw a line
+      - img
+    - button "Draw an arrow":
+      - generic: Draw an arrow
+      - img
+    - button "Draw an ellipse":
+      - generic: Draw an ellipse
+      - img
+    - button "Draw a rectangle":
+      - generic: Draw a rectangle
+      - img
+    - button "Erase":
+      - generic: Erase
+      - img
+    - generic:
+      - button "Adjust stroke width":
+        - generic: Adjust stroke width
+        - img
+    - button "Set brush color":
+      - generic: Set brush color
+    - button "Set brush color":
+      - generic: Set brush color
+    - button "Set brush color":
+      - generic: Set brush color
+    - button "Set brush color":
+      - generic: Set brush color
+    - button "Set brush color":
+      - generic: Set brush color
+    - button "Set brush color":
+      - generic: Set brush color
+    - button "Set brush color":
+      - generic: Set brush color
+    - button "Undo":
+      - generic: Undo
+      - img
+    - button "Redo":
+      - generic: Redo
+      - img
+    - button "Delete":
+      - generic: Delete
+      - img
+    - button "Pin drawing":
+      - generic: Pin drawing
+      - img
+  - generic [ref=e79]:
+    - textbox "Goto..." [disabled] [ref=e81]
+    - list [ref=e83]:
+      - button "1 Introduction to Embedding-Based Recommender Systems" [ref=e84] [cursor=pointer]:
+        - generic [ref=e85]: "1"
+        - paragraph [ref=e87]: Introduction to Embedding-Based Recommender Systems
+      - button "2 They are everywhere" [ref=e88] [cursor=pointer]:
+        - generic [ref=e89]: "2"
+        - paragraph [ref=e91]: They are everywhere
+      - button "3 They move real money" [ref=e92] [cursor=pointer]:
+        - generic [ref=e93]: "3"
+        - paragraph [ref=e95]: They move real money
+      - button "4 Today" [ref=e96] [cursor=pointer]:
+        - generic [ref=e97]: "4"
+        - paragraph [ref=e99]: Today
+      - button "5 undefined" [ref=e100] [cursor=pointer]:
+        - generic [ref=e101]: "5"
+        - paragraph [ref=e103]: undefined
+      - button "6 MovieLens-1M" [ref=e104] [cursor=pointer]:
+        - generic [ref=e105]: "6"
+        - paragraph [ref=e107]: MovieLens-1M
+      - button "7 Time-based split" [ref=e108] [cursor=pointer]:
+        - generic [ref=e109]: "7"
+        - paragraph [ref=e111]: Time-based split
+      - button "8 undefined" [ref=e112] [cursor=pointer]:
+        - generic [ref=e113]: "8"
+        - paragraph [ref=e115]: undefined
+      - button "9 One-hot encoding" [ref=e116] [cursor=pointer]:
+        - generic [ref=e117]: "9"
+        - paragraph [ref=e119]: One-hot encoding
+      - button "10 All pairs equidistant" [ref=e120] [cursor=pointer]:
+        - generic [ref=e121]: "10"
+        - paragraph [ref=e123]: All pairs equidistant
+      - button "11 Scale doesn’t help" [ref=e124] [cursor=pointer]:
+        - generic [ref=e125]: "11"
+        - paragraph [ref=e127]: Scale doesn’t help
+      - button "12 Embeddings" [ref=e128] [cursor=pointer]:
+        - generic [ref=e129]: "12"
+        - paragraph [ref=e131]: Embeddings
+      - button "13 Structure emerges from ratings alone" [ref=e132] [cursor=pointer]:
+        - generic [ref=e133]: "13"
+        - paragraph [ref=e135]: Structure emerges from ratings alone
+      - button "14 Same trick powers NLP" [ref=e136] [cursor=pointer]:
+        - generic [ref=e137]: "14"
+        - paragraph [ref=e139]: Same trick powers NLP
+      - button "15 Mechanically, just a lookup" [ref=e140] [cursor=pointer]:
+        - generic [ref=e141]: "15"
+        - paragraph [ref=e143]: Mechanically, just a lookup
+      - button "16 undefined" [ref=e144] [cursor=pointer]:
+        - generic [ref=e145]: "16"
+        - paragraph [ref=e147]: undefined
+      - button "17 Dot product" [ref=e148] [cursor=pointer]:
+        - generic [ref=e149]: "17"
+        - paragraph [ref=e151]: Dot product
+      - button "18 Matrix factorization" [ref=e152] [cursor=pointer]:
+        - generic [ref=e153]: "18"
+        - paragraph [ref=e155]: Matrix factorization
+      - button "19 undefined" [ref=e156] [cursor=pointer]:
+        - generic [ref=e157]: "19"
+        - paragraph [ref=e159]: undefined
+      - button "20 Version 1" [ref=e160] [cursor=pointer]:
+        - generic [ref=e161]: "20"
+        - paragraph [ref=e163]: Version 1
+      - button "21 Uh oh." [ref=e164] [cursor=pointer]:
+        - generic [ref=e165]: "21"
+        - paragraph [ref=e167]: Uh oh.
+      - button "22 Output range mismatch" [ref=e168] [cursor=pointer]:
+        - generic [ref=e169]: "22"
+        - paragraph [ref=e171]: Output range mismatch
+      - button "23 Version 2, squash to 1, 5" [ref=e172] [cursor=pointer]:
+        - generic [ref=e173]: "23"
+        - paragraph [ref=e175]: Version 2, squash to 1, 5
+      - button "24 Much better" [ref=e176] [cursor=pointer]:
+        - generic [ref=e177]: "24"
+        - paragraph [ref=e179]: Much better
+      - button "25 Version 3, add bias" [ref=e180] [cursor=pointer]:
+        - generic [ref=e181]: "25"
+        - paragraph [ref=e183]: Version 3, add bias
+      - button "26 The full pipeline" [ref=e184] [cursor=pointer]:
+        - generic [ref=e185]: "26"
+        - paragraph [ref=e187]: The full pipeline
+      - button "27 Three models, three results" [ref=e188] [cursor=pointer]:
+        - generic [ref=e189]: "27"
+        - paragraph [ref=e191]: Three models, three results
+      - button "28 Using the model" [ref=e192] [cursor=pointer]:
+        - generic [ref=e193]: "28"
+        - paragraph [ref=e195]: Using the model
+      - button "29 What this model is" [ref=e196] [cursor=pointer]:
+        - generic [ref=e197]: "29"
+        - paragraph [ref=e199]: What this model is
+      - button "30 Thanks. Questions?" [ref=e200] [cursor=pointer]:
+        - generic [ref=e201]: "30"
+        - paragraph [ref=e203]: Thanks. Questions?

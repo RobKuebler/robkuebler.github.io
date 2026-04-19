@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Robert Kübler">
+
+<title>Introduction to Embedding-Based Recommender Systems</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="slides_files/libs/clipboard/clipboard.min.js"></script>
+<script src="slides_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="slides_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="slides_files/libs/quarto-html/popper.min.js"></script>
+<script src="slides_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="slides_files/libs/quarto-html/anchor.min.js"></script>
+<link href="slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="slides_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="slides_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="slides_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="slides_files/libs/bootstrap/bootstrap-efbb37e9afcc02144ebbc7afd12a776f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to Embedding-Based Recommender Systems</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Dr.&nbsp;Robert Kübler </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-to-embedding-based-recommender-systems" class="level1">
+<h1>Introduction to Embedding-Based<br>Recommender Systems</h1>
+<p>Matrix factorization from scratch in PyTorch</p>
+<div class="abs-br m-6 text-sm opacity-60">
+Dr.&nbsp;Robert Kübler
+</div>
+</section>
+<section id="they-are-everywhere-and-they-move-real-money" class="level1">
+<h1>They are everywhere — and they move real money</h1>
+<div class="flex gap-16 justify-around mt-12">
+<v-click>
+<div class="flex flex-col items-center gap-4">
+<pre><code>&lt;div class="text-5xl font-bold" style="color:#E50914"&gt;Netflix&lt;/div&gt;
+&lt;v-click&gt;
+&lt;StatCounter :target="75" suffix="%" caption="of views come from recommendations" /&gt;
+&lt;/v-click&gt;</code></pre>
+</div>
+</v-click> <v-click>
+<div class="flex flex-col items-center gap-4">
+<pre><code>&lt;div class="text-5xl font-bold" style="color:#FF0000"&gt;YouTube&lt;/div&gt;
+&lt;v-click&gt;
+&lt;StatCounter :target="60" suffix="%" caption="of home-screen clicks" /&gt;
+&lt;/v-click&gt;</code></pre>
+</div>
+</v-click> <v-click>
+<div class="flex flex-col items-center gap-4">
+<pre><code>&lt;div class="text-5xl font-bold" style="color:#FF9900"&gt;Amazon&lt;/div&gt;
+&lt;v-click&gt;
+&lt;StatCounter :target="35" suffix="%" caption="of sales from cross-sell" /&gt;
+&lt;/v-click&gt;</code></pre>
+</div>
+<p></p>
+</v-click></div>
+<div class="abs-b mb-6 text-xs opacity-50 text-center font-mono">
+<p>Jannach and Jugovac, Measuring the Business Value of Recommender Systems, 2019</p>
+</div>
+<!--
+Whether you open Netflix, YouTube, or Amazon, a model is quietly deciding what you see next.
+-->
+</section>
+<section id="today" class="level1">
+<h1>Today</h1>
+<p><v-clicks></v-clicks></p>
+<ol type="1">
+<li>Design a simple collaborative recommender</li>
+<li>Build it in PyTorch, three versions</li>
+<li>Understand what it can and cannot do</li>
+</ol>
+<p></p>
+<div class="flex items-center gap-8 justify-center">
+<div class="flex flex-col gap-4">
+<pre><code>&lt;div class="border-2 border-gray-300 rounded-xl px-6 py-3 font-mono text-lg"&gt;user&lt;/div&gt;
+&lt;div class="border-2 border-gray-300 rounded-xl px-6 py-3 font-mono text-lg"&gt;movie&lt;/div&gt;</code></pre>
+</div>
+<div class="text-4xl opacity-50">
+→
+</div>
+<div class="border-2 border-blue-400 rounded-xl px-6 py-3 font-mono text-lg">
+rating
+</div>
+</div>
+<p class="mt-8 text-center opacity-60 text-sm">
+That’s the whole job.
+</p>
+<hr>
+</section>
+<section id="movielens-1m" class="level1">
+<h1>MovieLens-1M</h1>
+<table class="mt-4 text-sm w-full border-collapse font-mono">
+<thead>
+<tr class="border-b-2 border-gray-200">
+<th class="py-2 px-3 text-left opacity-30">
+timestamp
+</th>
+<th class="py-2 px-3 text-left">
+user_id
+</th>
+<th class="py-2 px-3 text-left">
+movie_id
+</th>
+<th class="py-2 px-3 text-left">
+user_rating
+</th>
+<th class="py-2 px-3 text-left opacity-30">
+movie_genres
+</th>
+<th class="py-2 px-3 text-left opacity-30">
+user_gender
+</th>
+<th class="py-2 px-3 text-left opacity-30">
+…
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-gray-100">
+<td class="py-2 px-3 opacity-30">
+978300760
+</td>
+<td class="py-2 px-3">
+1
+</td>
+<td class="py-2 px-3">
+1193
+</td>
+<td class="py-2 px-3">
+5
+</td>
+<td class="py-2 px-3 opacity-30">
+Drama
+</td>
+<td class="py-2 px-3 opacity-30">
+F
+</td>
+<td class="py-2 px-3 opacity-30">
+…
+</td>
+</tr>
+<tr class="border-b border-gray-100">
+<td class="py-2 px-3 opacity-30">
+978302109
+</td>
+<td class="py-2 px-3">
+1
+</td>
+<td class="py-2 px-3">
+661
+</td>
+<td class="py-2 px-3">
+3
+</td>
+<td class="py-2 px-3 opacity-30">
+Animation
+</td>
+<td class="py-2 px-3 opacity-30">
+F
+</td>
+<td class="py-2 px-3 opacity-30">
+…
+</td>
+</tr>
+<tr class="border-b border-gray-100">
+<td class="py-2 px-3 opacity-30">
+978301968
+</td>
+<td class="py-2 px-3">
+1
+</td>
+<td class="py-2 px-3">
+914
+</td>
+<td class="py-2 px-3">
+3
+</td>
+<td class="py-2 px-3 opacity-30">
+Musical
+</td>
+<td class="py-2 px-3 opacity-30">
+F
+</td>
+<td class="py-2 px-3 opacity-30">
+…
+</td>
+</tr>
+<tr class="border-b border-gray-100">
+<td class="py-2 px-3 opacity-30">
+978300275
+</td>
+<td class="py-2 px-3">
+1
+</td>
+<td class="py-2 px-3">
+3408
+</td>
+<td class="py-2 px-3">
+4
+</td>
+<td class="py-2 px-3 opacity-30">
+Drama
+</td>
+<td class="py-2 px-3 opacity-30">
+F
+</td>
+<td class="py-2 px-3 opacity-30">
+…
+</td>
+</tr>
+<tr>
+<td class="py-2 px-3 opacity-30">
+978824291
+</td>
+<td class="py-2 px-3">
+1
+</td>
+<td class="py-2 px-3">
+2355
+</td>
+<td class="py-2 px-3">
+5
+</td>
+<td class="py-2 px-3 opacity-30">
+Comedy
+</td>
+<td class="py-2 px-3 opacity-30">
+F
+</td>
+<td class="py-2 px-3 opacity-30">
+…
+</td>
+</tr>
+</tbody>
+</table>
+<p class="mt-4 text-sm opacity-60">
+1,000,000 rows. We’ll use only three columns.
+</p>
+<hr>
+</section>
+<section id="time-based-split" class="level1">
+<h1>Time-based split</h1>
+<div class="mt-10">
+<div class="flex rounded-lg overflow-hidden h-14 text-white font-mono text-sm">
+<pre><code>&lt;div class="flex items-center justify-center" style="width:90%;background:rgb(59,130,246)"&gt;train (0 to 900k)&lt;/div&gt;
+&lt;div class="flex items-center justify-center" style="width:10%;background:rgb(239,68,68)"&gt;test&lt;/div&gt;</code></pre>
+</div>
+<div class="flex justify-between mt-1 text-xs opacity-40 font-mono">
+<pre><code>&lt;span&gt;0&lt;/span&gt;&lt;span&gt;900k&lt;/span&gt;&lt;span&gt;1M&lt;/span&gt;</code></pre>
+</div>
+</div>
+<div class="mt-6 border-2 border-amber-400 rounded-xl p-4 bg-amber-50 font-mono text-sm">
+<p>user 1: 0 rows in train, 53 rows in test</p>
+</div>
+<p class="mt-6 text-sm opacity-60">
+Some users and movies only appear in the test set. This is the cold-start problem. We’ll come back to it.
+</p>
+<div class="text-center">
+<div class="text-5xl font-mono mb-8">
+user_8323
+</div>
+<div class="flex items-center justify-center gap-6 mb-8">
+<pre><code>&lt;span class="opacity-60 font-mono"&gt;treat as integer?&lt;/span&gt;
+&lt;div class="relative text-4xl"&gt;
+  &lt;span&gt;→&lt;/span&gt;
+  &lt;span class="absolute inset-0 flex items-center justify-center text-red-500"&gt;✕&lt;/span&gt;
+&lt;/div&gt;
+&lt;span class="text-3xl font-mono line-through opacity-40"&gt;8323&lt;/span&gt;</code></pre>
+</div>
+<p class="opacity-60">
+User 8323 is not “greater than” user 8322.
+</p>
+</div>
+<hr>
+</section>
+<section id="one-hot-encoding" class="level1">
+<h1>One-hot encoding</h1>
+<div class="mt-8 flex flex-col gap-6">
+<p>&lt;OneHotVector :length=“3” :hotIndex=“0” label=“hot” size=“lg” /&gt; &lt;OneHotVector :length=“3” :hotIndex=“1” label=“mild” size=“lg” /&gt; &lt;OneHotVector :length=“3” :hotIndex=“2” label=“cold” size=“lg” /&gt;</p>
+</div>
+<p class="mt-8 opacity-60 text-sm">
+Every category gets a unique vector with a single 1.
+</p>
+<hr>
+</section>
+<section id="all-pairs-equidistant" class="level1">
+<h1>All pairs equidistant</h1>
+<div class="flex justify-center mt-6">
+<div class="relative" style="width:360px;height:300px">
+<pre><code>&lt;svg class="absolute inset-0" width="360" height="300" viewBox="0 0 360 300"&gt;
+  &lt;polygon points="180,20 330,280 30,280" fill="none" stroke="#94a3b8" stroke-width="2"/&gt;
+  &lt;text x="180" y="298" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#64748b"&gt;d=√2&lt;/text&gt;
+  &lt;text x="72" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#64748b"&gt;d=√2&lt;/text&gt;
+  &lt;text x="290" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#64748b"&gt;d=√2&lt;/text&gt;
+&lt;/svg&gt;
+&lt;div class="absolute flex justify-center" style="top:0;left:50%;transform:translateX(-50%)"&gt;
+  &lt;OneHotVector :length="3" :hotIndex="0" label="hot" size="sm" /&gt;
+&lt;/div&gt;
+&lt;div class="absolute" style="bottom:20px;left:0"&gt;
+  &lt;OneHotVector :length="3" :hotIndex="1" label="mild" size="sm" /&gt;
+&lt;/div&gt;
+&lt;div class="absolute" style="bottom:20px;right:0"&gt;
+  &lt;OneHotVector :length="3" :hotIndex="2" label="cold" size="sm" /&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+<p class="mt-4 opacity-70 italic text-sm">
+mild should be closer to hot than cold. One-hot loses that.
+</p>
+<hr>
+</section>
+<section id="scale-doesnt-help" class="level1">
+<h1>Scale doesn’t help</h1>
+<div class="flex justify-center mt-8">
+<p>&lt;OneHotVector :length=“30” :hotIndex=“7” size=“sm” /&gt;</p>
+</div>
+<div class="text-center mt-10 font-mono">
+<span class="text-5xl">length = 6040</span>
+<div class="text-sm opacity-60 mt-2">
+for MovieLens users
+</div>
+</div>
+<p class="mt-8 text-sm opacity-60 text-center">
+1 hot cell, 6039 zeros per user. Not practical.
+</p>
+</section>
+<section id="embeddings" class="level1">
+<h1>Embeddings</h1>
+<div class="mt-10">
+<p>&lt;EmbeddingVector size=“lg” :visible=“$clicks” :values=“[0.32, -0.81, 0.55, -0.12, 0.70, 0.04, -0.46, 0.93]” label=“user 42” /&gt;</p>
+</div>
+<p class="mt-10 opacity-70">
+Shorter vectors, more meaning.
+</p>
+</section>
+<section id="structure-emerges-from-ratings-alone" class="level1">
+<h1>Structure emerges from ratings alone</h1>
+<div class="flex justify-center mt-4">
+<p><embeddingplot></embeddingplot></p>
+</div>
+<hr>
+</section>
+<section id="same-trick-powers-nlp" class="level1">
+<h1>Same trick powers NLP</h1>
+<div class="flex gap-3 items-end justify-center mt-6 overflow-hidden w-full">
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[0.3, -0.6, 0.4, 0.1, -0.2, 0.5]" /&gt;
+&lt;span class="font-mono text-sm"&gt;The&lt;/span&gt;</code></pre>
+</div>
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[0.8, 0.2, -0.5, 0.6, -0.1, 0.3]" /&gt;
+&lt;span class="font-mono text-sm"&gt;cat&lt;/span&gt;</code></pre>
+</div>
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[-0.4, 0.3, 0.7, -0.2, 0.5, -0.1]" /&gt;
+&lt;span class="font-mono text-sm"&gt;sat&lt;/span&gt;</code></pre>
+</div>
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[0.1, -0.3, 0.2, 0.8, -0.4, 0.6]" /&gt;
+&lt;span class="font-mono text-sm"&gt;on&lt;/span&gt;</code></pre>
+</div>
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[-0.2, 0.4, 0.1, -0.5, 0.7, 0.2]" /&gt;
+&lt;span class="font-mono text-sm"&gt;the&lt;/span&gt;</code></pre>
+</div>
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[0.5, -0.1, 0.6, 0.3, -0.4, 0.8]" /&gt;
+&lt;span class="font-mono text-sm"&gt;mat&lt;/span&gt;</code></pre>
+</div>
+</div>
+<div class="flex gap-3 items-center justify-center mt-10 font-mono">
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[0.6, 0.4, -0.2, 0.8, 0.1]" /&gt;
+&lt;span&gt;king&lt;/span&gt;</code></pre>
+</div>
+<span class="text-2xl">−</span>
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[0.3, 0.1, -0.4, 0.2, -0.1]" /&gt;
+&lt;span&gt;man&lt;/span&gt;</code></pre>
+</div>
+<span class="text-2xl">+</span>
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[-0.2, 0.6, 0.1, 0.3, 0.4]" /&gt;
+&lt;span&gt;woman&lt;/span&gt;</code></pre>
+</div>
+<span class="text-2xl">≈</span>
+<div class="flex flex-col items-center gap-1">
+<pre><code>&lt;EmbeddingVector size="sm" :showValues="false" :values="[0.1, 0.9, -0.5, 0.9, 0.6]" /&gt;
+&lt;span&gt;queen&lt;/span&gt;</code></pre>
+</div>
+</div>
+<p class="mt-4 text-sm opacity-70 text-center">
+Every LLM is built on top of this idea.
+</p>
+<hr>
+</section>
+<section id="mechanically-just-a-lookup" class="level1">
+<h1>Mechanically, just a lookup</h1>
+<div class="flex items-center justify-center gap-4 mt-8 flex-wrap">
+<div class="flex flex-col items-center gap-2">
+<pre><code>&lt;OneHotVector :length="6" :hotIndex="3" size="md" /&gt;
+&lt;span class="font-mono text-xs opacity-50"&gt;one-hot&lt;/span&gt;</code></pre>
+</div>
+<span class="text-2xl opacity-40">·</span>
+<div class="flex flex-col items-center gap-2">
+<pre><code>&lt;div class="grid gap-1" style="grid-template-columns:repeat(4,28px)"&gt;
+  &lt;div v-for="i in 24" :key="i"
+    class="h-7 rounded flex items-center justify-center font-mono"
+    style="font-size:8px"
+    :style="{
+      background: (i &gt;= 13 &amp;&amp; i &lt;= 16) ? 'rgb(59,130,246)' : '#f1f5f9',
+      color: (i &gt;= 13 &amp;&amp; i &lt;= 16) ? '#fff' : '#94a3b8'
+    }"&gt;{{ (i &gt;= 13 &amp;&amp; i &lt;= 16) ? ['0.3','-0.7','0.4','0.8'][i-13] : '0' }}&lt;/div&gt;
+&lt;/div&gt;
+&lt;span class="font-mono text-xs opacity-50"&gt;W (6 × 4)&lt;/span&gt;</code></pre>
+</div>
+<span class="text-2xl opacity-40">=</span>
+<div class="flex flex-col items-center gap-2">
+<pre><code>&lt;EmbeddingVector size="md" :showValues="false" :values="[0.3, -0.7, 0.4, 0.8]" /&gt;
+&lt;span class="font-mono text-xs opacity-50"&gt;embedding&lt;/span&gt;</code></pre>
+</div>
+<span class="text-xl opacity-40 mx-2">≡</span>
+<div class="flex flex-col items-center gap-2">
+<pre><code>&lt;EmbeddingVector size="md" :showValues="false" :values="[0.3, -0.7, 0.4, 0.8]" /&gt;
+&lt;span class="font-mono text-xs opacity-50"&gt;direct lookup&lt;/span&gt;</code></pre>
+</div>
+</div>
+<p class="mt-8 text-sm opacity-60 text-center">
+Mathematically identical. A lookup just skips the matmul.
+</p>
+<div class="flex flex-col items-center gap-6">
+&lt;EmbeddingVector size=“md” :values=“[0.32, -0.81, 0.55, -0.12, 0.70, 0.04, -0.46, 0.93]” label=“user 42” /&gt;
+<div class="text-5xl opacity-30">
+?
+</div>
+&lt;EmbeddingVector size=“md” :values=“[0.44, -0.62, 0.71, -0.28, 0.55, 0.17, -0.39, 0.82]” label=“movie 2571” /&gt;
+<div class="border-2 border-dashed border-gray-300 rounded-xl px-10 py-3 text-3xl opacity-30">
+?
+</div>
+</div>
+<p class="mt-6 text-center opacity-60 text-sm">
+How do we combine two vectors into one rating?
+</p>
+</section>
+<section id="dot-product" class="level1">
+<h1>Dot product</h1>
+<div class="mt-6 flex justify-center">
+<p>&lt;DotProduct :step=“$clicks” :vecA=“[0.32, -0.81, 0.55, -0.12, 0.70, 0.04, -0.46, 0.93]” :vecB=“[0.44, -0.62, 0.71, -0.28, 0.55, 0.17, -0.39, 0.82]” labelA=“user 42” labelB=“movie 2571” :pmax=“0.8” size=“md” /&gt;</p>
+</div>
+<p class="mt-4 opacity-70 text-sm">
+High when vectors align. Low when they don’t. That’s our similarity score.
+</p>
+<hr>
+</section>
+<section id="matrix-factorization" class="level1">
+<h1>Matrix factorization</h1>
+<div class="flex items-center justify-center gap-6 mt-8 font-mono">
+<div class="flex flex-col items-center gap-2">
+<pre><code>&lt;div class="grid gap-1" style="grid-template-columns:repeat(6,28px)"&gt;
+  &lt;div v-for="(v, i) in [5,0,0,3,0,0,0,4,0,0,5,0,0,0,3,0,0,4,0,5,0,0,0,3,4,0,0,0,0,0,0,0,5,0,3,0]" :key="i"
+    class="h-7 rounded flex items-center justify-center text-xs"
+    :style="{ background: v ? 'rgb(59,130,246)' : '#f1f5f9', color: v ? '#fff' : '#94a3b8' }"&gt;{{ v || '' }}&lt;/div&gt;
+&lt;/div&gt;
+&lt;span class="text-xs opacity-50"&gt;R (6×6)&lt;/span&gt;</code></pre>
+</div>
+<span class="text-2xl opacity-50">≈</span>
+<div class="flex flex-col items-center gap-2">
+<pre><code>&lt;div class="grid gap-1" style="grid-template-columns:repeat(4,28px)"&gt;
+  &lt;div v-for="i in 24" :key="i" class="h-7 rounded"
+    :style="{ background: `hsl(${(i * 37) % 360}, 55%, 78%)` }"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;span class="text-xs opacity-50"&gt;U (6×4)&lt;/span&gt;</code></pre>
+</div>
+<span class="text-2xl opacity-50">·</span>
+<div class="flex flex-col items-center gap-2">
+<pre><code>&lt;div class="grid gap-1" style="grid-template-columns:repeat(6,28px)"&gt;
+  &lt;div v-for="i in 24" :key="i" class="h-7 rounded"
+    :style="{ background: `hsl(${(i * 53 + 120) % 360}, 55%, 78%)` }"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;span class="text-xs opacity-50"&gt;Mᵀ (4×6)&lt;/span&gt;</code></pre>
+</div>
+</div>
+<div class="text-center mt-6 font-mono text-xl">
+R ≈ U · Mᵀ
+</div>
+<p class="mt-4 text-sm opacity-60 text-center">
+Dot products everywhere means you are implicitly factoring a matrix.
+</p>
+<p>&lt;Transform :scale=“2.5”&gt;</p>
+<p><span class="math display">\[\hat{r}(u, m) = \mathbf{e}_u \cdot \mathbf{e}_m\]</span></p>
+<p></p>
+</section>
+<section id="version-1" class="level1">
+<h1>Version 1</h1>
+<p>```python {all|6-8|10-13} import torch import torch.nn as nn</p>
+<p>class MFModelV1(nn.Module): def <strong>init</strong>(self, n_users: int, n_movies: int, dim: int = 32): super().__init__() self.user_emb = nn.Embedding(n_users + 1, dim) self.movie_emb = nn.Embedding(n_movies + 1, dim)</p>
+<pre><code>def forward(self, user_ids, movie_ids):
+    u = self.user_emb(user_ids)
+    m = self.movie_emb(movie_ids)
+    return (u * m).sum(-1, keepdim=True)</code></pre>
+<pre><code>
+---
+layout: center
+---
+
+# Uh oh.
+
+&lt;div class="flex justify-center mt-8"&gt;
+  &lt;MetricBadge label="val MAE" :value="3.0" variant="bad" size="lg" /&gt;
+&lt;/div&gt;
+
+&lt;p class="mt-8 opacity-80"&gt;Worse than predicting the mean. Right? Not so fast.&lt;/p&gt;
+
+---
+
+# Output range mismatch
+
+&lt;div class="flex justify-center mt-10"&gt;
+  &lt;svg width="580" height="80" viewBox="0 0 580 80"&gt;
+    &lt;line x1="30" y1="40" x2="550" y2="40" stroke="#94a3b8" stroke-width="2"/&gt;
+    &lt;polygon points="550,40 540,35 540,45" fill="#94a3b8"/&gt;
+    &lt;polygon points="30,40 40,35 40,45" fill="#94a3b8"/&gt;
+    &lt;text x="22" y="36" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#64748b"&gt;-∞&lt;/text&gt;
+    &lt;text x="558" y="36" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#64748b"&gt;+∞&lt;/text&gt;
+    &lt;rect x="220" y="28" width="140" height="24" rx="4" fill="rgb(134,239,172)" opacity="0.7"/&gt;
+    &lt;line x1="220" y1="24" x2="220" y2="56" stroke="#16a34a" stroke-width="2"/&gt;
+    &lt;line x1="360" y1="24" x2="360" y2="56" stroke="#16a34a" stroke-width="2"/&gt;
+    &lt;text x="220" y="70" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#16a34a"&gt;1&lt;/text&gt;
+    &lt;text x="360" y="70" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#16a34a"&gt;5&lt;/text&gt;
+  &lt;/svg&gt;
+&lt;/div&gt;
+
+&lt;p class="mt-8 text-sm opacity-70 text-center"&gt;A dot product can output anything in ℝ. Ratings live in [1, 5]. The model wastes most of its capacity figuring that out.&lt;/p&gt;
+
+---
+
+# Version 2, squash to [1, 5]
+
+````md magic-move
+```python
+def forward(self, user_ids, movie_ids):
+    u = self.user_emb(user_ids)
+    m = self.movie_emb(movie_ids)
+    return (u * m).sum(-1, keepdim=True)</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forward(<span class="va">self</span>, user_ids, movie_ids):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="va">self</span>.user_emb(user_ids)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> <span class="va">self</span>.movie_emb(movie_ids)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    dot <span class="op">=</span> (u <span class="op">*</span> m).<span class="bu">sum</span>(<span class="op">-</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">4</span> <span class="op">*</span> torch.sigmoid(dot) <span class="op">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>
+&lt;div class="flex justify-center mt-4"&gt;
+  &lt;div class="flex flex-col items-center gap-2"&gt;
+    &lt;svg width="200" height="110" viewBox="0 0 200 110"&gt;
+      &lt;line x1="10" y1="55" x2="190" y2="55" stroke="#e2e8f0" stroke-width="1"/&gt;
+      &lt;line x1="100" y1="10" x2="100" y2="100" stroke="#e2e8f0" stroke-width="1"/&gt;
+      &lt;path d="M 10,100 C 50,98 70,85 100,55 C 130,25 150,12 190,10" fill="none" stroke="rgb(59,130,246)" stroke-width="2.5"/&gt;
+      &lt;text x="8" y="104" font-family="JetBrains Mono,monospace" font-size="10" fill="#64748b"&gt;1&lt;/text&gt;
+      &lt;text x="178" y="14" font-family="JetBrains Mono,monospace" font-size="10" fill="#64748b"&gt;5&lt;/text&gt;
+    &lt;/svg&gt;
+    &lt;p class="text-sm opacity-70"&gt;Your old pal, the sigmoid, scaled to [1, 5].&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+---
+layout: center
+---
+
+# Much better
+
+&lt;div class="flex justify-center gap-8 mt-8"&gt;
+  &lt;MetricBadge label="val MAE" :value="0.77" :baseline="3.0" variant="good" size="lg" /&gt;
+  &lt;MetricBadge label="R²" :value="0.177" :baseline="0.07" variant="good" /&gt;
+&lt;/div&gt;
+
+---
+
+# Version 3, add bias
+
+````md magic-move
+```python
+class MFModel(nn.Module):
+    def __init__(self, n_users, n_movies, dim=32):
+        super().__init__()
+        self.user_emb = nn.Embedding(n_users + 1, dim)
+        self.movie_emb = nn.Embedding(n_movies + 1, dim)
+
+    def forward(self, user_ids, movie_ids):
+        u = self.user_emb(user_ids)
+        m = self.movie_emb(movie_ids)
+        dot = (u * m).sum(-1, keepdim=True)
+        return 4 * torch.sigmoid(dot) + 1
+```
+
+```python
+class MFModel(nn.Module):
+    def __init__(self, n_users, n_movies, dim=32):
+        super().__init__()
+        self.user_emb = nn.Embedding(n_users + 1, dim)
+        self.movie_emb = nn.Embedding(n_movies + 1, dim)
+        self.user_bias = nn.Embedding(n_users + 1, 1)
+        self.movie_bias = nn.Embedding(n_movies + 1, 1)
+
+    def forward(self, user_ids, movie_ids):
+        u = self.user_emb(user_ids)
+        m = self.movie_emb(movie_ids)
+        dot = (u * m).sum(-1, keepdim=True)
+        x = dot + self.user_bias(user_ids) + self.movie_bias(movie_ids)
+        return 4 * torch.sigmoid(x) + 1
+```</code></pre>
+<p class="mt-4 text-sm opacity-70">
+Some users rate everything 4. Some movies are universally loved. The biases do the coarse work, the embeddings do the fine-tuning.
+</p>
+<hr>
+</section>
+<section id="the-full-pipeline" class="level1">
+<h1>The full pipeline</h1>
+<pre class="mermaid"><code>flowchart LR
+    subgraph U ["User"]
+        uid([user_id]) --&gt; ulookup[IntegerLookup]
+        ulookup --&gt; uemb["Embedding (32d)"]
+        ulookup --&gt; ubias["Bias (1d)"]
+    end
+    subgraph M ["Movie"]
+        mid([movie_id]) --&gt; mlookup[IntegerLookup]
+        mlookup --&gt; memb["Embedding (32d)"]
+        mlookup --&gt; mbias["Bias (1d)"]
+    end
+
+    uemb --&gt; dot["Dot Product"]
+    memb --&gt; dot
+    dot --&gt; add[Add]
+    ubias --&gt; add
+    mbias --&gt; add
+    add --&gt; sq["4 · σ(x) + 1"]
+    sq --&gt; r([rating])
+
+    style uid fill:#e0f2fe,stroke:#7dd3fc,color:#0f172a
+    style mid fill:#e0f2fe,stroke:#7dd3fc,color:#0f172a
+    style uemb fill:#dbeafe,stroke:#93c5fd,color:#0f172a
+    style memb fill:#dbeafe,stroke:#93c5fd,color:#0f172a
+    style ubias fill:#fef9c3,stroke:#fde047,color:#0f172a
+    style mbias fill:#fef9c3,stroke:#fde047,color:#0f172a
+    style dot fill:#f1f5f9,stroke:#94a3b8,color:#0f172a
+    style add fill:#f1f5f9,stroke:#94a3b8,color:#0f172a
+    style sq fill:#f1f5f9,stroke:#94a3b8,color:#0f172a
+    style r fill:#dcfce7,stroke:#86efac,color:#0f172a</code></pre>
+<hr>
+</section>
+<section id="three-models-three-results" class="level1">
+<h1>Three models, three results</h1>
+<div class="flex gap-6 justify-center mt-6">
+<p>&lt;MetricBadge label=“baseline MAE” :value=“0.85” variant=“default” /&gt; &lt;MetricBadge label=“V2 MAE” :value=“0.77” :baseline=“0.85” variant=“default” /&gt; &lt;MetricBadge label=“V3 MAE” :value=“0.746” :baseline=“0.85” variant=“good” /&gt;</p>
+</div>
+<div class="flex gap-6 justify-center mt-6">
+<p>&lt;MetricBadge label=“baseline R²” :value=“0.07” variant=“default” /&gt; &lt;MetricBadge label=“V2 R²” :value=“0.177” :baseline=“0.07” variant=“default” /&gt; &lt;MetricBadge label=“V3 R²” :value=“0.245” :baseline=“0.07” variant=“good” /&gt;</p>
+</div>
+<p class="mt-6 text-sm opacity-50 text-center font-mono">
+No hyperparameter tuning yet.
+</p>
+</section>
+<section id="using-the-model" class="level1">
+<h1>Using the model</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Will user 1 like movie 2?</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> model(torch.tensor([<span class="dv">1</span>]), torch.tensor([<span class="dv">2</span>]))</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># pred -&gt; tensor([[3.03]])</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="mt-4 flex items-center gap-3">
+<p>&lt;RatingStars :value=“3.03” size=“lg” /&gt; <span class="font-mono text-sm opacity-70">predicted: 3.03</span></p>
+</div>
+<p>::right::</p>
+<p class="font-mono text-xs uppercase opacity-50 mb-4 tracking-wider">
+Top 5 for user 1
+</p>
+<ul class="flex flex-col gap-4 list-none p-0 m-0">
+<li class="flex items-center gap-3">
+<span class="font-mono text-xs opacity-60 w-20">movie 2571</span> &lt;RatingStars :value=“4.71” /&gt;
+</li>
+<li class="flex items-center gap-3">
+<span class="font-mono text-xs opacity-60 w-20">movie 1198</span> &lt;RatingStars :value=“4.68” /&gt;
+</li>
+<li class="flex items-center gap-3">
+<span class="font-mono text-xs opacity-60 w-20">movie 858</span> &lt;RatingStars :value=“4.62” /&gt;
+</li>
+<li class="flex items-center gap-3">
+<span class="font-mono text-xs opacity-60 w-20">movie 318</span> &lt;RatingStars :value=“4.58” /&gt;
+</li>
+<li class="flex items-center gap-3">
+<span class="font-mono text-xs opacity-60 w-20">movie 50</span> &lt;RatingStars :value=“4.55” /&gt;
+</li>
+</ul>
+</section>
+<section id="what-this-model-is" class="level1">
+<h1>What this model is</h1>
+<p><strong>Strengths</strong></p>
+<ul>
+<li>Needs only interactions, no side features</li>
+<li>Works broadly across domains</li>
+<li>Fast to train and query</li>
+<li>Embeddings often interpretable post-hoc</li>
+</ul>
+<p>::right::</p>
+<p><strong>Limits</strong></p>
+<ul>
+<li>Cold start for new users and movies</li>
+<li>No content features used</li>
+<li>No sequence or recency modeling</li>
+<li>Requires enough interaction data</li>
+</ul>
+<hr>
+</section>
+<section id="thanks.-questions" class="level1">
+<h1>Thanks. Questions?</h1>
+<p><v-clicks></v-clicks></p>
+<ol type="1">
+<li>Hybrid recommenders: content and collaborative</li>
+<li>Deep models over embeddings (MLPs, transformers)</li>
+<li>Sequential recsys: using order of interactions</li>
+</ol>
+<p></p>
+<div class="abs-b mb-28 font-mono text-xs opacity-40 flex flex-col gap-1">
+<div>
+Article: https://towardsdatascience.com/introduction-to-embedding-based-recommender-systems-956faceb1919
+</div>
+<div>
+Cold start: https://towardsdatascience.com/a-performant-recommender-system-without-cold-start-problem-69bf2f0f0b9b
+</div>
+<div>
+LinkedIn: https://www.linkedin.com/in/dr-robert-kübler-983859150/
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

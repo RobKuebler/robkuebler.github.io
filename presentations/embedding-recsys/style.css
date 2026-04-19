@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── Portfolio CSS variables ─────────────────────────────── */
+:root {
+  --slidev-theme-primary: #8a6820;
+  --slidev-slide-container-background: #d6cfc4;
+  --slidev-code-background: #faf8f4;
+  --slidev-code-foreground: #1c1825;
+
+  --p-bg:          #f4f1ea;
+  --p-surface:     #faf8f4;
+  --p-accent:      #8a6820;
+  --p-accent-dim:  #755518;
+  --p-border:      #e3ddd0;
+  --p-text:        #1c1825;
+  --p-muted:       #57516a;
+  --p-faint:       #726887;
+}
+
+/* ── Slide base ──────────────────────────────────────────── */
+.slidev-layout {
+  background: var(--p-bg);
+  color: var(--p-text);
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+/* ── Headings ────────────────────────────────────────────── */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  color: var(--p-text);
+  letter-spacing: -0.02em;
+}
+
+/* Cover title is extra large — keep default sizing but fix font */
+.slidev-layout.cover h1,
+.slidev-layout.intro h1 {
+  color: var(--p-text);
+}
+
+/* Subtitle under h1 on cover */
+.slidev-layout.cover h1 + p,
+.slidev-layout.intro h1 + p {
+  font-family: 'Source Serif 4', Georgia, serif;
+  color: var(--p-muted);
+}
+
+/* ── Body text & lists ───────────────────────────────────── */
+.slidev-layout p {
+  color: var(--p-muted);
+}
+
+.slidev-layout li {
+  color: var(--p-muted);
+}
+
+.slidev-layout strong {
+  color: var(--p-text);
+  font-weight: 600;
+}
+
+/* ── Monospace ───────────────────────────────────────────── */
+.slidev-layout .font-mono,
+.slidev-layout code,
+.slidev-layout pre,
+.slidev-layout table {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ── Code blocks ─────────────────────────────────────────── */
+.slidev-layout pre,
+.slidev-layout .slidev-code {
+  background: var(--p-surface) !important;
+  border: 1px solid var(--p-border);
+  border-radius: 12px;
+}
+
+.slidev-layout code:not(pre code) {
+  background: var(--p-surface);
+  color: var(--p-accent);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+/* ── Tables ──────────────────────────────────────────────── */
+.slidev-layout table th {
+  color: var(--p-muted);
+  border-color: var(--p-border);
+}
+
+.slidev-layout table td {
+  color: var(--p-muted);
+  border-color: var(--p-border);
+}
+
+/* ── Links ───────────────────────────────────────────────── */
+.slidev-layout a {
+  color: var(--p-accent);
+}
+
+/* ── Nav controls (bottom bar) ───────────────────────────── */
+.slidev-controls {
+  color: var(--p-muted) !important;
+}
+
+/* ── Progress bar ────────────────────────────────────────── */
+.slidev-progress-bar {
+  background: var(--p-accent) !important;
+}
+
+/* ── Slide number ────────────────────────────────────────── */
+.slidev-page-number {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--p-faint);
+}
+
+/* ── abs-br attribution text ─────────────────────────────── */
+.slidev-layout .abs-br {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--p-faint);
+}
+
+/* ── Borders & dividers ──────────────────────────────────── */
+.slidev-layout .border-gray-200 { border-color: var(--p-border) !important; }
+.slidev-layout .border-gray-100 { border-color: #ede8e0 !important; }
+.slidev-layout .border-gray-300 { border-color: var(--p-border) !important; }
+
+/* ── Background fills ────────────────────────────────────── */
+.slidev-layout .bg-amber-50 { background: #fef9ec !important; }
+
+/* ── Captions (below diagrams, tables, visuals) ──────────── */
+.slidev-layout .caption {
+  font-size: 0.875rem;
+  color: var(--p-faint);
+  text-align: center;
+  margin-top: 1rem;
+}
