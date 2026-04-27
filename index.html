@@ -958,58 +958,6 @@
       }
     }
 
-    /* ─── Talks ──────────────────────────────────────────────── */
-    #talks { background: var(--surface); }
-
-    .talk-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .talk-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.4;
-    }
-
-    .talk-desc {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .talk-versions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .talk-ver {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 16px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border);
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      transition: border-color 0.2s, color 0.2s;
-      text-decoration: none;
-    }
-
-    .talk-ver:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      text-decoration: none;
-    }
-
     /* ─── Skills ────────────────────────────────────────────── */
     #skills { background: var(--surface); }
 
@@ -1636,29 +1584,6 @@
         </a>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ─── Talks ────────────────────────────────────────────── -->
-  <section id="talks">
-    <div class="container">
-      <p class="section-label">/ Talks</p>
-      <h2 class="section-title">Slide decks</h2>
-
-      <div class="talk-card">
-        <div class="tags">
-          <span class="tag">RecSys</span>
-          <span class="tag">PyTorch</span>
-          <span class="tag">Embeddings</span>
-        </div>
-        <div class="talk-title">Introduction to Embedding-Based Recommender Systems</div>
-        <div class="talk-desc">Two-tower architecture, dot-product similarity scoring, and animated embedding space training: user and item vectors clustering as the model learns. The same deck, built three times, to compare presentation frameworks.</div>
-        <div class="talk-versions">
-          <a class="talk-ver" href="presentations/embedding-recsys/revealjs/index.html" target="_blank" rel="noopener">RevealJS →</a>
-          <a class="talk-ver" href="presentations/embedding-recsys/quarto/slides.html" target="_blank" rel="noopener">Quarto →</a>
-          <a class="talk-ver" href="presentations/embedding-recsys/slidev/dist/" target="_blank" rel="noopener">Slidev →</a>
-        </div>
-      </div>
     </div>
   </section>
 
