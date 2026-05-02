@@ -20,7 +20,9 @@
 
   /* ── Accent alpha variants (avoid hardcoding rgba in components) ── */
   --accent-a06:  rgba(138,104,32,0.06);
+  --accent-a12:  rgba(138,104,32,0.12);
   --accent-a18:  rgba(138,104,32,0.18);
+  --accent-a25:  rgba(138,104,32,0.25);
   --accent-a35:  rgba(138,104,32,0.35);
   /* --accent-glow (defined above) is the canonical 9%-opacity accent tint */
   --radius-sm:   8px;
@@ -175,8 +177,8 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(138,104,32,0.12);
-  border: 1px solid rgba(138,104,32,0.25);
+  background: var(--accent-a12);
+  border: 1px solid var(--accent-a25);
   border-radius: var(--radius-pill);
   padding: 4px 16px;
   font-size: 0.72rem;
@@ -263,6 +265,10 @@ footer {
   border: none;
   border-top: 1px solid var(--border);
   margin: 32px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 /* ─── Entrance animation ─────────────────────────────────── */
