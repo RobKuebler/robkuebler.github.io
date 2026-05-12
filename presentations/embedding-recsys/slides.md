@@ -703,7 +703,7 @@ with torch.no_grad():
 class: flex flex-col
 ---
 
-# What this model is
+# Summary
 
 <div class="flex-1 flex items-center gap-8">
 
@@ -752,6 +752,37 @@ class: flex flex-col
 </div>
 
 </div>
+
+---
+
+# Adding content features
+
+```python
+class HybridMF(nn.Module):
+    def __init__(self, n_users, n_movies, n_genres, n_genders, dim=32):
+        super().__init__()
+        # ID embeddings
+        self.user_id_emb   = nn.Embedding(n_users,   dim)
+        self.movie_id_emb  = nn.Embedding(n_movies,  dim)
+        # Movie content features
+        self.genre_emb     = nn.Embedding(n_genres,  dim)
+        self.year_emb      = nn.Linear(1,             dim)
+        # User content features
+        self.gender_emb    = nn.Embedding(n_genders,  dim)
+        self.age_emb       = nn.Linear(1,             dim)
+
+    def forward(self, user_ids, movie_ids, genres, years, genders, ages):
+        u = (self.user_id_emb(user_ids)
+             + self.gender_emb(genders)
+             + self.age_emb(ages.unsqueeze(-1)))
+        m = (self.movie_id_emb(movie_ids)
+             + self.genre_emb(genres)
+             + self.year_emb(years.unsqueeze(-1)))
+        dot = (u * m).sum(-1, keepdim=True)
+        return 4 * torch.sigmoid(dot) + 1
+```
+
+<p class="caption">Each feature contributes its own embedding, all summed before the dot product.</p>
 
 ---
 
