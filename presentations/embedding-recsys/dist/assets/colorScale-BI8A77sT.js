@@ -1,0 +1,1 @@
+function e(o,n=1){const a=Math.max(-1,Math.min(1,o/n)),s=[59,130,246],f=[239,68,68],t=[245,245,245],r=a<0?s:f,c=Math.abs(a),h=Math.round(t[0]+(r[0]-t[0])*c),M=Math.round(t[1]+(r[1]-t[1])*c),u=Math.round(t[2]+(r[2]-t[2])*c);return`rgb(${h}, ${M}, ${u})`}function m(o,n=1){return Math.abs(Math.max(-1,Math.min(1,o/n)))>.55?"#ffffff":"#1f2937"}export{e as c,m as t};
