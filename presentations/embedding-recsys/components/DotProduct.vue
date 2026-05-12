@@ -102,7 +102,6 @@ const showSum = computed(() => props.step >= 2)
 
     <!-- Products row -->
     <div class="dp-row-group dp-reveal" :class="{ 'dp-fade-in': showProducts }">
-      <p class="dp-label">products</p>
       <div class="dp-row" :style="{ gap: dims.gap + 'px' }">
         <div
           v-for="(v, i) in products"
@@ -121,7 +120,7 @@ const showSum = computed(() => props.step >= 2)
 
     <!-- Sum + scalar -->
     <div class="dp-sum-row" :class="{ 'dp-fade-in': showSum }">
-      <span class="dp-sum-sym">Σ →</span>
+      <span class="dp-sum-label">Sum:</span>
       <div class="dp-scalar">{{ sum.toFixed(2) }}</div>
     </div>
   </div>
@@ -129,10 +128,24 @@ const showSum = computed(() => props.step >= 2)
 
 <style scoped>
 .dp-wrap {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: auto;
   gap: 10px;
+  align-items: start;
+}
+.dp-wrap > :nth-child(5),
+.dp-wrap > :nth-child(6) {
+  display: flex;
+  justify-content: center;
+}
+.dp-wrap > :nth-child(5) {
+  grid-column: 1;
+}
+.dp-wrap > :nth-child(6) {
+  grid-column: 1;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 }
 .dp-row-group {
   display: flex;
@@ -187,11 +200,17 @@ const showSum = computed(() => props.step >= 2)
 .dp-sum-row {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  justify-content: center;
+  gap: 16px;
   margin-top: 8px;
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.dp-sum-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 1rem;
+  color: #64748b;
 }
 .dp-sum-sym {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -203,9 +222,10 @@ const showSum = computed(() => props.step >= 2)
   font-size: 2.2rem;
   font-weight: 600;
   color: #0f172a;
-  background: #fef3c7;
-  padding: 4px 18px;
-  border-radius: 10px;
-  border: 2px solid #f59e0b;
+  background: #f1f5f9;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
 }
 </style>

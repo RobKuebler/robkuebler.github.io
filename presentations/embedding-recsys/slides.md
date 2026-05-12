@@ -161,22 +161,22 @@ class: flex flex-col
   A model only understands numbers. But a user or a movie is just a label, an ID with no numeric meaning.
 </p>
 
-<div class="flex items-center gap-6 font-mono text-lg">
+<div class="flex items-center gap-10 font-mono text-lg">
   <div class="flex flex-col items-center gap-2">
-    <div class="text-4xl">🧑</div>
+    <div class="text-8xl">🧑</div>
   </div>
-  <div class="text-3xl opacity-40">→</div>
-  <div class="px-6 py-3 rounded-xl border-2 border-dashed border-purple-400 text-purple-600 font-bold text-xl">
+  <div class="text-6xl opacity-40">→</div>
+  <div class="px-8 py-5 rounded-xl border-2 border-dashed border-purple-400 text-purple-600 font-bold text-5xl">
     ?
   </div>
-  <div class="text-3xl opacity-40">→</div>
+  <div class="text-6xl opacity-40">→</div>
   <div class="flex flex-col items-center gap-2">
-    <div class="text-4xl">🔢</div>
+    <div class="text-8xl">🔢</div>
   </div>
 </div>
 
 <p class="text-center text-base opacity-70 max-w-xl">
-  The whole trick: find a function that maps each user and each movie to a vector of numbers that captures something meaningful.
+  The whole trick: find a function that maps each user and each movie to a vector of numbers that captures <i>something meaningful</i>.
 </p>
 
 </div>
@@ -228,9 +228,9 @@ clicks: 1
 ::left::
 
 <div class="mt-4 flex flex-col gap-6">
-  <OneHotVector :length="3" :hotIndex="0" label="Hot" size="lg" />
-  <OneHotVector :length="3" :hotIndex="1" label="Mild" size="lg" />
-  <OneHotVector :length="3" :hotIndex="2" label="Cold" size="lg" />
+  <OneHotVector :length="3" :hotIndex="0" label="Horror" size="lg" />
+  <OneHotVector :length="3" :hotIndex="1" label="Thriller" size="lg" />
+  <OneHotVector :length="3" :hotIndex="2" label="Romance" size="lg" />
 </div>
 
 <p class="caption">Every category gets a unique vector with a single 1.</p>
@@ -251,18 +251,18 @@ clicks: 1
     <!-- right edge label -->
     <div class="absolute text-xs text-slate-400" style="top:162px;right:50px"><Math tex="d=\sqrt{2}" /></div>
     <div class="absolute flex justify-center" style="top:5%;left:0%">
-      <OneHotVector :length="3" :hotIndex="1" label="mild" size="sm" />
+      <OneHotVector :length="3" :hotIndex="1" label="thriller" size="sm" />
     </div>
     <div class="absolute flex justify-center" style="top:5%;right:0%">
-      <OneHotVector :length="3" :hotIndex="2" label="cold" size="sm" />
+      <OneHotVector :length="3" :hotIndex="2" label="romance" size="sm" />
     </div>
-    <div class="absolute flex justify-center" style="bottom:25px;left:50%;transform:translateX(-50%)">
-      <OneHotVector :length="3" :hotIndex="0" label="hot" size="sm" />
+    <div class="absolute flex justify-center" style="bottom:5px;left:50%;transform:translateX(-50%)">
+      <OneHotVector :length="3" :hotIndex="0" label="horror" size="sm" labelPosition="bottom" />
     </div>
   </div>
 </div>
 
-<p class="caption">Mild should be closer to Hot than Cold. One-hot loses that.</p>
+<p class="caption">Thriller should be closer to Horror than Romance. One-hot loses that.</p>
 
 </v-click>
 
@@ -298,7 +298,7 @@ class: flex flex-col
       :labels="['age', 'likes<br>horror', 'has<br>job', '...', '', '', '', '']"
       :labelsVisible="Math.max(0, $clicks - 8)"
       :values="[0.32, -0.81, 0.55, -0.12, 0.70, 0.04, -0.46, 0.93]"
-      label="user 42"
+      label="user 123"
     />
     <RightLabel text="← to be learned" :visible="$clicks >= 12" />
   </div>
@@ -358,7 +358,7 @@ class: flex flex-col
   <div v-click="1" class="flex items-center gap-4">
     <span class="text-2xl" style="color: var(--p-faint)">→</span>
     <div
-      class="border-2 rounded-xl px-6 py-5 text-center"
+      class="border-2 rounded-lg px-6 py-5 text-center"
       style="border-color: var(--p-accent); color: var(--p-accent)"
     >
       <div class="font-mono text-sm font-bold uppercase tracking-wider">LLM</div>
@@ -376,53 +376,19 @@ class: flex flex-col
 <p class="caption">Every LLM is built on top of this idea.</p>
 
 ---
-
-# Mechanically, just a lookup
-
-<div class="flex items-center justify-center gap-4 mt-8 flex-wrap">
-  <div class="flex flex-col items-center gap-2">
-    <OneHotVector :length="6" :hotIndex="3" size="md" />
-    <span class="font-mono text-xs opacity-50">one-hot</span>
-  </div>
-  <span class="text-2xl opacity-40">·</span>
-  <div class="flex flex-col items-center gap-2">
-    <div class="grid gap-1" style="grid-template-columns:repeat(4,28px)">
-      <div v-for="i in 24" :key="i"
-        class="h-7 rounded flex items-center justify-center font-mono"
-        style="font-size:8px"
-        :style="{
-          background: (i >= 13 && i <= 16) ? 'rgb(59,130,246)' : '#f1f5f9',
-          color: (i >= 13 && i <= 16) ? '#fff' : '#94a3b8'
-        }">{{ (i >= 13 && i <= 16) ? ['0.3','-0.7','0.4','0.8'][i-13] : '0' }}</div>
-    </div>
-    <span class="font-mono text-xs opacity-50">W (6 × 4)</span>
-  </div>
-  <span class="text-2xl opacity-40">=</span>
-  <div class="flex flex-col items-center gap-2">
-    <EmbeddingVector size="md" :showValues="false" :values="[0.3, -0.7, 0.4, 0.8]" />
-    <span class="font-mono text-xs opacity-50">embedding</span>
-  </div>
-  <span class="text-xl opacity-40 mx-2">≡</span>
-  <div class="flex flex-col items-center gap-2">
-    <EmbeddingVector size="md" :showValues="false" :values="[0.3, -0.7, 0.4, 0.8]" />
-    <span class="font-mono text-xs opacity-50">direct lookup</span>
-  </div>
-</div>
-
-<p class="caption">Mathematically identical. A lookup just skips the matmul.</p>
-
----
-layout: center
+clicks: 1
+class: flex flex-col
 ---
 
-<div class="flex flex-col items-center gap-6">
-  <EmbeddingVector size="md" :values="[0.32, -0.81, 0.55, -0.12, 0.70, 0.04, -0.46, 0.93]" label="user 42" />
-  <div class="text-5xl opacity-30">?</div>
+# How do we combine two vectors into one rating?
+
+<div class="flex-1 flex items-center justify-center gap-8">
+  <EmbeddingVector size="md" :values="[0.32, -0.81, 0.55, -0.12, 0.70, 0.04, -0.46, 0.93]" label="user 123" />
+  <v-click :at="1">
+    <div class="text-5xl opacity-50 border-2 border-dotted border-gray-500 rounded-full w-20 h-20 flex items-center justify-center mt-8">?</div>
+  </v-click>
   <EmbeddingVector size="md" :values="[0.44, -0.62, 0.71, -0.28, 0.55, 0.17, -0.39, 0.82]" label="movie 2571" />
-  <div class="border-2 border-dashed border-gray-300 rounded-xl px-10 py-3 text-3xl opacity-30">?</div>
 </div>
-
-<p class="caption">How do we combine two vectors into one rating?</p>
 
 ---
 clicks: 2
@@ -437,7 +403,7 @@ class: flex flex-col
       :step="$clicks"
       :vecA="[0.32, -0.81, 0.55, -0.12, 0.70, 0.04, -0.46, 0.93]"
       :vecB="[0.44, -0.62, 0.71, -0.28, 0.55, 0.17, -0.39, 0.82]"
-      labelA="user 42"
+      labelA="user 123"
       labelB="movie 2571"
       :pmax="0.8"
       size="md"

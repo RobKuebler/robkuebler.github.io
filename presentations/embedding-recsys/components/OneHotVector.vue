@@ -6,6 +6,7 @@ const props = defineProps({
   hotIndex: { type: Number, required: true },
   label: { type: String, default: '' },
   size: { type: String, default: 'md' },
+  labelPosition: { type: String, default: 'top' },
 })
 
 const sizeMap = {
@@ -22,7 +23,7 @@ const cells = computed(() =>
 
 <template>
   <div class="oh-wrap">
-    <p v-if="label" class="oh-label">{{ label }}</p>
+    <p v-if="label && labelPosition === 'top'" class="oh-label">{{ label }}</p>
     <div class="oh-row" :style="{ gap: dims.gap + 'px' }">
       <div
         v-for="(v, i) in cells"
@@ -36,6 +37,7 @@ const cells = computed(() =>
         }"
       >{{ v }}</div>
     </div>
+    <p v-if="label && labelPosition === 'bottom'" class="oh-label">{{ label }}</p>
   </div>
 </template>
 
