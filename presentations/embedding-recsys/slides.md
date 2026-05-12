@@ -414,7 +414,7 @@ class: flex flex-col
 
 ---
 
-# Matrix factorization
+# Alternative view: matrix factorization
 
 <div class="flex items-center justify-center gap-6 mt-8 font-mono">
   <div class="flex flex-col items-center gap-2">
@@ -423,7 +423,7 @@ class: flex flex-col
         class="h-7 rounded flex items-center justify-center text-xs"
         :style="{ background: v ? 'rgb(59,130,246)' : '#f1f5f9', color: v ? '#fff' : '#94a3b8' }">{{ v || '' }}</div>
     </div>
-    <span class="text-xs opacity-50">R (6×6)</span>
+    <span class="text-xs opacity-50">Ratings R (6×6)</span>
   </div>
   <span class="text-2xl opacity-50">≈</span>
   <div class="flex flex-col items-center gap-2">
@@ -431,7 +431,7 @@ class: flex flex-col
       <div v-for="i in 24" :key="i" class="h-7 rounded"
         :style="{ background: `hsl(${(i * 37) % 360}, 55%, 78%)` }"></div>
     </div>
-    <span class="text-xs opacity-50">U (6×4)</span>
+    <span class="text-xs opacity-50">Users U (6×4)</span>
   </div>
   <span class="text-2xl opacity-50">·</span>
   <div class="flex flex-col items-center gap-2">
@@ -439,7 +439,7 @@ class: flex flex-col
       <div v-for="i in 24" :key="i" class="h-7 rounded"
         :style="{ background: `hsl(${(i * 53 + 120) % 360}, 55%, 78%)` }"></div>
     </div>
-    <span class="text-xs opacity-50">Mᵀ (4×6)</span>
+    <span class="text-xs opacity-50">Movies Mᵀ (4×6)</span>
   </div>
 </div>
 
@@ -448,14 +448,18 @@ class: flex flex-col
 <p class="caption">Dot products everywhere means you are implicitly factoring a matrix.</p>
 
 ---
-layout: center
+class: flex flex-col
 ---
 
-<Transform :scale="2.5">
+# Regression formula
 
-$$\hat{r}(u, m) = \mathbf{e}_u \cdot \mathbf{e}_m$$
+<div class="flex-1 flex items-center justify-center w-full">
 
-</Transform>
+
+$$\huge \hat{r}(u, m) = \mathbf{e}_u \cdot \mathbf{e}_m$$
+
+
+</div>
 
 ---
 clicks: 3
@@ -470,8 +474,8 @@ import torch.nn as nn
 class MFModelV1(nn.Module):
     def __init__(self, n_users: int, n_movies: int, dim: int = 32):
         super().__init__()
-        self.user_emb = nn.Embedding(n_users + 1, dim)
-        self.movie_emb = nn.Embedding(n_movies + 1, dim)
+        self.user_emb = nn.Embedding(n_users, dim)
+        self.movie_emb = nn.Embedding(n_movies, dim)
 
     def forward(self, user_ids, movie_ids):
         u = self.user_emb(user_ids)
@@ -480,45 +484,58 @@ class MFModelV1(nn.Module):
 ```
 
 ---
-layout: center
----
-
-# Uh oh.
-
-<div class="flex justify-center mt-8">
-  <MetricBadge label="val MAE" :value="3.0" variant="bad" size="lg" />
-</div>
-
-<p class="mt-8 opacity-80">Worse than predicting the mean. Right? Not so fast.</p>
-
----
 class: flex flex-col
 ---
 
-# Output range mismatch
+# Problem: unbounded output
 
-<div class="flex-1 flex flex-col justify-center gap-8">
-<div class="flex justify-center">
-  <svg width="580" height="80" viewBox="0 0 580 80">
-    <line x1="30" y1="40" x2="550" y2="40" stroke="#94a3b8" stroke-width="2"/>
-    <polygon points="550,40 540,35 540,45" fill="#94a3b8"/>
-    <polygon points="30,40 40,35 40,45" fill="#94a3b8"/>
-    <text x="22" y="36" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#64748b">-∞</text>
-    <text x="558" y="36" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#64748b">+∞</text>
-    <rect x="220" y="28" width="140" height="24" rx="4" fill="rgb(134,239,172)" opacity="0.7"/>
-    <line x1="220" y1="24" x2="220" y2="56" stroke="#16a34a" stroke-width="2"/>
-    <line x1="360" y1="24" x2="360" y2="56" stroke="#16a34a" stroke-width="2"/>
-    <text x="220" y="70" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#16a34a">1</text>
-    <text x="360" y="70" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#16a34a">5</text>
-  </svg>
+<div class="flex-1 flex flex-col items-center justify-center gap-10">
+
+<p class="text-center text-base opacity-70 max-w-xl">A dot product can return any real number. But ratings only live between 1 and 5.</p>
+
+<div class="flex items-center gap-12 font-mono">
+  <div class="text-center flex flex-col items-center gap-2">
+    <div class="text-sm opacity-50 uppercase tracking-wider">model output</div>
+    <div class="text-6xl font-bold opacity-60">ℝ</div>
+    <div class="text-sm opacity-40">(-∞, +∞)</div>
+  </div>
+  <div class="text-4xl opacity-30">≠</div>
+  <div class="text-center flex flex-col items-center gap-2">
+    <div class="text-sm opacity-50 uppercase tracking-wider">target range</div>
+    <div class="text-4xl font-mono font-bold" style="color: rgb(134, 239, 172)">[1, 5]</div>
+    <div class="text-sm opacity-40">integer ratings</div>
+  </div>
 </div>
 
-<p class="text-sm opacity-60 text-center">A dot product can output anything in ℝ. Ratings live in [1, 5]. The model wastes most of its capacity figuring that out.</p>
+<MetricBadge label="val MAE" :value="3.0" variant="bad" size="lg" />
+
 </div>
 
 ---
 
-# Version 2, squash to [1, 5]
+# Version 2: squash to \[1, 5\]
+
+<div class="flex justify-center mb-1">
+  <div class="flex flex-col items-center gap-2">
+    <svg width="360" height="150" viewBox="0 0 360 150" style="overflow: visible">
+      <!-- shaded valid output region -->
+      <rect x="45" y="20" width="300" height="110" fill="#f0fdf4" opacity="0.5" rx="2"/>
+      <!-- asymptote lines -->
+      <line x1="45" y1="20" x2="345" y2="20" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <line x1="45" y1="130" x2="345" y2="130" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <!-- labels centered on dashed lines -->
+      <text x="38" y="20" text-anchor="end" dominant-baseline="middle" font-family="JetBrains Mono,monospace" font-size="6" fill="#16a34a" font-weight="bold">5</text>
+      <text x="38" y="130" text-anchor="end" dominant-baseline="middle" font-family="JetBrains Mono,monospace" font-size="6" fill="#16a34a" font-weight="bold">1</text>
+      <!-- accurate sigmoid polyline: 4·σ(x)+1, x∈[-6,6] → x_svg∈[45,345], y_svg=130−σ(x)·110 -->
+      <polyline
+        points="45,129.7 70,129.2 95,127.9 120,124.8 145,117.1 158,110.2 170,100.9 183,89.5 195,75 208,60.5 220,49.1 233,39.8 245,32.9 270,25.2 295,22.1 320,20.8 345,20.3"
+        fill="none" stroke="rgb(59,130,246)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <p class="caption">4 · sigmoid(x) + 1 maps any real number into (1, 5).</p>
+  </div>
+</div>
+
+<v-click>
 
 ````md magic-move
 ```python
@@ -537,41 +554,25 @@ def forward(self, user_ids, movie_ids):
 ```
 ````
 
-<div class="flex justify-center mt-4">
-  <div class="flex flex-col items-center gap-2">
-    <svg width="200" height="110" viewBox="0 0 200 110">
-      <line x1="10" y1="55" x2="190" y2="55" stroke="#e2e8f0" stroke-width="1"/>
-      <line x1="100" y1="10" x2="100" y2="100" stroke="#e2e8f0" stroke-width="1"/>
-      <path d="M 10,100 C 50,98 70,85 100,55 C 130,25 150,12 190,10" fill="none" stroke="rgb(59,130,246)" stroke-width="2.5"/>
-      <text x="8" y="104" font-family="JetBrains Mono,monospace" font-size="10" fill="#64748b">1</text>
-      <text x="178" y="14" font-family="JetBrains Mono,monospace" font-size="10" fill="#64748b">5</text>
-    </svg>
-    <p class="caption">Your old pal, the sigmoid, scaled to [1, 5].</p>
-  </div>
+</v-click>
+
+<v-click>
+<div class="flex justify-center mt-2">
+  <MetricBadge label="val MAE" :value="0.77" :baseline="3.0" variant="good" />
 </div>
-
----
-layout: center
----
-
-# Much better
-
-<div class="flex justify-center gap-8 mt-8">
-  <MetricBadge label="val MAE" :value="0.77" :baseline="3.0" variant="good" size="lg" />
-  <MetricBadge label="R²" :value="0.177" :baseline="0.07" variant="good" />
-</div>
+</v-click>
 
 ---
 
-# Version 3, add bias
+# Version 3: add bias
 
 ````md magic-move
 ```python
-class MFModel(nn.Module):
+class MFModelV2(nn.Module):
     def __init__(self, n_users, n_movies, dim=32):
         super().__init__()
-        self.user_emb = nn.Embedding(n_users + 1, dim)
-        self.movie_emb = nn.Embedding(n_movies + 1, dim)
+        self.user_emb = nn.Embedding(n_users, dim)
+        self.movie_emb = nn.Embedding(n_movies, dim)
 
     def forward(self, user_ids, movie_ids):
         u = self.user_emb(user_ids)
@@ -581,20 +582,20 @@ class MFModel(nn.Module):
 ```
 
 ```python
-class MFModel(nn.Module):
+class MFModelV3(nn.Module):
     def __init__(self, n_users, n_movies, dim=32):
         super().__init__()
-        self.user_emb = nn.Embedding(n_users + 1, dim)
-        self.movie_emb = nn.Embedding(n_movies + 1, dim)
-        self.user_bias = nn.Embedding(n_users + 1, 1)
-        self.movie_bias = nn.Embedding(n_movies + 1, 1)
+        self.user_emb = nn.Embedding(n_users, dim)
+        self.movie_emb = nn.Embedding(n_movies, dim)
+        self.user_bias = nn.Embedding(n_users, 1)
+        self.movie_bias = nn.Embedding(n_movies, 1)
 
     def forward(self, user_ids, movie_ids):
         u = self.user_emb(user_ids)
         m = self.movie_emb(movie_ids)
         dot = (u * m).sum(-1, keepdim=True)
-        x = dot + self.user_bias(user_ids) + self.movie_bias(movie_ids)
-        return 4 * torch.sigmoid(x) + 1
+        with_bias = dot + self.user_bias(user_ids) + self.movie_bias(movie_ids)
+        return 4 * torch.sigmoid(with_bias) + 1
 ```
 ````
 
@@ -641,18 +642,13 @@ flowchart LR
 class: flex flex-col
 ---
 
-# Three models, three results
+# Result comparison
 
 <div class="flex-1 flex flex-col justify-center gap-6">
   <div class="flex gap-6 justify-center">
     <MetricBadge label="baseline MAE" :value="0.85" variant="default" />
     <MetricBadge label="V2 MAE" :value="0.77" :baseline="0.85" variant="default" />
     <MetricBadge label="V3 MAE" :value="0.746" :baseline="0.85" variant="good" />
-  </div>
-  <div class="flex gap-6 justify-center">
-    <MetricBadge label="baseline R²" :value="0.07" variant="default" />
-    <MetricBadge label="V2 R²" :value="0.177" :baseline="0.07" variant="default" />
-    <MetricBadge label="V3 R²" :value="0.245" :baseline="0.07" variant="good" />
   </div>
   <p class="text-sm opacity-50 text-center font-mono">No hyperparameter tuning yet.</p>
 </div>
@@ -683,48 +679,79 @@ with torch.no_grad():
 <ul class="flex flex-col gap-4 list-none p-0 m-0">
   <li class="flex items-center gap-3">
     <span class="font-mono text-xs opacity-60 w-20">movie 2571</span>
-    <RatingStars :value="4.71" />
+    <RatingStars :value="4" />
   </li>
   <li class="flex items-center gap-3">
     <span class="font-mono text-xs opacity-60 w-20">movie 1198</span>
-    <RatingStars :value="4.68" />
+    <RatingStars :value="3.5" />
   </li>
   <li class="flex items-center gap-3">
     <span class="font-mono text-xs opacity-60 w-20">movie 858</span>
-    <RatingStars :value="4.62" />
+    <RatingStars :value="1.5" />
   </li>
   <li class="flex items-center gap-3">
     <span class="font-mono text-xs opacity-60 w-20">movie 318</span>
-    <RatingStars :value="4.58" />
+    <RatingStars :value="5" />
   </li>
   <li class="flex items-center gap-3">
     <span class="font-mono text-xs opacity-60 w-20">movie 50</span>
-    <RatingStars :value="4.55" />
+    <RatingStars :value="1.2" />
   </li>
 </ul>
 
 ---
-layout: two-cols
-class: items-center
+class: flex flex-col
 ---
 
 # What this model is
 
-**Strengths**
+<div class="flex-1 flex items-center gap-8">
 
-- Needs only interactions, no side features
-- Works broadly across domains
-- Fast to train and query
-- Embeddings often interpretable post-hoc
+<div class="flex-1 rounded-2xl p-6 flex flex-col gap-4" style="background: #f0fdf4; border: 1.5px solid #86efac;">
+  <div class="font-mono text-xs uppercase tracking-widest font-bold" style="color: #16a34a;">Strengths</div>
+  <ul class="flex flex-col gap-3 list-none p-0 m-0">
+    <li class="flex items-start gap-3 text-sm" style="color: #166534;">
+      <span class="mt-0.5 text-base leading-none" style="color: #16a34a;">✓</span>
+      <span>Needs only interactions, no side features</span>
+    </li>
+    <li class="flex items-start gap-3 text-sm" style="color: #166534;">
+      <span class="mt-0.5 text-base leading-none" style="color: #16a34a;">✓</span>
+      <span>Works broadly across domains</span>
+    </li>
+    <li class="flex items-start gap-3 text-sm" style="color: #166534;">
+      <span class="mt-0.5 text-base leading-none" style="color: #16a34a;">✓</span>
+      <span>Fast to train and query</span>
+    </li>
+    <li class="flex items-start gap-3 text-sm" style="color: #166534;">
+      <span class="mt-0.5 text-base leading-none" style="color: #16a34a;">✓</span>
+      <span>Embeddings often interpretable post-hoc</span>
+    </li>
+  </ul>
+</div>
 
-::right::
+<div class="flex-1 rounded-2xl p-6 flex flex-col gap-4" style="background: #fff7ed; border: 1.5px solid #fdba74;">
+  <div class="font-mono text-xs uppercase tracking-widest font-bold" style="color: #ea580c;">Limits</div>
+  <ul class="flex flex-col gap-3 list-none p-0 m-0">
+    <li class="flex items-start gap-3 text-sm" style="color: #7c2d12;">
+      <span class="mt-0.5 text-base leading-none" style="color: #ea580c;">✗</span>
+      <span>Cold start for new users and movies</span>
+    </li>
+    <li class="flex items-start gap-3 text-sm" style="color: #7c2d12;">
+      <span class="mt-0.5 text-base leading-none" style="color: #ea580c;">✗</span>
+      <span>No content features used</span>
+    </li>
+    <li class="flex items-start gap-3 text-sm" style="color: #7c2d12;">
+      <span class="mt-0.5 text-base leading-none" style="color: #ea580c;">✗</span>
+      <span>No sequence or recency modeling</span>
+    </li>
+    <li class="flex items-start gap-3 text-sm" style="color: #7c2d12;">
+      <span class="mt-0.5 text-base leading-none" style="color: #ea580c;">✗</span>
+      <span>Requires enough interaction data</span>
+    </li>
+  </ul>
+</div>
 
-**Limits**
-
-- Cold start for new users and movies
-- No content features used
-- No sequence or recency modeling
-- Requires enough interaction data
+</div>
 
 ---
 
