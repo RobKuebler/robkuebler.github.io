@@ -1024,13 +1024,6 @@ h1 span { color: var(--accent); }
   will-change: auto; /* free compositor layer once animation completes */
 }
 
-/* Focus styles — on-theme, visible for keyboard nav */
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: var(--radius-sm);
-}
-
 /* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .hero-inner,
