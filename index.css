@@ -115,7 +115,7 @@ nav {
   width: 18px;
   height: 2px;
   background: var(--text-muted);
-  border-radius: 2px;
+  border-radius: 2px; /* impeccable-disable-line design-system-radius: rounds the tip of a 2px-thick icon bar, not a card/button shape */
   transition: all 0.25s;
   transform-origin: center;
 }
@@ -1003,7 +1003,7 @@ h1 span { color: var(--accent); }
   .hero-name-row { gap: 16px; }
   .avatar { width: 90px; height: 90px; }
   .social-links { justify-content: center; }
-  .social-btn { padding: 6px 12px; font-size: 0.8125rem; gap: 6px; }
+  .social-btn { padding: 6px 12px; font-size: 0.8125rem; gap: 6px; } /* impeccable-disable-line design-system-font-size: intentional mobile-only compression of the Secondary token so the full pill row fits one line */
   .social-btn svg { width: 13px; height: 13px; }
   .impact-row { gap: 24px; }
   .timeline-item { grid-template-columns: 1fr; gap: 4px; }
