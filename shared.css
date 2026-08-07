@@ -4,31 +4,43 @@
   /* ── Core palette ── change these to retheme the whole site ── */
   --bg:          #f4f1ea;   /* warm cream */
   --surface:     #ffffff;   /* white */
-  --accent:      #8a6820;   /* dark bronze-gold — readable on light */
+  /* Bronze-gold. Dark enough to clear WCAG AA 4.5:1 as text on every surface it
+     lands on, including the tinted hover fills (--card-hover, --accent-glow). */
+  --accent:      #7f601d;
 
   /* ── Derived / composite ──────────────────────────────────── */
   --card:        #faf8f4;
   --card-hover:  #f0ece3;
   --border:      #e3ddd0;
-  --accent-dim:  #755518;
-  --accent-glow: rgba(138,104,32,0.09);
+  --accent-dim:  #6b4e16;
+  --accent-glow: rgba(127,96,29,0.09);
   --bg-nav:      rgba(244,241,234,0.92);  /* nav bar — semi-transparent --bg; explicit rgba for broad browser support */
-  --bg-drawer:   rgba(244,241,234,0.98);  /* mobile drawer — near-opaque --bg; explicit rgba for broad browser support */
+  /* Mobile drawer sheet. Fully opaque, not near-opaque: the drawer sits inside
+     the nav, and the nav's own backdrop-filter makes it a backdrop root, so a
+     nested blur can never sample the page behind it. Solid is the honest result. */
+  --bg-drawer:   #f4f1ea;
   --text:        #1c1825;
   --text-muted:  #57516a;
   --text-faint:  #726887;   /* darkened from #a09ab5 — passes WCAG AA 4.5:1 on --bg */
 
   /* ── Accent alpha variants (avoid hardcoding rgba in components) ── */
-  --accent-a06:  rgba(138,104,32,0.06);
-  --accent-a12:  rgba(138,104,32,0.12);
-  --accent-a18:  rgba(138,104,32,0.18);
-  --accent-a25:  rgba(138,104,32,0.25);
-  --accent-a35:  rgba(138,104,32,0.35);
+  --accent-a06:  rgba(127,96,29,0.06);
+  --accent-a12:  rgba(127,96,29,0.12);
+  --accent-a18:  rgba(127,96,29,0.18);
+  --accent-a25:  rgba(127,96,29,0.25);
+  --accent-a35:  rgba(127,96,29,0.35);
   /* --accent-glow (defined above) is the canonical 9%-opacity accent tint */
+
+  /* ── Shadow vocabulary (the only two elevations in the system) ── */
+  --shadow-card:   0 2px 8px rgba(28,24,37,0.07), 0 0 0 1px var(--border);
+  --shadow-avatar: 0 0 0 6px var(--accent-a06);
+
   --radius-sm:   8px;
-  --radius-md:   16px;
   --radius-lg:   20px;
   --radius-pill: 24px;
+
+  /* Minimum hit area for every interactive element. */
+  --tap:         44px;
 }
 
 /* ─── Reset ─────────────────────────────────────────────────── */
@@ -57,6 +69,9 @@ a:hover { text-decoration: underline; }
   position: absolute;
   top: -100%;
   left: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
   padding: 8px 16px;
   background: var(--accent);
   color: var(--bg);
@@ -79,7 +94,7 @@ nav {
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 0 clamp(16px, 5vw, 80px);
-  height: 56px;
+  min-height: 56px;  /* min, not fixed — the bar grows instead of clipping scaled text */
   display: flex;
   align-items: center;
   gap: 8px;
@@ -106,7 +121,7 @@ nav {
 .hero {
   background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
   border-bottom: 1px solid var(--border);
-  padding: clamp(40px, 8vw, 80px) clamp(16px, 5vw, 80px) clamp(32px, 6vw, 64px);
+  padding: clamp(48px, 8vw, 80px) clamp(16px, 5vw, 80px) clamp(32px, 6vw, 64px);
 }
 
 .hero-inner {
@@ -132,7 +147,7 @@ nav {
 /* Use [class$="card"] (ends with) + specific overrides to avoid matching -title, -hover etc. */
 [class$="card"],
 [class*="card "] {
-  box-shadow: 0 2px 8px rgba(28,24,37,0.07), 0 0 0 1px var(--border);
+  box-shadow: var(--shadow-card);
 }
 
 /* ─── Layout helpers ────────────────────────────────────── */
@@ -147,7 +162,7 @@ nav {
 footer {
   background: var(--surface);
   border-top: 1px solid var(--border);
-  padding: 40px 0;
+  padding: 48px 0;
 }
 
 .footer-links {
@@ -158,6 +173,9 @@ footer {
 }
 
 .footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
   font-size: 0.875rem;
   color: var(--text-muted);
   transition: color 0.2s;
@@ -199,7 +217,7 @@ footer {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .section-title {
@@ -224,7 +242,7 @@ footer {
 /* ─── Legal typography base (impressum, agb, datenschutz) ───── */
 /* agb + datenschutz extend these with ul/ol/blockquote/.note   */
 .legal h2 {
-  font-size: 1.1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--text);
   margin: 32px 0 8px;
@@ -236,7 +254,7 @@ footer {
 
 .legal p {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   margin-bottom: 16px;
 }
 
@@ -245,7 +263,7 @@ footer {
 .legal ul,
 .legal ol {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   padding-left: 24px;
   margin-bottom: 16px;
 }

@@ -78,46 +78,70 @@
       <li><a href="#writing">Writing</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#education">Education</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#contact" class="nav-contact">Contact</a></li>
     </ul>
     <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-drawer">
       <span></span><span></span><span></span>
     </button>
-  </nav>
 
-  <!-- Mobile nav drawer -->
-  <div class="nav-drawer" id="nav-drawer" role="navigation" aria-label="Mobile navigation">
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#community">Community</a></li>
-      <li><a href="#writing">Writing</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact" class="nav-contact">Contact</a></li>
-    </ul>
-  </div>
+    <!-- Mobile nav drawer — inside <nav> so it anchors to the nav's own height -->
+    <div class="nav-drawer" id="nav-drawer">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#community">Community</a></li>
+        <li><a href="#writing">Writing</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact" class="nav-contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <script>
     const hamburger = document.querySelector('.nav-hamburger');
     const drawer = document.getElementById('nav-drawer');
 
-    hamburger.addEventListener('click', () => {
-      const open = drawer.classList.toggle('open');
+    // Single source of truth for drawer state: visibility, the hamburger's
+    // ARIA/animation state, page scroll lock, and inerting what sits behind it.
+    const setDrawer = (open) => {
+      drawer.classList.toggle('open', open);
       hamburger.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', open);
-    });
+      hamburger.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+      document.querySelectorAll('main, footer').forEach(el => { el.inert = open; });
+    };
 
-    // Close drawer when a link is clicked
+    const isOpen = () => drawer.classList.contains('open');
+
+    hamburger.addEventListener('click', () => setDrawer(!isOpen()));
+
     drawer.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        drawer.classList.remove('open');
-        hamburger.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-      });
+      a.addEventListener('click', () => setDrawer(false));
     });
 
+    // Escape closes and hands focus back to the control that opened it.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) {
+        setDrawer(false);
+        hamburger.focus();
+      }
+    });
+
+    // A click anywhere outside the drawer and its trigger dismisses it.
+    document.addEventListener('pointerdown', (e) => {
+      if (isOpen() && !drawer.contains(e.target) && !hamburger.contains(e.target)) {
+        setDrawer(false);
+      }
+    });
+
+    // Leaving the mobile breakpoint while open would strand the inert/scroll lock.
+    matchMedia('(max-width: 71.25em)').addEventListener('change', (e) => {
+      if (!e.matches) setDrawer(false);
+    });
   </script>
 
   <main id="main-content">
@@ -164,7 +188,8 @@
 
             <div class="hero-name-row">
               <div class="avatar">
-                <img src="/assets/images/avatar.jpg" alt="Robert Kübler" width="136" height="136" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-placeholder').style.display='flex'" />
+                <img src="/assets/images/avatar.jpg" alt="Robert Kübler" width="136" height="136" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-placeholder')?.style.setProperty('display','flex')" />
+                <span class="avatar-placeholder" aria-hidden="true">RK</span>
               </div>
               <h1>Dr. Robert<br /><span>Kübler</span></h1>
             </div>
@@ -262,7 +287,7 @@
       <p class="section-label">Experience</p>
       <h2 class="section-title">Roles &amp; impact</h2>
 
-      <p class="timeline-group-label">Employment</p>
+      <h3 class="timeline-group-label">Employment</h3>
       <div class="timeline">
 
         <div class="timeline-item">
@@ -271,7 +296,7 @@
             <div class="timeline-company">ALDI DX<br/>Mülheim an der Ruhr</div>
           </div>
           <div>
-            <h3 class="timeline-role">Senior Staff Data Scientist</h3>
+            <h4 class="timeline-role">Senior Staff Data Scientist</h4>
             <ul class="timeline-bullets">
               <li>Set the technical direction for a supply chain forecasting product optimizing warehouse staff planning, and drove sktime adoption into <strong>2 further teams</strong> beyond my own</li>
               <li>Introduced sktime to replace the prior planning process, cutting <strong>offline MAPE by 10%</strong> in the initial rollout; the model now runs across <strong>3 countries and 500+ time series</strong>, with <strong>€15M+ annual savings</strong> for the first market in the signed-off benefit case, measured with an interrupted time series regression (no control group available)</li>
@@ -289,7 +314,7 @@
           <div>
             <div class="timeline-subrole">
               <div class="timeline-subrole-header">
-                <h3 class="timeline-subrole-title">Senior Data Scientist</h3>
+                <h4 class="timeline-subrole-title">Senior Data Scientist</h4>
                 <span class="timeline-subperiod">Oct 2023 – Aug 2024</span>
               </div>
               <div class="timeline-focus-label">Assortment Optimization</div>
@@ -300,7 +325,7 @@
             </div>
             <div class="timeline-subrole">
               <div class="timeline-subrole-header">
-                <h3 class="timeline-subrole-title">Senior Data Scientist</h3>
+                <h4 class="timeline-subrole-title">Senior Data Scientist</h4>
                 <span class="timeline-subperiod">Jan 2022 – Sep 2023</span>
               </div>
               <div class="timeline-focus-label">Product Recommender</div>
@@ -319,7 +344,7 @@
             <div class="timeline-company">MEDION AG (Lenovo)<br/>Essen</div>
           </div>
           <div>
-            <h3 class="timeline-role">Senior Data Scientist</h3>
+            <h4 class="timeline-role">Senior Data Scientist</h4>
             <ul class="timeline-bullets">
               <li>Developed and open-sourced <a href="https://github.com/RobKuebler/mamimo" target="_blank" rel="noopener" class="timeline-link">mamimo</a>, a marketing mix modeling package (74 GitHub stars); results directly influenced marketing budget allocation</li>
               <li>Owned 3 analytical workstreams end-to-end: forecasting (Prophet, LightGBM, QlikSense dashboards), MMM, and causal inference</li>
@@ -334,7 +359,7 @@
             <div class="timeline-company">Publicis Media<br/>Düsseldorf</div>
           </div>
           <div>
-            <h3 class="timeline-role">Data Scientist</h3>
+            <h4 class="timeline-role">Data Scientist</h4>
             <ul class="timeline-bullets">
               <li>Predicted TV ad view-through rates for media clients: modeled what share of an advertising block audiences would watch</li>
               <li>Joined datasets without a common identifier using statistical record linkage (Nearest Neighbor matching)</li>
@@ -349,7 +374,7 @@
             <div class="timeline-company">HSBC<br/>Düsseldorf</div>
           </div>
           <div>
-            <h3 class="timeline-role">Trainee Risk</h3>
+            <h4 class="timeline-role">Trainee Risk</h4>
             <ul class="timeline-bullets">
               <li>Automated processes in Risk and Cyber Security (Python, SQL, VBA), eliminating <strong>2 FTE-equivalent</strong> manual workloads</li>
             </ul>
@@ -358,7 +383,7 @@
 
       </div>
 
-      <p class="timeline-group-label">Freelance</p>
+      <h3 class="timeline-group-label">Freelance</h3>
       <div class="timeline">
 
         <div class="timeline-item">
@@ -367,7 +392,7 @@
             <div class="timeline-company">GC Open Source AI<br/>Remote</div>
           </div>
           <div>
-            <h3 class="timeline-role">Guest Instructor &amp; Open-Source Contributor</h3>
+            <h4 class="timeline-role">Guest Instructor &amp; Open-Source Contributor</h4>
             <ul class="timeline-bullets">
               <li>Design and deliver the official sktime curriculum across 3 cohorts (15 professionals)</li>
               <li>Active open-source contributor: proposed improvements to StackingForecaster, pipeline caching, and GroupByTransformer</li>
@@ -381,7 +406,7 @@
             <div class="timeline-company">ScanmarQED<br/>Remote</div>
           </div>
           <div>
-            <h3 class="timeline-role">Consulting Data Scientist (Part-Time)</h3>
+            <h4 class="timeline-role">Consulting Data Scientist (Part-Time)</h4>
             <ul class="timeline-bullets">
               <li>Part-time advisory and backend engineering (PyMC-Marketing) for a SaaS analytics platform; engagement continued under ScanmarQED after its acquisition of MMMLabs.ai (Feb 2026)</li>
             </ul>
@@ -394,7 +419,7 @@
             <div class="timeline-company">Medium, VectorHub, KDNuggets<br/>Remote</div>
           </div>
           <div>
-            <h3 class="timeline-role">Technical Author</h3>
+            <h4 class="timeline-role">Technical Author</h4>
             <ul class="timeline-bullets">
               <li>90+ articles on data science and ML topics, with 1M+ total reads across platforms</li>
             </ul>
@@ -470,7 +495,7 @@
       <p class="section-label">Community</p>
       <h2 class="section-title">Open source, talks, and volunteering</h2>
 
-      <p class="timeline-group-label">Open Source</p>
+      <h3 class="timeline-group-label">Open Source</h3>
       <div class="os-grid">
 
         <div class="os-row">
@@ -503,7 +528,7 @@
 
       </div>
 
-      <p class="timeline-group-label">Talks</p>
+      <h3 class="timeline-group-label">Talks</h3>
       <div class="timeline">
 
         <div class="timeline-item">
@@ -512,7 +537,7 @@
             <div class="timeline-company">Zalando Meetup<br/>Dortmund</div>
           </div>
           <div>
-            <h3 class="timeline-role">Introduction to sktime</h3>
+            <h4 class="timeline-role">Introduction to sktime</h4>
             <ul class="timeline-bullets">
               <li>Data science meetup talk covering sktime's forecasting API and pipeline design for practitioners</li>
             </ul>
@@ -525,7 +550,7 @@
             <div class="timeline-company">inovex Meetup<br/>Cologne</div>
           </div>
           <div>
-            <h3 class="timeline-role">How we recommend alternatives</h3>
+            <h4 class="timeline-role">How we recommend alternatives</h4>
             <ul class="timeline-bullets">
               <li>Talk on recommending alternative products when preferred items are unavailable, enabling customers to continue shopping seamlessly</li>
             </ul>
@@ -541,7 +566,7 @@
             <div class="timeline-company">Metro.digital Meetup<br/>Düsseldorf</div>
           </div>
           <div>
-            <h3 class="timeline-role">A/B Testing at Metro</h3>
+            <h4 class="timeline-role">A/B Testing at Metro</h4>
             <ul class="timeline-bullets">
               <li>General introduction to A/B testing concepts and experiment design for a business-focused audience</li>
             </ul>
@@ -550,7 +575,7 @@
 
       </div>
 
-      <p class="timeline-group-label">Volunteer</p>
+      <h3 class="timeline-group-label">Volunteer</h3>
       <div class="timeline">
 
         <div class="timeline-item">
@@ -559,7 +584,7 @@
             <div class="timeline-company">Vorhilfe.de e.V.</div>
           </div>
           <div>
-            <h3 class="timeline-role">Moderator, matheraum.de</h3>
+            <h4 class="timeline-role">Moderator, matheraum.de</h4>
             <ul class="timeline-bullets">
               <li>Supported school and university students with mathematical questions over <strong>12 years</strong></li>
             </ul>
@@ -572,7 +597,7 @@
             <div class="timeline-company">TechLabs Düsseldorf</div>
           </div>
           <div>
-            <h3 class="timeline-role">Data Science Mentor</h3>
+            <h4 class="timeline-role">Data Science Mentor</h4>
             <ul class="timeline-bullets">
               <li>Guided aspiring data scientists through an end-to-end project predicting used car prices</li>
             </ul>
@@ -909,8 +934,8 @@
         <a href="https://scholar.google.com/citations?user=BHCd2EYAAAAJ" target="_blank" rel="noopener">Scholar</a>
         <a href="/apps/">Apps</a>
         <a href="mailto:robert.jo.kuebler@gmail.com">Email</a>
-        <a href="/datenschutz.html">Datenschutz</a>
-        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html" lang="de">Datenschutz</a>
+        <a href="/impressum.html" lang="de">Impressum</a>
       </div>
       <p class="footer-copy">© 2026 Dr. Robert Kübler</p>
     </div>

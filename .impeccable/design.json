@@ -1,0 +1,341 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-07T00:00:00Z",
+  "title": "Design System: Dr. Robert Kübler · Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "Parchment Cream",
+        "canonical": "oklch(95% 0.012 80)",
+        "tonalRamp": [
+          "oklch(50% 0.06 80)",
+          "oklch(62% 0.05 80)",
+          "oklch(72% 0.04 80)",
+          "oklch(80% 0.025 80)",
+          "oklch(86% 0.02 80)",
+          "oklch(90% 0.015 80)",
+          "oklch(93% 0.013 80)",
+          "oklch(97% 0.008 80)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(50% 0 0)",
+          "oklch(62% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(80% 0 0)",
+          "oklch(86% 0 0)",
+          "oklch(90% 0 0)",
+          "oklch(93% 0 0)",
+          "oklch(97% 0 0)"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Warm Card",
+        "canonical": "oklch(97% 0.008 80)",
+        "tonalRamp": [
+          "oklch(50% 0.06 80)",
+          "oklch(62% 0.05 80)",
+          "oklch(72% 0.04 80)",
+          "oklch(80% 0.025 80)",
+          "oklch(86% 0.02 80)",
+          "oklch(90% 0.015 80)",
+          "oklch(94% 0.010 80)",
+          "oklch(97% 0.008 80)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Warm Grain",
+        "canonical": "oklch(88% 0.018 75)",
+        "tonalRamp": [
+          "oklch(40% 0.04 75)",
+          "oklch(55% 0.035 75)",
+          "oklch(65% 0.03 75)",
+          "oklch(73% 0.025 75)",
+          "oklch(80% 0.022 75)",
+          "oklch(85% 0.020 75)",
+          "oklch(88% 0.018 75)",
+          "oklch(93% 0.012 75)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Scholar's Gold",
+        "canonical": "oklch(51% 0.09 83)",
+        "tonalRamp": [
+          "oklch(15% 0.05 83)",
+          "oklch(25% 0.07 83)",
+          "oklch(35% 0.09 83)",
+          "oklch(43% 0.09 83)",
+          "oklch(51% 0.09 83)",
+          "oklch(62% 0.08 83)",
+          "oklch(76% 0.055 83)",
+          "oklch(90% 0.022 83)"
+        ]
+      },
+      "accent-dim": {
+        "role": "primary",
+        "displayName": "Deep Bronze",
+        "canonical": "oklch(44% 0.08 80)",
+        "tonalRamp": [
+          "oklch(12% 0.04 80)",
+          "oklch(22% 0.06 80)",
+          "oklch(32% 0.075 80)",
+          "oklch(44% 0.08 80)",
+          "oklch(54% 0.08 80)",
+          "oklch(64% 0.065 80)",
+          "oklch(76% 0.045 80)",
+          "oklch(89% 0.018 80)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Deep Aubergine",
+        "canonical": "oklch(12% 0.03 290)",
+        "tonalRamp": [
+          "oklch(8% 0.02 290)",
+          "oklch(12% 0.03 290)",
+          "oklch(22% 0.03 290)",
+          "oklch(35% 0.04 290)",
+          "oklch(47% 0.04 290)",
+          "oklch(58% 0.04 290)",
+          "oklch(70% 0.03 290)",
+          "oklch(85% 0.015 290)"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Muted Plum",
+        "canonical": "oklch(40% 0.04 285)",
+        "tonalRamp": [
+          "oklch(12% 0.02 285)",
+          "oklch(22% 0.03 285)",
+          "oklch(32% 0.04 285)",
+          "oklch(40% 0.04 285)",
+          "oklch(50% 0.04 285)",
+          "oklch(62% 0.035 285)",
+          "oklch(75% 0.025 285)",
+          "oklch(88% 0.012 285)"
+        ]
+      },
+      "text-faint": {
+        "role": "neutral",
+        "displayName": "Pale Plum",
+        "canonical": "oklch(47% 0.055 285)",
+        "tonalRamp": [
+          "oklch(15% 0.03 285)",
+          "oklch(25% 0.04 285)",
+          "oklch(35% 0.05 285)",
+          "oklch(47% 0.055 285)",
+          "oklch(57% 0.05 285)",
+          "oklch(67% 0.04 285)",
+          "oklch(78% 0.028 285)",
+          "oklch(90% 0.012 285)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero h1 only — the name. Never reused at smaller sizes."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles (About, Experience, Writing, etc.)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card headings, featured article titles, project names."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "First About paragraph. Featured prose. One instance per section at most."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All prose — paragraphs, timeline bullets, contact text. Max 65ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Dates, stats, eyebrows, badges, all-caps markers. JetBrains Mono only."
+      }
+    },
+    "shadows": {
+      "shadow-card": "0 2px 8px rgba(28,24,37,0.07), 0 0 0 1px var(--border)",
+      "shadow-avatar": "0 0 0 6px var(--accent-a06)"
+    },
+    "motion": [
+      {
+        "name": "fade-up",
+        "value": "opacity 0 → 1, translateY(16px) → 0, 0.5s ease",
+        "purpose": "Hero entrance and scroll-reveal. Applied via .scroll-animate class."
+      },
+      {
+        "name": "state-fast",
+        "value": "0.15s ease",
+        "purpose": "Nav link color, focus ring appearance."
+      },
+      {
+        "name": "state-default",
+        "value": "0.2s ease",
+        "purpose": "Button backgrounds, card border-color, card background fill."
+      },
+      {
+        "name": "ease-out-std",
+        "value": "cubic-bezier(0.0, 0.0, 0.2, 1.0)",
+        "purpose": "All state transitions. Ease-out only — no bounce, no elastic."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "400px",
+        "note": "Article row collapses arrow"
+      },
+      {
+        "name": "sm",
+        "value": "640px",
+        "note": "Featured grids collapse to 1-column; avatar shrinks; mobile nav drawer"
+      },
+      {
+        "name": "md",
+        "value": "1024px",
+        "note": "Nav collapses to hamburger below this width"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The CTA. The only filled element on any surface. Used for Contact and primary portfolio actions.",
+      "html": "<button class=\"ds-btn-primary\">Contact Robert</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; min-height: 44px; padding: 12px 16px; border-radius: 24px; border: 1px solid #8a6820; background: #8a6820; color: #f4f1ea; font-size: 0.875rem; font-weight: 600; font-family: 'Bricolage Grotesque', system-ui, sans-serif; cursor: pointer; transition: background 0.2s, border-color 0.2s; text-decoration: none; letter-spacing: 0.01em; } .ds-btn-primary:hover { background: #755518; border-color: #755518; } .ds-btn-primary:focus-visible { outline: 2px solid #8a6820; outline-offset: 3px; border-radius: 8px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary actions — social links, view-on-GitHub, publication links. Never competes with the CTA.",
+      "html": "<button class=\"ds-btn-ghost\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22\"/></svg>GitHub</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; min-height: 44px; gap: 8px; padding: 10px 16px; border-radius: 24px; border: 1px solid #e3ddd0; background: #faf8f4; color: #57516a; font-size: 0.875rem; font-weight: 500; font-family: 'Source Serif 4', Georgia, serif; cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s; text-decoration: none; } .ds-btn-ghost:hover { border-color: #8a6820; color: #1c1825; background: rgba(138,104,32,0.09); } .ds-btn-ghost:focus-visible { outline: 2px solid #8a6820; outline-offset: 3px; }"
+    },
+    {
+      "name": "Tag Pill",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Skill tags, technology labels, publication type indicators.",
+      "html": "<span class=\"ds-tag\">Bayesian Inference</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; font-size: 0.875rem; padding: 8px 16px; border-radius: 24px; background: #ffffff; border: 1px solid #e3ddd0; color: #57516a; font-weight: 500; font-family: 'Source Serif 4', Georgia, serif; white-space: nowrap; line-height: 1; }"
+    },
+    {
+      "name": "Mono Label",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Section eyebrow, date stamp, stat label, badge. JetBrains Mono, uppercase, xs size.",
+      "html": "<span class=\"ds-label\">Experience</span>",
+      "css": ".ds-label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #57516a; }"
+    },
+    {
+      "name": "Standard Card",
+      "kind": "card",
+      "refersTo": null,
+      "description": "Domain skill card, secondary content card. Warm Card fill, Warm Grain border, 20px radius.",
+      "html": "<div class=\"ds-card\"><span class=\"ds-card-eyebrow\">Engineering</span><h3 class=\"ds-card-title\">ML Infrastructure</h3><p class=\"ds-card-body\">Production deployment, monitoring, and lifecycle management of machine learning systems.</p></div>",
+      "css": ".ds-card { background: #faf8f4; border: 1px solid #e3ddd0; border-radius: 20px; padding: 24px; transition: border-color 0.2s, background 0.2s; box-shadow: 0 2px 8px rgba(28,24,37,0.07), 0 0 0 1px #e3ddd0; } .ds-card:hover { border-color: #8a6820; background: #f0ece3; } .ds-card-eyebrow { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; color: #57516a; margin-bottom: 8px; } .ds-card-title { font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: 1.125rem; font-weight: 600; line-height: 1.25; color: #1c1825; margin-bottom: 8px; } .ds-card-body { font-family: 'Source Serif 4', Georgia, serif; font-size: 0.875rem; color: #57516a; line-height: 1.55; }"
+    },
+    {
+      "name": "Featured Card",
+      "kind": "card",
+      "refersTo": null,
+      "description": "Lead skill card, featured project. Scholar's Gold border at rest signals priority — no hover border shift needed.",
+      "html": "<div class=\"ds-card-featured\"><span class=\"ds-card-featured-eyebrow\">ML Science</span><h3 class=\"ds-card-featured-title\">Probabilistic Forecasting</h3><p class=\"ds-card-featured-body\">Bayesian time series models and uncertainty quantification for retail demand at scale.</p></div>",
+      "css": ".ds-card-featured { background: #faf8f4; border: 1px solid #8a6820; border-radius: 20px; padding: 32px; transition: background 0.2s; box-shadow: 0 2px 8px rgba(28,24,37,0.07), 0 0 0 1px #e3ddd0; } .ds-card-featured:hover { background: #f0ece3; } .ds-card-featured-eyebrow { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; color: #8a6820; margin-bottom: 8px; } .ds-card-featured-title { font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: 1.25rem; font-weight: 600; line-height: 1.25; color: #1c1825; margin-bottom: 8px; } .ds-card-featured-body { font-family: 'Source Serif 4', Georgia, serif; font-size: 0.875rem; color: #57516a; line-height: 1.6; }"
+    },
+    {
+      "name": "Timeline Row",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature layout for Experience, Publications, Education. Left column: metadata. Right column: content.",
+      "html": "<div class=\"ds-timeline-item\"><div class=\"ds-timeline-meta\"><span class=\"ds-timeline-period\">2022 – Present</span><span class=\"ds-timeline-company\">METRO.digital</span></div><div class=\"ds-timeline-body\"><div class=\"ds-timeline-role\">Senior Staff Data Scientist</div><ul class=\"ds-timeline-bullets\"><li>Technical direction for forecasting teams across three markets</li><li>Built production demand-sensing pipeline serving <strong>€200M+</strong> purchasing decisions annually</li></ul></div></div>",
+      "css": ".ds-timeline-item { display: grid; grid-template-columns: 160px 1fr; gap: 24px; padding: 24px 0; border-bottom: 1px solid #e3ddd0; } .ds-timeline-period { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #57516a; line-height: 1.5; } .ds-timeline-company { display: block; font-family: 'Source Serif 4', Georgia, serif; font-size: 0.875rem; color: #57516a; margin-top: 4px; } .ds-timeline-role { font-family: 'Source Serif 4', Georgia, serif; font-size: 1rem; font-weight: 600; color: #1c1825; margin-bottom: 8px; } .ds-timeline-bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; max-width: 65ch; } .ds-timeline-bullets li { font-family: 'Source Serif 4', Georgia, serif; font-size: 0.875rem; color: #57516a; padding-left: 16px; position: relative; line-height: 1.55; } .ds-timeline-bullets li::before { content: '–'; position: absolute; left: 0; color: #8a6820; } .ds-timeline-bullets strong { color: #1c1825; font-weight: 600; }"
+    },
+    {
+      "name": "Impact Stat",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Hero impact figures. Loose number row — not a dashboard panel, not a stat card. Column-reverse puts the number first visually while keeping the label first in DOM.",
+      "html": "<dl class=\"ds-impact-row\"><div class=\"ds-impact-item\"><dd class=\"ds-impact-num\">7<span class=\"ds-impact-plus\">+</span></dd><dt class=\"ds-impact-label\">Years in prod ML</dt></div><div class=\"ds-impact-item\"><dd class=\"ds-impact-num\">1M<span class=\"ds-impact-plus\">+</span></dd><dt class=\"ds-impact-label\">Article reads</dt></div><div class=\"ds-impact-item\"><dd class=\"ds-impact-num\">50<span class=\"ds-impact-plus\">+</span></dd><dt class=\"ds-impact-label\">Professionals taught</dt></div></dl>",
+      "css": ".ds-impact-row { display: flex; gap: 32px; flex-wrap: wrap; } .ds-impact-item { display: flex; flex-direction: column-reverse; gap: 4px; } .ds-impact-num { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; color: #1c1825; line-height: 1; } .ds-impact-plus { color: #8a6820; } .ds-impact-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: #57516a; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Authority",
+    "overview": "This system makes its case without raising its voice. The palette is warm parchment and bronze ochre — the colors of a well-thumbed academic monograph, not a startup homepage. Typography does the heavy lifting: Bricolage Grotesque carries section headers with the confidence of a senior practitioner who doesn't pad his CV, while Source Serif 4 carries body copy with the measured weight of someone who has actually read what he cites. JetBrains Mono marks precise data points in a way that signals mathematical fluency without wearing it as a costume.\n\nThe system rejects noise by design. Sections alternate between off-white and cream, creating depth through tonal shift rather than shadow. Cards are slight elevations of the surface, anchored by a 1px border and a near-imperceptible ambient shadow. The single bronze-gold accent appears sparingly: a surname initial in the nav, a section label, a CTA. Its rarity is the point.",
+    "keyCharacteristics": [
+      "Warm light theme — parchment base, not sterile white",
+      "Bronze-gold as a single, disciplined accent signal",
+      "Tonal alternation over shadow hierarchy",
+      "Three fonts with non-overlapping roles, never blended",
+      "Editorial precision: every element placed with reason, none for decoration"
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "Scholar's Gold appears on fewer than 10% of any given screen's surface area. Its rarity is the point.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tonal Rhythm Rule",
+        "body": "Sections alternate between Parchment Cream and Paper White. Never two cream or two white sections back to back.",
+        "section": "colors"
+      },
+      {
+        "name": "The Trilingual Rule",
+        "body": "Bricolage commands. Source Serif 4 explains. JetBrains Mono measures. Never cross the domains.",
+        "section": "typography"
+      },
+      {
+        "name": "The Four-Level Rule",
+        "body": "Any screen uses at most four distinct visual text levels. Collapsing is always preferred over introducing a fifth.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-by-Default Rule",
+        "body": "Surfaces are differentiated by background tint, not by drop shadow. Shadows anchor; they do not elevate.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No-Deep-Shadow Rule",
+        "body": "No shadow darker than rgba(28,24,37,0.10). If visible at arm's length without squinting, it is too dark.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Scholar's Gold on fewer than 10% of any screen's surface area.",
+      "Do alternate section backgrounds — Parchment Cream then Paper White — never two of the same in sequence.",
+      "Do use JetBrains Mono for every date, stat, metric, label, and badge.",
+      "Do set body text at max-width 65ch.",
+      "Do use the 1px Warm Grain border to define card identity.",
+      "Do keep all interactive elements at min-height 44px.",
+      "Do use prefers-reduced-motion to disable animations."
+    ],
+    "donts": [
+      "Don't use a gradient hero, big-number stat block, or SaaS features grid.",
+      "Don't add skills progress bars or 'technologies I know' icon walls.",
+      "Don't use corporate consultant aesthetics: navy + gold, heavy serif headings, stiff formal grid.",
+      "Don't use cursor effects, WebGL/canvas backgrounds, or scroll-driven 3D.",
+      "Don't bury content behind visual decoration.",
+      "Don't use border-left or border-right greater than 1px as a colored stripe on cards.",
+      "Don't apply background-clip: text with a gradient.",
+      "Don't use rgba or hardcoded hex values when a CSS variable exists."
+    ]
+  }
+}
