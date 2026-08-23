@@ -128,7 +128,7 @@ A warm, authoritative palette that reads like an academic document printed on go
 
 ### Neutral
 - **Parchment Cream** (`#f4f1ea`): Page background. The base tone all surfaces are measured against.
-- **Paper White** (`#ffffff`): Elevated surface background — About, Community, Skills, Contact sections. Feels lighter than the cream base, creating the page's rhythmic alternation.
+- **Paper White** (`#ffffff`): Elevated surface background — About, Skills, Writing, Education, Contact sections. Feels lighter than the cream base, creating the page's rhythmic alternation.
 - **Warm Card** (`#faf8f4`): Card and component resting state — between page and white.
 - **Warm Card Hover** (`#f0ece3`): Card hover fill — slightly warmer and deeper than resting.
 - **Warm Grain** (`#e3ddd0`): Borders, dividers, timeline separators. All structural lines.

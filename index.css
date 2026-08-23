@@ -526,7 +526,7 @@ h1 span { color: var(--accent); }
 .timeline-link { color: var(--accent); }
 
 /* ─── Community ─────────────────────────────────────────── */
-#community { background: var(--surface); }
+#community { background: var(--bg); }
 
 .timeline-group-label {
   display: flex;
@@ -703,7 +703,7 @@ h1 span { color: var(--accent); }
 }
 
 /* ─── Writing ───────────────────────────────────────────── */
-#writing { background: var(--bg); }
+#writing { background: var(--surface); }
 
 .writing-header,
 .pub-header {
