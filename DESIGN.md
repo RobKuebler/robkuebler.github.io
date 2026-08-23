@@ -217,7 +217,7 @@ The signature layout pattern. Left column carries metadata; right column carries
 - **Period column:** JetBrains Mono Label, Muted Plum. Company name in Secondary (Source Serif 4, 0.875rem).
 - **Content column:** Role title in Body weight 600 (`1rem`). Bullets in Secondary with Scholar's Gold em-dash marker (`–`) at `left: 0`.
 - **Mobile:** collapses to single column; meta row becomes a flex row with period + company side by side.
-- **Grouped timelines:** where a section splits its timeline into named groups (Employment / Freelance, Open Source / Talks / Volunteer), the group label is a real `h3` and the role titles beneath it drop to `h4`. Ungrouped timelines keep role titles at `h3`.
+- **Grouped timelines:** where a section splits its timeline into named groups (Employment / Freelance, Open Source / Invited Talks / Volunteer), the group label is a real `h3` and the role titles beneath it drop to `h4`. Ungrouped timelines keep role titles at `h3`.
 
 ### Navigation
 - **Structure:** `position: sticky`, `min-height: 56px` (never a fixed height — the bar grows rather than clipping scaled text), Parchment Nav background (`rgba(244,241,234,0.92)`), `backdrop-filter: blur(12px)`, 1px Warm Grain bottom border.
