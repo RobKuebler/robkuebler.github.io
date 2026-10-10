@@ -612,6 +612,14 @@ h1 span { color: var(--accent); }
 
 .timeline-bullets strong { color: var(--text); font-weight: 600; }
 
+.timeline-bullets a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 50%, transparent);
+}
+.timeline-bullets a:hover { text-decoration-color: var(--accent); }
+
 .timeline-subrole {
   padding-bottom: 16px;
   margin-bottom: 16px;
