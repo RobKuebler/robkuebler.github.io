@@ -6,7 +6,3 @@ docs/
 .playwright-cli/
 .superpowers/
 CLAUDE.md
-
-presentations/embedding-recsys/node_modules/
-presentations/embedding-recsys/dist/
-presentations/embedding-recsys/slides_files/
