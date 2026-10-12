@@ -1,3 +1,2 @@
 exclude:
-  - presentations/embedding-recsys/node_modules
-  - presentations/embedding-recsys/slides_files
+  - presentations/embedding-recsys
