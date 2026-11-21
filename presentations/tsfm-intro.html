@@ -140,7 +140,7 @@ html.print-pdf .frame { height: 720px; }
     <p class="sub">From "just ask ChatGPT" to zero-shot forecasts that work</p>
   </div>
   <div class="byline">Dr. Robert Kübler</div>
-  <aside class="notes">Welcome. 30 minutes, no prior knowledge of TSFMs needed. If you have trained an ARIMA or a LightGBM forecaster, you are overqualified.</aside>
+  <aside class="notes">30 min, no TSFM background needed. If you've trained ARIMA or LightGBM, you're overqualified.</aside>
 </section>
 
 <!-- 2 · Status quo -->
@@ -160,7 +160,7 @@ html.print-pdf .frame { height: 720px; }
     <p class="lg fragment">And a new product with 3 weeks of history? Good luck.</p>
     <p class="statement fragment mt" style="font-size:38px">What if we could skip the training entirely?</p>
   </div>
-  <aside class="notes">Classical forecasting means one model per series or per dataset, plus a lot of tuning, and cold start is painful. Foundation models promise something simpler: you download a model, give it your history and get a forecast, without training anything yourself.</aside>
+  <aside class="notes">Today: one model per series, lots of tuning, painful cold start. TSFMs: download, pass history, get forecast.</aside>
 </section>
 
 <!-- 3 · Analogy -->
@@ -176,7 +176,7 @@ html.print-pdf .frame { height: 720px; }
     </div>
     <p class="fragment sm" data-fragment-index="3" style="text-align:center; margin-top:14px">Why should this work on your sales? Trend, seasonality and noise look alike across sales, energy, traffic and sensor data, and those shapes are what the model learns.</p>
   </div>
-  <aside class="notes">First the LLM you know: a prompt goes in, a plausible continuation comes out. Next click: a TSFM does the same with numbers. The context is the history, and the continuation is the forecast, and most current TSFMs put an uncertainty band around it. Next click: the mapping. The model was pre-trained on huge amounts of data and you use it on data it has never seen, without training it yourself, which is what people mean by "zero-shot". Last click, for the skeptics: the model has never seen your data, but it has seen millions of series with trends, weekly and yearly cycles, and noise, and those shapes repeat across domains.</aside>
+  <aside class="notes">LLM: prompt in, continuation out. Click: TSFM does the same with numbers. Click: "zero-shot" = no training on your data. Click: trend, cycles and noise look alike across domains.</aside>
 </section>
 
 <!-- 4 · Part 1 -->
@@ -195,7 +195,7 @@ html.print-pdf .frame { height: 720px; }
     <h2>Two ways to build a TSFM</h2>
     <div class="grow"><div data-viz="timeline"></div></div>
   </div>
-  <aside class="notes">Click 1, the first school: we already have giant LLMs, so why not reuse them for numbers? Click 2: in 2024 a NeurIPS paper ripped the LLM out of three of these models (GPT4TS, Time-LLM, CALF) and got the same or better accuracy for a fraction of the compute. Click 3, the second school: an LLM-like architecture, pre-trained on time series. Most of the progress since then happened here.</aside>
+  <aside class="notes">Click 1: reuse text LLMs. Click 2: a 2024 paper removes the LLM, no loss. Click 3: pre-train on time series instead; that's where progress happened.</aside>
 </section>
 
 <!-- 6 · Chatbot -->
@@ -214,7 +214,7 @@ html.print-pdf .frame { height: 720px; }
       <p class="src">(the numbers are AirPassengers, 1949–50)</p>
     </div>
   </div>
-  <aside class="notes">Everyone tried this in 2023. Some people still do. The answer sounds great and is useless: no seasonality, no real uncertainty, a different answer every time. Fun detail: the numbers are the first two years of AirPassengers, the "hello world" of forecasting.</aside>
+  <aside class="notes">Sounds great, useless: no seasonality, no uncertainty. The numbers are AirPassengers.</aside>
 </section>
 
 <!-- 7 · LLMTime -->
@@ -232,14 +232,14 @@ html.print-pdf .frame { height: 720px; }
       </div>
       <p class="sm faint" style="margin-top:12px">Space out the digits so the tokenizer makes one token per digit. Then sample continuations and parse them back to numbers.</p>
       <div class="grid g2 mt fragment">
-        <div class="card"><h3>The surprise</h3><p>It worked: zero-shot GPT-3 and LLaMA-2 matched or beat purpose-built models on standard benchmarks.</p></div>
+        <div class="card"><h3>The surprise</h3><p>It worked: zero-shot, GPT-3 and LLaMA-2 kept up with ARIMA, N-BEATS, N-HiTS and transformer forecasters trained on each dataset, and beat them on probabilistic metrics.</p></div>
         <div class="card"><h3>The plot twist</h3><p>GPT-4 could forecast <strong>worse</strong> than GPT-3: its number tokenizer hurts, and alignment tuning (RLHF) likely hurts calibration.</p></div>
       </div>
     </div>
     <p class="lg fragment mb">So: billions of parameters trained on the internet (Reddit included), now forecasting your electricity load. <strong>What could go wrong?</strong></p>
     <p class="src">Gruver, Finzi, Qiu, Wilson. Large Language Models Are Zero-Shot Time Series Forecasters. NeurIPS 2023.</p>
   </div>
-  <aside class="notes">LLMTime is a clever paper and the authors were careful. GPT-3's tokenizer chops numbers in weird ways, so they put spaces between the digits, and it worked surprisingly well. Chat-tuned models did worse than their base versions, though (LLaMA-2 chat vs. LLaMA-2), and the authors suspect alignment tuning like RLHF hurt GPT-4's calibration. Side note: their "GPT-3" was text-davinci-003, which is itself instruction-tuned. And with the GPT models, every forecast costs API calls.</aside>
+  <aside class="notes">Space out digits so each is one token. Chat-tuned models did worse than base models. GPT models cost an API call per forecast.</aside>
 </section>
 
 <!-- 8 · Time-LLM -->
@@ -259,7 +259,7 @@ html.print-pdf .frame { height: 720px; }
     <p class="lg fragment">The input adapter maps chunks of the series into the LLM's input space, and the output adapter turns the LLM's output back into numbers. Only these two small parts are trained.</p>
     <p class="lg fragment mt mb">Lots of papers and GitHub stars, but only small ablations checked <strong>whether the LLM was doing anything.</strong></p>
   </div>
-  <aside class="notes">Time-LLM (ICLR 2024) and GPT4TS / One Fits All (NeurIPS 2023) take a pretrained LLM (LLaMA-7B for Time-LLM, the first 6 layers of GPT-2 for GPT4TS) and keep it frozen. A small input adapter turns short chunks of the series into something the LLM can read, like word embeddings, and a small output layer turns the result back into a forecast. Only those two parts are trained. GPT4TS also fine-tunes a few tiny parts of the LLM: the layer norms and positional embeddings. GPT4TS did run a small ablation without the GPT-2 layers, on a few datasets, and the LLM version won there. It made a nice story and got a lot of attention.</aside>
+  <aside class="notes">LLM stays frozen; only the two small adapters are trained. Nice story, lots of attention.</aside>
 </section>
 
 <!-- 9 · Ablation -->
@@ -267,9 +267,10 @@ html.print-pdf .frame { height: 720px; }
   <div class="frame" style="justify-content:center; align-items:center; text-align:center">
     <div class="statement">Remove the LLM.<br>Replace it with <span class="fc">one attention layer</span><br>or with <span class="fc">nothing at all</span>.</div>
     <p class="fragment lg" style="margin-top:44px">Accuracy: <strong>the same or better.</strong> Compute: up to 1000× less.</p>
+    <p class="fragment lg" style="margin-top:18px">And the LLM's pre-training on text? <strong>Didn't help.</strong> Random weights did as well or better.</p>
     <p class="src" style="margin-top:44px">Tan, Merrill, Gupta, Althoff, Hartvigsen. Are Language Models Actually Useful for Time Series Forecasting? NeurIPS 2024 (spotlight).</p>
   </div>
-  <aside class="notes">Three popular LLM-based forecasters (OneFitsAll/GPT4TS, Time-LLM, CALF), ablated: remove the LLM, replace it with a single attention layer, or with one randomly initialised transformer block. Results stayed the same or improved, so the LLM was mostly an expensive passenger. Training Time-LLM took 3,003 minutes on one dataset versus about 2 for the ablation; at inference, the LLM versions were 1.2× to 28× slower. If you want a foundation model for time series, train it on time series.</aside>
+  <aside class="notes">Removing the LLM (3 models, 13 datasets): same or better. Time-LLM training: 3,003 min vs ~2. Click: random weights beat text pre-training. Train TSFMs on time series.</aside>
 </section>
 
 <!-- 10 · Native models -->
@@ -288,7 +289,7 @@ html.print-pdf .frame { height: 720px; }
     </div>
     <p class="lg fragment mb">The LLM recipe of a transformer, lots of data and (mostly) predicting what comes next, only <strong>without any text</strong>.</p>
   </div>
-  <aside class="notes">Within about six months, several labs released models trained from scratch on time series. We'll look at Chronos in detail because it's the closest to an actual LLM, so the analogy from the start carries over almost one to one.</aside>
+  <aside class="notes">Several labs, about six months. We zoom into Chronos: closest to a real LLM.</aside>
 </section>
 
 <!-- 11 · Part 2 -->
@@ -313,7 +314,7 @@ html.print-pdf .frame { height: 720px; }
     </div>
     <p class="lg mb">Sales in millions and kWh in thousands now live on the <strong>same scale</strong>: average size 1.</p>
   </div>
-  <aside class="notes">Text has a fixed vocabulary, but numbers don't: 0.003 and 3 million can both show up. So the first step is mean scaling, dividing every value by the mean absolute value of the context. The shape stays the same and only the y-axis changes. It is not standardisation, though: a series hovering around zero gets blown up, and one sitting at 20 ± 2 gets squashed to about 1.</aside>
+  <aside class="notes">Divide by mean |value| of the context. Shape stays, only the y-axis changes. Not standardisation.</aside>
 </section>
 
 <!-- 13 · Quantize -->
@@ -334,7 +335,7 @@ html.print-pdf .frame { height: 720px; }
     </div>
     <p class="src">Illustration uses 10 bins so you can see them; token ids follow the real Chronos scheme.</p>
   </div>
-  <aside class="notes">This is uniform binning: each scaled value lands in one bin, and the bin index becomes the token id. The bins run from -15 to 15, so a value of 0 sits in the middle, around token 2050, and scaled values near 1 land a bit above it. You lose a bit of precision, but in exchange a time series is now a sentence of token ids that any language model can read. Someone usually asks whether the model knows that bin 2101 is next to 2102. The cross-entropy loss doesn't: it treats them as unrelated classes, so the model has to learn the ordering from the data.</aside>
+  <aside class="notes">Bin index = token id; 0 sits near token 2050. Q: does it know 2101 is next to 2102? Not via the loss; it learns it from data.</aside>
 </section>
 
 <!-- 14 · Train -->
@@ -357,7 +358,7 @@ html.print-pdf .frame { height: 720px; }
       </div>
     </div>
   </div>
-  <aside class="notes">The architecture is plain T5; the scaling and the binning are the only parts specific to time series. Because the model is a classifier over bins, it gives you a distribution for free, and that distribution can even be multimodal.</aside>
+  <aside class="notes">Plain T5. Only scaling and binning are time-series specific. Classifier over bins → a distribution for free.</aside>
 </section>
 
 <!-- 15 · Sample -->
@@ -373,7 +374,7 @@ html.print-pdf .frame { height: 720px; }
     </div>
     <p class="lg fragment mb">Undo the binning and the scaling → a <strong>probabilistic forecast</strong>, out of the box.</p>
   </div>
-  <aside class="notes">This works like an LLM generating text: sample a token, append it, sample the next one. Do that 20 times and you have 20 possible futures. The median is the point forecast and the quantiles give the uncertainty band. Finally, multiply back by the scale.</aside>
+  <aside class="notes">Sample, append, repeat, 20 times. Median = forecast, quantiles = band. Undo scaling.</aside>
 </section>
 
 <!-- 16 · Data -->
@@ -388,7 +389,7 @@ html.print-pdf .frame { height: 720px; }
     </div>
     <div class="grow"><div data-viz="kernelsynth"></div></div>
   </div>
-  <aside class="notes">There's no "Common Crawl" for time series, so Chronos mixes real data with augmented and fully synthetic data. KernelSynth picks a few GP kernels (linear, periodic, smooth), combines them with + and ×, and samples from the result. A small dose of synthetic data (about 10%) clearly helped; more than that hurt. Later models lean on it much more: Chronos-2 learns its multivariate skills entirely from synthetic data.</aside>
+  <aside class="notes">No "Common Crawl" for time series. ~10% synthetic helped, more hurt. Chronos-2's multivariate skills: all synthetic.</aside>
 </section>
 
 <!-- 17 · Code -->
@@ -419,7 +420,7 @@ forecast = pipeline.predict_df(
       <p class="sm faint" style="margin-top:6px">Also available through AutoGluon and sktime.</p>
     </div>
   </div>
-  <aside class="notes">That's all of it. You load the pretrained model, hand it a dataframe and get quantiles back. This is Chronos-2, the current version. There's no fit call because the training already happened at Amazon.</aside>
+  <aside class="notes">Load, pass a dataframe, get quantiles. No fit: training happened at Amazon.</aside>
 </section>
 
 <!-- 18 · Part 3 -->
@@ -452,7 +453,7 @@ forecast = pipeline.predict_df(
     </div>
     <p class="src">Chronos-2 model card, huggingface.co/amazon/chronos-2</p>
   </div>
-  <aside class="notes">Early models were univariate only: one series in, one forecast out, and no external information. That was the main reason practitioners stuck with LightGBM. Current models take related series and covariates as context, a bit like few-shot prompting in LLMs, and they output quantiles directly, which is much faster than sampling. Learning across series is off by default; turn it on with cross_learning=True.</aside>
+  <aside class="notes">Old models: univariate, no covariates → people stayed with LightGBM. Cross-learning is opt-in: cross_learning=True.</aside>
 </section>
 
 <!-- 19a · Chronos-2 patching -->
@@ -463,7 +464,7 @@ forecast = pipeline.predict_df(
     <div class="grow"><div data-viz="patches"></div></div>
     <p class="lg fragment mb" data-fragment-index="2">Like reading words instead of letters: the same history needs far fewer tokens, so Chronos-2 can look back up to <strong>8,192 values</strong>.</p>
   </div>
-  <aside class="notes">Chronos turned every single value into its own token, so a long history meant a very long sequence. Chronos-2 cuts the series into short, non-overlapping chunks of consecutive values and turns each chunk into one token. Next click: the future is cut into patches too, and the model fills in all of them at once instead of sampling one value after another. Each patch also carries a time index and a mask that marks missing values. The patch length here is just for the picture.</aside>
+  <aside class="notes">One token per patch, not per value. Click: future patches all filled in one pass. Patch length here is illustrative.</aside>
 </section>
 
 <!-- 19b · Chronos-2 attention + covariates -->
@@ -484,7 +485,7 @@ forecast = pipeline.predict_df(
     </div>
     <p class="src">Ansari et al. Chronos-2: From Univariate to Universal Forecasting. arXiv:2510.15821, 2025.</p>
   </div>
-  <aside class="notes">Chronos-2 is an encoder in the style of T5 with 120M parameters, and its layers alternate between two kinds of attention. Time attention looks along one series. Group attention looks across all series in a group at the same patch. A group can be a set of related products, the variates of a multivariate series, or, like here, a target plus its covariates. Next click: at a future step, the sales row can look at the price row, and the planned price drop is right there. Next: everything that isn't known in the future window is set to zero and switched off in the mask; the mask also marks missing values in the history. Last click: only the target gets a forecast, as 21 quantiles from 1% to 99%, and the loss is only computed on the target, so the model never has to forecast the covariates. Real multivariate data is scarce, so the multivariate training data is entirely synthetic. The numbers on the slide are made up for the picture.</aside>
+  <aside class="notes">120M-param encoder. Click: group attention lets sales see the price. Click: unknowns = 0, mask = 0. Click: only the target is forecast, 21 quantiles. Multivariate training data is synthetic.</aside>
 </section>
 
 <!-- 20 · Zoo -->
@@ -505,7 +506,7 @@ forecast = pipeline.predict_df(
     <p class="lg mb">Each one has claimed #1 on a public leaderboard like GIFT-Eval*. <strong>Read the license before the leaderboard.</strong></p>
     <p class="src">* GIFT-Eval: Salesforce's public forecasting benchmark and leaderboard, with data from many domains and frequencies.</p>
   </div>
-  <aside class="notes">GIFT-Eval is Salesforce's public benchmark and leaderboard for forecasting models, and the one most of these releases point to. The top spot changes every few months. Toto 2.0 in May, TiRex-2 in July, TimesFM-3 in August and Timestral in October each claimed the top spot. Moirai 2.0 claimed #1 too, by MASE among models without test-data leakage. Toto 2.0 is notable because accuracy improved steadily from 4M to 2.5B parameters; the Moirai 2.0 team, for example, had seen diminishing returns from bigger models. Licenses differ a lot: the TimesFM-3 and Moirai 2.0 weights are non-commercial, while Chronos-2, Toto 2.0 and TiRex-2 are Apache 2.0. Timestral looks like MIT, but companies with more than $20M monthly revenue need a commercial license. The GIFT-Eval leaderboard now also lists "agentic" systems that ensemble several foundation models.</aside>
+  <aside class="notes">GIFT-Eval = Salesforce's leaderboard; #1 changes every few months. Toto 2.0: keeps improving up to 2.5B. Check licenses: TimesFM-3, Moirai 2.0 non-commercial; Timestral has a revenue cap.</aside>
 </section>
 
 <!-- 21 · Caveats -->
@@ -522,7 +523,102 @@ forecast = pipeline.predict_df(
       </div>
     </div>
   </div>
-  <aside class="notes">TSFMs make a great default and a strong baseline. A well-tuned LightGBM with rich features may still win, but a TSFM gives you a very good forecast in five minutes, and any new model now has to beat that.</aside>
+  <aside class="notes">Great default and baseline. Tuned LightGBM may still win.</aside>
+</section>
+
+<!-- 21a · Classical vs TSFM: setup -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Reality check</p>
+    <h2>Chronos-2 vs. a model from the 1950s</h2>
+    <div class="grow">
+      <div class="grid g2" style="gap:40px; align-items:center">
+        <div style="display:flex; flex-direction:column; gap:16px">
+          <div class="card"><h3>The data (synthetic)</h3><p>Daily values: level 100 + a <strong>weekly pattern</strong> (weekend peak) + noise. Forecast the next <strong>28 days</strong>.</p></div>
+          <div class="card"><h3>The contenders</h3><p><strong>Chronos-2</strong>, zero-shot, 120M parameters.<br><strong>Exponential smoothing</strong> (Holt-Winters, 1957/60), additive weekly seasonality.</p></div>
+        </div>
+<pre><code class="language-python" data-trim data-noescape>
+from sktime.forecasting.exp_smoothing import ExponentialSmoothing
+from sktime.forecasting.chronos2 import Chronos2Forecaster
+
+models = {
+    "ETS": ExponentialSmoothing(seasonal="add", sp=7),
+    "Chronos-2": Chronos2Forecaster("amazon/chronos-2"),
+}
+for name, model in models.items():
+    model.fit(y_train)
+    y_pred = model.predict(fh=range(1, 29))
+</code></pre>
+      </div>
+      <p class="lg mt">Same sktime interface for both. Two runs: <strong>2 years</strong> of history, and only <strong>2 weeks</strong>.</p>
+    </div>
+  </div>
+  <aside class="notes">Synthetic daily data: level + weekly pattern + noise. ETS = Holt-Winters, ~70 years old. Same sktime API. Compare MAE.</aside>
+</section>
+
+<!-- 21b · Classical vs TSFM: weekly results -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Reality check · weekly pattern</p>
+    <h2>Long history: a tie. Short history: ETS wins.</h2>
+    <div class="grow">
+      <div class="grid g2" style="gap:40px">
+        <div><p class="mono faint sm">730 days of history (last 56 shown)</p><div data-viz="cmp-weekly730"></div></div>
+        <div class="fragment"><p class="mono faint sm">only 14 days of history</p><div data-viz="cmp-weekly14"></div></div>
+      </div>
+    </div>
+    <p class="lg fragment mb">With two weeks of data, Chronos-2 <strong>flattens the weekly pattern</strong>. ETS keeps it and wins on all 10 seeds.</p>
+    <p class="src">MAE over the 28-day horizon, mean of 10 random seeds. Noise σ = 3, so ~2.4 is the best any model can do.</p>
+  </div>
+  <aside class="notes">2 years: tie at the noise floor. Click: 14 days, less than one 16-value patch. Chronos-2 damps the pattern; ETS wins every seed.</aside>
+</section>
+
+<!-- 21c · Classical vs TSFM: cost -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Reality check · the bill</p>
+    <h2>Same accuracy, very different price tag</h2>
+    <div class="grow">
+      <div class="grid g2" style="gap:28px">
+        <div class="card">
+          <h3>Exponential smoothing</h3>
+          <p class="meta">Holt-Winters, additive, period 7</p>
+          <p class="mono lg" style="color:var(--p-text); margin:10px 0 8px">10 numbers</p>
+          <p>Level, 7 weekday effects, 2 smoothing rates. You can read them: <span class="mono">Sat +13.6</span> (truth: +14), <span class="mono">Mon −8.6</span> (truth: −8).</p>
+          <p style="margin-top:10px">Fits in milliseconds. Needs statsmodels, nothing else.</p>
+        </div>
+        <div class="card">
+          <h3>Chronos-2</h3>
+          <p class="meta">pre-trained transformer</p>
+          <p class="mono lg" style="color:var(--p-text); margin:10px 0 8px">120,000,000 numbers</p>
+          <p>456 MB of weights to download, plus PyTorch. Our environment for this demo: 1.3 GB.</p>
+          <p style="margin-top:10px">Why did it predict 109 for a Saturday that came in at 120? No parameter to point at.</p>
+        </div>
+      </div>
+    </div>
+    <p class="statement fragment mb" style="font-size:34px">If you know the structure of your data, a 70-year-old model may be <span class="fc">just as good, or better</span>, and far cheaper to run, explain and ship.</p>
+  </div>
+  <aside class="notes">Even when accuracy ties, ETS wins on everything else: 10 readable numbers vs 120M, no 0.5 GB weights. Weekday effects are fitted values; truth next to them.</aside>
+</section>
+
+<!-- 21d · Classical vs TSFM: where the TSFM wins -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Reality check · the other side</p>
+    <h2>But: a pattern you didn't tell ETS about</h2>
+    <div class="grow">
+      <div class="grid g53">
+        <div><p class="mono faint sm">weekly pattern + payday spike on the 1st · 730 days</p><div data-viz="cmp-payday730"></div></div>
+        <div style="display:flex; flex-direction:column; gap:18px">
+          <p>ETS only knows the period you gave it: <span class="mono">sp=7</span>. The monthly spike is <strong>invisible</strong> to it.</p>
+          <p class="fragment">Chronos-2 finds it in the history on its own, <strong>without being told</strong>.</p>
+          <p class="fragment sm">Could you fix ETS with a monthly feature? Sure, if you know the spike is there. With 1,000 series, you won't check them all.</p>
+        </div>
+      </div>
+    </div>
+    <p class="src">MAE over the 28-day horizon, mean of 10 random seeds. Chronos-2 wins on all 10.</p>
+  </div>
+  <aside class="notes">Add a payday spike. ETS with sp=7 can't see it; Chronos-2 finds it. Wins every seed. "Right spec would fix ETS": yes, if you know the spec.</aside>
 </section>
 
 <!-- 22 · Takeaways -->
@@ -534,7 +630,7 @@ forecast = pipeline.predict_df(
       <p><span class="step">2</span>Bolting a text LLM onto time series mostly didn't pay off; today's leaders are pre-trained on time series.</p>
       <p><span class="step">3</span>Chronos showed it with plain T5 plus scaling and binning.</p>
       <p><span class="step">4</span>Today: multivariate, covariates and quantiles in one forward pass.</p>
-      <p><span class="step">5</span>Use one as your new baseline, and still backtest.</p>
+      <p><span class="step">5</span>Use one as your new baseline, keep ETS next to it, and still backtest.</p>
     </div>
     <p class="statement" style="font-size:34px">Thanks. Questions? <span class="mono faint" style="font-size:16px; font-weight:400; margin-left:16px">Dr. Robert Kübler</span></p>
   </div>
@@ -813,8 +909,42 @@ function covariates() {
   return s + '</svg>';
 }
 
+/* Classical vs TSFM: real sktime results (synthetic data, see notes). Rounded to 1 decimal. */
+const CMP = {"weekly730":{"hist":730,"y":[106.4,106.9,112.4,124.6,105.4,101.9,99.2,105.6,102.7,118.5,122.8,112.3,97.5,100.6,106.5,97.8,110.8,125.1,109.4,102.9,101.1,105.7,103.8,109.9,116.9,106.3,98.4,100.1,93.4,100,112.4,122.9,106.3,97.4,95.1,110.1,102.7,119.1,126.7,108.8,98.3,102.4,100.5,106.8,114,123.6,110.9,105.2,100.8,107.1,103.6,111.3,120.1,105.1,102.9,104.8],"test":[107.8,105.9,114.8,120.3,104.5,101.3,102.8,100.7,107.8,108.8,121.5,106.1,98.4,98.7,106.9,107.7,117.6,122.4,104.1,98.9,98.4,105.3,109.6,114.9,120.2,106.9,100.6,97.6],"ets":[103.7,105.5,113.8,122,107.6,99.9,102.1,103.7,105.5,113.8,122,107.6,99.9,102.1,103.7,105.5,113.8,122,107.6,99.9,102.1,103.7,105.5,113.8,122,107.6,99.9,102.1],"chronos":[103.6,105.7,113.8,122.6,107.4,99.7,102.1,103.8,105.5,114.1,122.5,107.8,99.8,102.1,103.7,105.7,114.1,123.3,107.9,99.6,101.9,103.8,105.8,114.3,122.9,107.5,99.9,102.1],"mae_ets":2.16,"mae_chronos":2.19,"wins_ets":7},"weekly14":{"hist":14,"y":[100.5,106.8,114,123.6,110.9,105.2,100.8,107.1,103.6,111.3,120.1,105.1,102.9,104.8],"test":[107.8,105.9,114.8,120.3,104.5,101.3,102.8,100.7,107.8,108.8,121.5,106.1,98.4,98.7,106.9,107.7,117.6,122.4,104.1,98.9,98.4,105.3,109.6,114.9,120.2,106.9,100.6,97.6],"ets":[103.8,105.2,112.7,121.9,108,104.1,102.8,103.8,105.2,112.7,121.9,108,104.1,102.8,103.8,105.2,112.7,121.9,108,104.1,102.8,103.8,105.2,112.7,121.9,108,104.1,102.8],"chronos":[106.2,107.2,108.4,108.7,106.7,104.9,105.1,106.2,107.4,108.6,109.1,106.7,105.5,105.8,106.8,107.8,108.7,108.4,106.8,105.7,105.5,106.7,107.9,108.5,108.1,106.7,105.8,105.7],"mae_ets":2.91,"mae_chronos":4.56,"wins_ets":10},"payday730":{"hist":730,"y":[114.5,111.8,115.4,126.4,106.5,102.6,99.6,105.8,102.8,118.6,122.8,112.3,97.6,100.6,106.5,97.8,110.8,125.1,109.4,102.9,101.1,105.7,103.8,109.9,116.9,106.3,158.4,136.5,115.4,113.4,120.5,127.8,109.3,99.2,96.2,110.7,103.1,119.3,126.8,108.9,98.3,102.4,100.6,106.8,114,123.6,110.9,105.2,100.8,107.1,103.6,111.3,120.1,105.1,102.9,104.8],"test":[107.8,165.9,151.2,142.3,117.9,109.5,107.7,103.7,109.6,109.9,122.1,106.5,98.7,98.9,106.9,107.8,117.6,122.4,104.1,98.9,98.4,105.3,109.6,114.9,120.2,106.9,100.6,97.6],"ets":[105.6,107.3,115.5,124.3,109.7,102.5,104.3,105.6,107.3,115.5,124.3,109.7,102.5,104.3,105.6,107.3,115.5,124.3,109.7,102.5,104.3,105.6,107.3,115.5,124.3,109.7,102.5,104.3],"chronos":[141,139.3,139,142.7,114.3,105.7,106,105.3,105.6,114.3,121.5,107.4,101.1,102.6,103.3,105.4,112.6,123,108,101,103.2,105.2,106.4,113.6,123.2,107.1,101.5,101.6],"mae_ets":7.62,"mae_chronos":4.76,"wins_ets":0}};
+const ETS_C = '#4d6b3f';
+function cmpChart(key, w = 600, hgt = 300) {
+  const d = CMP[key], nH = d.y.length, nF = d.test.length, total = nH + nF;
+  const pad = { l: 40, r: 14, t: 66, b: 22 };
+  const all = [...d.y, ...d.test, ...d.ets, ...d.chronos];
+  const mn = Math.min(...all), mx = Math.max(...all), m = (mx - mn) * 0.06, A = mn - m, B = mx + m;
+  const x = i => pad.l + (i / (total - 1)) * (w - pad.l - pad.r);
+  const y = v => hgt - pad.b - ((v - A) / (B - A)) * (hgt - pad.t - pad.b);
+  const line = (arr, off) => arr.map((v, i) => `${i ? 'L' : 'M'}${x(i + off).toFixed(1)},${y(v).toFixed(1)}`).join('');
+  const path = (arr, off, stroke, sw, extra = '') => `<path d="${line(arr, off)}" fill="none" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round" stroke-linecap="round" ${extra}/>`;
+  let s = `<svg viewBox="0 0 ${w} ${hgt}">`;
+  s += `<g stroke="${C.ink}" stroke-width="1.2"><line x1="${pad.l}" y1="${pad.t - 6}" x2="${pad.l}" y2="${hgt - pad.b}"/><line x1="${pad.l}" y1="${hgt - pad.b}" x2="${w - pad.r}" y2="${hgt - pad.b}"/></g>`;
+  for (let k = 0; k <= 3; k++) { const t = A + (B - A) * k / 3; s += txt(pad.l - 8, y(t) + 4, Math.round(t), { size: 12, fill: C.faint, font: MONO, anchor: 'end' }); }
+  const xd = (x(nH - 1) + x(nH)) / 2;
+  s += `<line x1="${xd}" x2="${xd}" y1="${pad.t - 6}" y2="${hgt - pad.b}" stroke="${C.border}" stroke-dasharray="4 4" stroke-width="1.5"/>`;
+  s += txt(xd + 6, hgt - pad.b - 6, 'next 28 days', { size: 12, font: MONO, fill: C.faint });
+  s += path(d.y, 0, C.ctx, 2.2) + path(d.test, nH, '#b3abbf', 2);
+  s += path(d.ets, nH, ETS_C, 2.6) + path(d.chronos, nH, C.fc, 2.6, 'stroke-dasharray="7 5"');
+  // Legend with MAE; the winner (by mean MAE) in bold
+  const etsWins = d.mae_ets < d.mae_chronos, tie = Math.abs(d.mae_ets - d.mae_chronos) < 0.1;
+  const item = (lx, ly, col, dash, name, mae, win) =>
+    `<line x1="${lx}" x2="${lx + 26}" y1="${ly - 5}" y2="${ly - 5}" stroke="${col}" stroke-width="3" ${dash ? 'stroke-dasharray="7 5"' : ''}/>` +
+    txt(lx + 34, ly, name, { size: 15, weight: 700, font: SANS, fill: col }) +
+    txt(lx + 140, ly, `MAE ${mae.toFixed(2)}`, { size: 15, weight: win ? 700 : 400, font: MONO, fill: win ? C.ink : C.muted });
+  s += item(pad.l + 8, 18, ETS_C, false, 'ETS', d.mae_ets, !tie && etsWins);
+  s += item(pad.l + 8, 42, C.fc, true, 'Chronos-2', d.mae_chronos, !tie && !etsWins);
+  s += `<line x1="${w - 150}" x2="${w - 124}" y1="13" y2="13" stroke="#b3abbf" stroke-width="2.5"/>` + txt(w - 116, 18, 'actual', { size: 13, font: MONO, fill: C.faint });
+  s += `<line x1="${w - 150}" x2="${w - 124}" y1="37" y2="37" stroke="${C.ctx}" stroke-width="2.5"/>` + txt(w - 116, 42, 'history', { size: 13, font: MONO, fill: C.faint });
+  return s + '</svg>';
+}
+
 /* Render all charts before Reveal scans for fragments */
-const VIZ = { analogy, timeline, kernelsynth: kernelSynth, patches, covariates };
+const VIZ = { analogy, timeline, kernelsynth: kernelSynth, patches, covariates,
+  'cmp-weekly730': () => cmpChart('weekly730'), 'cmp-weekly14': () => cmpChart('weekly14'), 'cmp-payday730': () => cmpChart('payday730', 640, 340) };
 document.querySelectorAll('[data-viz]').forEach(d => (d.innerHTML = VIZ[d.dataset.viz]()));
 document.querySelectorAll('[data-plot]').forEach(d => (d.innerHTML = plot(JSON.parse(d.dataset.plot))));
 
