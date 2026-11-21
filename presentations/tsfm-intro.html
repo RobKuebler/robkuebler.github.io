@@ -422,25 +422,6 @@ forecast = pipeline.predict_df(
   <aside class="notes">That's all of it. You load the pretrained model, hand it a dataframe and get quantiles back. This is Chronos-2, the current version. There's no fit call because the training already happened at Amazon.</aside>
 </section>
 
-<!-- 17b · Payoff -->
-<section>
-  <div class="frame">
-    <p class="eyebrow">Back to AirPassengers</p>
-    <h2>The chatbot's question, answered by Chronos-2</h2>
-    <div class="row mono sm" style="gap:28px; margin-top:10px">
-      <span class="ctx">━ history</span><span class="faint">━ chatbot</span><span class="fc">┅ Chronos-2 median, 10–90% band</span><span class="fragment" data-fragment-index="0" style="color:var(--p-text)">● what actually happened</span>
-    </div>
-    <div class="grow">
-      <div class="grid g2" style="gap:40px">
-        <div><p class="mono faint sm">the same 2 years the chatbot got</p><div data-viz="payoffShort"></div></div>
-        <div class="fragment" data-fragment-index="1"><p class="mono faint sm">10 years of history, forecasting 1959–60</p><div data-viz="payoffLong"></div></div>
-      </div>
-    </div>
-    <p class="lg fragment mb" data-fragment-index="2">With 2 years it plays safe: a flat line and a wide band. Given 10 years, it picks up the yearly pattern.</p>
-  </div>
-  <aside class="notes">Same numbers as the chatbot slide. With only two years of monthly data, Chronos-2 doesn't commit to a seasonal pattern; it gives a flat median and a wide band, which covers most of what actually happened. The chatbot's straight line looks confident and misses the summer peaks. Next click: the right panel uses 1949 to 1958 as history and forecasts 1959 and 1960. Now the yearly cycle is clearly there, and 15 of the 24 actual values fall inside the 10–90% band, well below the 80% you'd want: the band is too narrow. Four years of history were already enough to get the seasonality. These are real outputs of amazon/chronos-2 with default settings.</aside>
-</section>
-
 <!-- 18 · Part 3 -->
 <section class="dark">
   <div class="frame">
@@ -832,38 +813,8 @@ function covariates() {
   return s + '</svg>';
 }
 
-/* AirPassengers payoff. Chronos-2 output computed offline with amazon/chronos-2 (chronos-forecasting 2.3.2), quantiles 0.1 / 0.5 / 0.9. */
-const PAYOFF = {"air":[112,118,132,129,121,135,148,148,136,119,104,118,115,126,141,135,125,149,170,170,158,133,114,140,145,150,178,163,172,178,199,199,184,162,146,166,171,180,193,181,183,218,230,242,209,191,172,194,196,196,236,235,229,243,264,272,237,211,180,201,204,188,235,227,234,264,302,293,259,229,203,229,242,233,267,269,270,315,364,347,312,274,237,278,284,277,317,313,318,374,413,405,355,306,271,306,315,301,356,348,355,422,465,467,404,347,305,336,340,318,362,348,363,435,491,505,404,359,310,337,360,342,406,396,420,472,548,559,463,407,362,405,417,391,419,461,472,535,622,606,508,461,390,432],"short":{"0.1":[124,116,112,111,109,110,109,109,106,103,102,101],"0.5":[147,143,143,141,141,143,144,143,140,137,135,136],"0.9":[172,175,178,179,180,183,187,188,186,184,183,184]},"long":{"0.1":[327,317,368,360,360,409,459,456,393,341,282,324,328,317,368,361,356,411,466,459,395,346,290,336],"0.5":[345,338,397,386,389,446,501,501,439,379,321,364,367,358,417,409,416,484,547,544,466,407,348,399],"0.9":[363,359,421,412,418,483,541,544,479,418,358,401,405,397,463,455,470,546,616,608,527,464,402,458]}};
-function payoffPanel(n, h, fc, chatbot) {
-  const A = PAYOFF.air, W = 470, H = 290, pad = { l: 44, r: 10, t: 16, b: 26 };
-  const ctx = A.slice(0, n), act = A.slice(n, n + h), lo = fc['0.1'], md = fc['0.5'], hi = fc['0.9'];
-  const vals = [...ctx, ...act, ...lo, ...hi, ...(chatbot || [])];
-  const mn = Math.min(...vals), mx = Math.max(...vals), m = (mx - mn) * 0.05, Y0 = mn - m, Y1 = mx + m;
-  const x = i => pad.l + (i / (n + h - 1)) * (W - pad.l - pad.r);
-  const y = v => H - pad.b - ((v - Y0) / (Y1 - Y0)) * (H - pad.t - pad.b);
-  const path = (arr, off) => arr.map((v, i) => `${i ? 'L' : 'M'}${x(i + off).toFixed(1)},${y(v).toFixed(1)}`).join('');
-  let s = `<svg viewBox="0 0 ${W} ${H}">`;
-  s += `<g stroke="${C.ink}" stroke-width="1.2"><line x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${H - pad.b}"/><line x1="${pad.l}" y1="${H - pad.b}" x2="${W - pad.r}" y2="${H - pad.b}"/></g>`;
-  for (let k = 0; k <= 3; k++) { const t = Y0 + (Y1 - Y0) * k / 3; s += txt(pad.l - 8, y(t) + 4, Math.round(t), { size: 12, fill: C.faint, font: MONO, anchor: 'end' }); }
-  const step = n + h > 60 ? 2 : 1;
-  for (let yr = 0; yr * 12 < n + h; yr += step) s += txt(x(yr * 12), H - 6, 1949 + yr, { size: 12, fill: C.faint, font: MONO, anchor: 'middle' });
-  s += `<line x1="${x(n - 0.5)}" x2="${x(n - 0.5)}" y1="${pad.t}" y2="${H - pad.b}" stroke="${C.border}" stroke-dasharray="4 4" stroke-width="1.5"/>`;
-  const band = hi.map((v, i) => `${i ? 'L' : 'M'}${x(n + i).toFixed(1)},${y(v).toFixed(1)}`).join('') +
-    lo.map((v, i) => [i, v]).reverse().map(([i, v]) => `L${x(n + i).toFixed(1)},${y(v).toFixed(1)}`).join('') + 'Z';
-  s += `<path d="${band}" fill="${C.fcFill}"/>`;
-  s += `<path d="${path(ctx, 0)}" fill="none" stroke="${C.ctx}" stroke-width="2.2" stroke-linejoin="round"/>`;
-  if (chatbot) s += `<path d="${path(chatbot, n)}" fill="none" stroke="${C.muted}" stroke-width="2.5"/>` +
-    txt(x(n + h - 1), y(chatbot[h - 1]) - 8, 'chatbot', { size: 13, font: MONO, fill: C.muted, anchor: 'end' });
-  s += `<path d="${path(md, n)}" fill="none" stroke="${C.fc}" stroke-width="2.5" stroke-dasharray="7 5" stroke-linecap="round"/>`;
-  s += `<g class="fragment" data-fragment-index="0"><path d="${path(act, n)}" fill="none" stroke="${C.ink}" stroke-width="2" stroke-linejoin="round"/>` +
-    act.map((v, i) => `<circle cx="${x(n + i)}" cy="${y(v)}" r="2.8" fill="${C.ink}"/>`).join('') + '</g>';
-  return s + '</svg>';
-}
-const payoffShort = () => payoffPanel(24, 12, PAYOFF.short, [145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200]);
-const payoffLong = () => payoffPanel(120, 24, PAYOFF.long, null);
-
 /* Render all charts before Reveal scans for fragments */
-const VIZ = { analogy, timeline, kernelsynth: kernelSynth, patches, covariates, payoffShort, payoffLong };
+const VIZ = { analogy, timeline, kernelsynth: kernelSynth, patches, covariates };
 document.querySelectorAll('[data-viz]').forEach(d => (d.innerHTML = VIZ[d.dataset.viz]()));
 document.querySelectorAll('[data-plot]').forEach(d => (d.innerHTML = plot(JSON.parse(d.dataset.plot))));
 
