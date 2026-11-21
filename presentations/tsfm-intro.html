@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time Series Foundation Models</title>
+<meta name="author" content="Dr. Robert Kübler">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reset.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* ── Portfolio palette (same as the website decks) ─────────── */
+:root {
+  --p-bg: #f4f1ea;
+  --p-surface: #faf8f4;
+  --p-accent: #8a6820;
+  --p-border: #e3ddd0;
+  --p-text: #1c1825;
+  --p-muted: #57516a;
+  --p-faint: #726887;
+  --p-ctx: #2f5a85;
+  --p-ctx-fill: #e4ebf2;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'Bricolage Grotesque', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html, body { background: var(--p-bg); }
+.reveal { font-family: var(--serif); font-size: 26px; color: var(--p-muted); }
+.reveal .slides { text-align: left; }
+.reveal .slides > section { height: 100%; padding: 0; }
+.reveal .slides > section.dark { background: var(--p-text); }
+.reveal .progress { color: var(--p-accent); height: 4px; }
+.reveal .slide-number { font-family: var(--mono); background: transparent; color: var(--p-faint); font-size: 14px; right: auto; left: 18px; bottom: 14px; }
+.reveal .slide-number a { color: inherit; text-decoration: none; }
+.reveal .controls { color: var(--p-accent); }
+
+.frame { height: 100%; box-sizing: border-box; padding: 56px 72px 48px; display: flex; flex-direction: column; }
+.grow { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: var(--sans); color: var(--p-text); letter-spacing: -0.02em;
+  text-transform: none; margin: 0; font-weight: 500; line-height: 1.1;
+}
+.reveal h1 { font-size: 64px; }
+.reveal h2 { font-size: 46px; margin-bottom: 8px; }
+.reveal h3 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+.reveal p { margin: 0; line-height: 1.45; }
+.reveal strong { color: var(--p-text); font-weight: 600; }
+.reveal code { font-family: var(--mono); }
+
+.eyebrow { font-family: var(--mono); font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--p-accent); margin-bottom: 8px !important; }
+.ctx { color: var(--p-ctx); }
+.fc  { color: var(--p-accent); }
+.faint { color: var(--p-faint); }
+.mono { font-family: var(--mono); }
+.lg { font-size: 28px; }
+.sm { font-size: 20px; }
+.src { font-family: var(--mono); font-size: 13px; color: var(--p-faint); }
+.reveal .mt { margin-top: 22px; } .reveal .mb { margin-bottom: 18px; }
+
+.row { display: flex; gap: 18px; align-items: center; }
+.grid { display: grid; gap: 18px; }
+.g2 { grid-template-columns: repeat(2, 1fr); }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.g5 { grid-template-columns: repeat(5, 1fr); }
+.g53 { grid-template-columns: 3fr 2fr; gap: 40px; align-items: center; }
+
+/* Cards */
+.card { background: var(--p-surface); border: 1px solid var(--p-border); border-radius: 16px; padding: 16px 20px; }
+.card p { font-size: 18px; line-height: 1.4; }
+.card.accent { border: 2px solid var(--p-accent); }
+.card .meta { font-family: var(--mono); font-size: 13px; color: var(--p-faint); margin-bottom: 6px; }
+.lic { display: inline-block; font-family: var(--mono); font-size: 12px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--p-border); color: var(--p-muted); margin-top: 8px; }
+.lic.open { border-color: #7a9a6a; color: #4d6b3f; }
+.lic.nc { border-color: #c08a6a; color: #8a4a2a; }
+
+/* Chat mock */
+.chat { display: flex; flex-direction: column; gap: 14px; max-width: 980px; margin: 0 auto; }
+.bubble { border-radius: 18px; padding: 14px 20px; font-size: 20px; line-height: 1.45; color: var(--p-text); }
+.bubble.user { align-self: flex-end; background: var(--p-ctx-fill); border-bottom-right-radius: 4px; max-width: 80%; }
+.bubble.bot { align-self: flex-start; background: var(--p-surface); border: 1px solid var(--p-border); border-bottom-left-radius: 4px; max-width: 82%; }
+.who { font-family: var(--mono); font-size: 12px; color: var(--p-faint); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+
+/* Tokens */
+.tok { display: inline-block; font-family: var(--mono); font-size: 19px; min-width: 1.5em; text-align: center; padding: 4px 7px; margin: 2px; border-radius: 7px; border: 2px solid var(--p-ctx); background: var(--p-ctx-fill); color: var(--p-text); }
+.tok.sep { border-color: var(--p-border); background: var(--p-surface); color: var(--p-faint); }
+.tok.out { border-color: var(--p-accent); border-style: dashed; background: transparent; }
+
+.step { display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; border-radius: 999px; background: var(--p-accent); color: #fff; font-family: var(--mono); font-size: .55em; font-weight: 600; margin-right: 14px; vertical-align: middle; }
+
+.statement { font-family: var(--sans); font-size: 54px; line-height: 1.2; font-weight: 600; color: var(--p-text); letter-spacing: -0.02em; }
+
+/* Section dividers */
+.dark .frame { justify-content: center; align-items: center; text-align: center; }
+.dark h1 { color: #f4f1ea; }
+.dark p { color: #c9c2d6; }
+.dark .eyebrow { color: #d9b45a; }
+
+/* Table */
+.cmp { width: 100%; border-collapse: collapse; font-size: 17px; }
+.cmp th, .cmp td { padding: 10px 14px; border-bottom: 1px solid var(--p-border); text-align: left; font-family: var(--mono); }
+.cmp th { color: var(--p-text); font-weight: 600; }
+.cmp td.new { color: var(--p-text); font-weight: 600; }
+
+/* Code */
+.reveal pre { position: relative; width: 100%; margin: 0; box-shadow: none; font-size: 17px; }
+.reveal pre.code-wrapper, .reveal pre { background: var(--p-surface); border: 1px solid var(--p-border); border-radius: 14px; padding: 16px 22px; box-sizing: border-box; }
+.reveal pre code { background: transparent; padding: 0; max-height: none; overflow: visible; line-height: 1.5; }
+.reveal :not(pre) > code { background: var(--p-surface); color: var(--p-accent); padding: 2px 7px; border-radius: 5px; font-size: .9em; }
+
+/* Fragments: default fade; on SVG groups too */
+.reveal .fragment { transition: opacity .45s ease; }
+svg .fragment:not(.visible) { opacity: 0; }
+
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg a { cursor: pointer; }
+svg a:hover tspan, svg a:hover text { text-decoration: underline; }
+.cover h1 { font-size: 84px; }
+.cover .sub { font-size: 26px; color: var(--p-faint); margin-top: 18px; }
+/* PDF export (?print-pdf) */
+html.print-pdf .reveal .slides > .pdf-page > section { height: 720px !important; min-height: 720px; }
+html.print-pdf .frame { height: 720px; }
+
+.byline { position: absolute; right: 96px; bottom: 36px; font-family: var(--mono); font-size: 16px; color: var(--p-faint); }
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<!-- 1 · Cover -->
+<section>
+  <div class="frame cover" style="justify-content:center">
+    <h1>Time Series<br>Foundation Models</h1>
+    <p class="sub">From "just ask ChatGPT" to zero-shot forecasts that work</p>
+  </div>
+  <div class="byline">Dr. Robert Kübler</div>
+  <aside class="notes">Welcome. 30 minutes, no prior knowledge of TSFMs needed. If you have trained an ARIMA or a LightGBM forecaster, you are overqualified.</aside>
+</section>
+
+<!-- 2 · Status quo -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">The status quo</p>
+    <h2>How we forecast today</h2>
+    <div class="grow">
+      <div class="grid g4">
+        <div class="card"><h3>1 · Collect</h3><p>history of <em>this</em> series</p></div>
+        <div class="card"><h3>2 · Fit</h3><p>ARIMA, ETS, Prophet, LightGBM with lags…</p></div>
+        <div class="card"><h3>3 · Tune</h3><p>features, seasonality, hyperparameters</p></div>
+        <div class="card"><h3>4 · Repeat</h3><p>for every new problem: stores, SKUs, sensors</p></div>
+      </div>
+    </div>
+    <p class="lg fragment">It works well, but every new problem starts <strong>from zero</strong>.</p>
+    <p class="lg fragment">And a new product with 3 weeks of history? Good luck.</p>
+    <p class="statement fragment mt" style="font-size:38px">What if we could skip the training entirely?</p>
+  </div>
+  <aside class="notes">Classical forecasting means one model per series or per dataset, plus a lot of tuning, and cold start is painful. Foundation models promise something simpler: you download a model, give it your history and get a forecast, without training anything yourself.</aside>
+</section>
+
+<!-- 3 · Analogy -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">The core idea</p>
+    <h2>A TSFM is an LLM for numbers</h2>
+    <div class="grow"><div data-viz="analogy" style="width:100%; max-width:840px; margin:0 auto"></div></div>
+    <div class="row fragment mono sm" data-fragment-index="2" style="justify-content:center; gap:44px">
+      <span><span class="ctx">prompt</span> ↔ <span class="ctx">context</span></span>
+      <span>tokens ↔ values (or patches of values)</span>
+      <span>writing text ↔ <span class="fc">forecasting</span></span>
+    </div>
+    <p class="fragment sm" data-fragment-index="3" style="text-align:center; margin-top:14px">Why should this work on your sales? Trend, seasonality and noise look alike across sales, energy, traffic and sensor data, and those shapes are what the model learns.</p>
+  </div>
+  <aside class="notes">First the LLM you know: a prompt goes in, a plausible continuation comes out. Next click: a TSFM does the same with numbers. The context is the history, and the continuation is the forecast, and most current TSFMs put an uncertainty band around it. Next click: the mapping. The model was pre-trained on huge amounts of data and you use it on data it has never seen, without training it yourself, which is what people mean by "zero-shot". Last click, for the skeptics: the model has never seen your data, but it has seen millions of series with trends, weekly and yearly cycles, and noise, and those shapes repeat across domains.</aside>
+</section>
+
+<!-- 4 · Part 1 -->
+<section class="dark">
+  <div class="frame">
+    <p class="eyebrow">Part 1</p>
+    <h1>A short history</h1>
+    <p class="mt">Four years, two schools of thought</p>
+  </div>
+</section>
+
+<!-- 5 · Timeline -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">2022 → 2026</p>
+    <h2>Two ways to build a TSFM</h2>
+    <div class="grow"><div data-viz="timeline"></div></div>
+  </div>
+  <aside class="notes">Click 1, the first school: we already have giant LLMs, so why not reuse them for numbers? Click 2: in 2024 a NeurIPS paper ripped the LLM out of three of these models (GPT4TS, Time-LLM, CALF) and got the same or better accuracy for a fraction of the compute. Click 3, the second school: an LLM-like architecture, pre-trained on time series. Most of the progress since then happened here.</aside>
+</section>
+
+<!-- 6 · Chatbot -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">2023</p>
+    <h2>Attempt 1: paste it into a chatbot</h2>
+    <div class="grow">
+      <div class="chat">
+        <div class="bubble user"><div class="who">you</div>Here are my monthly sales: 112, 118, 132, 129, 121, 135, 148, 148, 136, 119, 104, 118, 115, 126, 141, 135, 125, 149, 170, 170, 158, 133, 114, 140. Forecast the next 12 months.</div>
+        <div class="bubble bot fragment"><div class="who">a chatbot</div>Great question! Based on the upward trend, here is your forecast: <strong>145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200.</strong> Please note that forecasts are subject to uncertainty.</div>
+      </div>
+    </div>
+    <div class="row fragment" style="justify-content:space-between; align-items:flex-end">
+      <p class="lg">Fluent. Confident. A straight line. <strong>Seasonality? Never heard of it.</strong></p>
+      <p class="src">(the numbers are AirPassengers, 1949–50)</p>
+    </div>
+  </div>
+  <aside class="notes">Everyone tried this in 2023. Some people still do. The answer sounds great and is useless: no seasonality, no real uncertainty, a different answer every time. Fun detail: the numbers are the first two years of AirPassengers, the "hello world" of forecasting.</aside>
+</section>
+
+<!-- 7 · LLMTime -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">LLMTime · Oct 2023</p>
+    <h2>Attempt 2: make the numbers readable for GPT-3</h2>
+    <div class="grow">
+      <div class="row" style="gap:28px">
+        <span class="mono lg" style="white-space:nowrap">151, 162, 175</span>
+        <span class="faint lg">→</span>
+        <span style="white-space:nowrap">
+          <span class="tok">1</span><span class="tok">5</span><span class="tok">1</span><span class="tok sep">,</span><span class="tok">1</span><span class="tok">6</span><span class="tok">2</span><span class="tok sep">,</span><span class="tok">1</span><span class="tok">7</span><span class="tok">5</span><span class="tok sep">,</span><span class="fragment"><span class="tok out">1</span><span class="tok out">8</span><span class="tok out">3</span><span class="tok out">…</span></span>
+        </span>
+      </div>
+      <p class="sm faint" style="margin-top:12px">Space out the digits so the tokenizer makes one token per digit. Then sample continuations and parse them back to numbers.</p>
+      <div class="grid g2 mt fragment">
+        <div class="card"><h3>The surprise</h3><p>It worked: zero-shot GPT-3 and LLaMA-2 matched or beat purpose-built models on standard benchmarks.</p></div>
+        <div class="card"><h3>The plot twist</h3><p>GPT-4 could forecast <strong>worse</strong> than GPT-3: its number tokenizer hurts, and alignment tuning (RLHF) likely hurts calibration.</p></div>
+      </div>
+    </div>
+    <p class="lg fragment mb">So: billions of parameters trained on the internet (Reddit included), now forecasting your electricity load. <strong>What could go wrong?</strong></p>
+    <p class="src">Gruver, Finzi, Qiu, Wilson. Large Language Models Are Zero-Shot Time Series Forecasters. NeurIPS 2023.</p>
+  </div>
+  <aside class="notes">LLMTime is a clever paper and the authors were careful. GPT-3's tokenizer chops numbers in weird ways, so they put spaces between the digits, and it worked surprisingly well. Chat-tuned models did worse than their base versions, though (LLaMA-2 chat vs. LLaMA-2), and the authors suspect alignment tuning like RLHF hurt GPT-4's calibration. Side note: their "GPT-3" was text-davinci-003, which is itself instruction-tuned. And with the GPT models, every forecast costs API calls.</aside>
+</section>
+
+<!-- 8 · Time-LLM -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Time-LLM, GPT4TS &amp; friends · 2023–24</p>
+    <h2>Attempt 3: wrap a frozen LLM in small adapters</h2>
+    <div class="grow">
+      <div class="row mono" style="justify-content:center; gap:12px; font-size:18px; text-align:center">
+        <div class="card">your<br>series</div><span class="faint">→</span>
+        <div class="card" style="border:2px solid var(--p-accent)">input adapter<br><span class="fc">trained</span></div><span class="faint">→</span>
+        <div class="card" style="padding:24px 28px; border:2px solid var(--p-ctx)">LLM<br><span class="faint" style="font-size:14px">LLaMA-7B / GPT-2</span><br><span class="ctx">❄ frozen</span></div><span class="faint">→</span>
+        <div class="card" style="border:2px solid var(--p-accent)">output adapter<br><span class="fc">trained</span></div><span class="faint">→</span>
+        <div class="card">forecast</div>
+      </div>
+    </div>
+    <p class="lg fragment">The input adapter maps chunks of the series into the LLM's input space, and the output adapter turns the LLM's output back into numbers. Only these two small parts are trained.</p>
+    <p class="lg fragment mt mb">Lots of papers and GitHub stars, but only small ablations checked <strong>whether the LLM was doing anything.</strong></p>
+  </div>
+  <aside class="notes">Time-LLM (ICLR 2024) and GPT4TS / One Fits All (NeurIPS 2023) take a pretrained LLM (LLaMA-7B for Time-LLM, the first 6 layers of GPT-2 for GPT4TS) and keep it frozen. A small input adapter turns short chunks of the series into something the LLM can read, like word embeddings, and a small output layer turns the result back into a forecast. Only those two parts are trained. GPT4TS also fine-tunes a few tiny parts of the LLM: the layer norms and positional embeddings. GPT4TS did run a small ablation without the GPT-2 layers, on a few datasets, and the LLM version won there. It made a nice story and got a lot of attention.</aside>
+</section>
+
+<!-- 9 · Ablation -->
+<section>
+  <div class="frame" style="justify-content:center; align-items:center; text-align:center">
+    <div class="statement">Remove the LLM.<br>Replace it with <span class="fc">one attention layer</span><br>or with <span class="fc">nothing at all</span>.</div>
+    <p class="fragment lg" style="margin-top:44px">Accuracy: <strong>the same or better.</strong> Compute: up to 1000× less.</p>
+    <p class="src" style="margin-top:44px">Tan, Merrill, Gupta, Althoff, Hartvigsen. Are Language Models Actually Useful for Time Series Forecasting? NeurIPS 2024 (spotlight).</p>
+  </div>
+  <aside class="notes">Three popular LLM-based forecasters (OneFitsAll/GPT4TS, Time-LLM, CALF), ablated: remove the LLM, replace it with a single attention layer, or with one randomly initialised transformer block. Results stayed the same or improved, so the LLM was mostly an expensive passenger. Training Time-LLM took 3,003 minutes on one dataset versus about 2 for the ablation; at inference, the LLM versions were 1.2× to 28× slower. If you want a foundation model for time series, train it on time series.</aside>
+</section>
+
+<!-- 10 · Native models -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Late 2023 – 2024</p>
+    <h2>Meanwhile: pre-train on time series instead</h2>
+    <div class="grow">
+      <div class="grid g5">
+        <div class="card"><h3>TimeGPT-1</h3><p class="meta">Nixtla · Oct 2023</p><p>Closed API. Very loud marketing.</p></div>
+        <div class="card"><h3>Lag-Llama</h3><p class="meta">Oct 2023</p><p>Open, decoder-only, lag features as input.</p></div>
+        <div class="card"><h3>TimesFM</h3><p class="meta">Google · Oct 2023</p><p>Decoder-only, patches of 32 points.</p></div>
+        <div class="card"><h3>Moirai</h3><p class="meta">Salesforce · Feb 2024</p><p>"Any-variate" attention, multiple patch sizes.</p></div>
+        <div class="card accent"><h3>Chronos</h3><p class="meta">Amazon · Mar 2024</p><p>Literally a language model. Simplest to explain.</p></div>
+      </div>
+    </div>
+    <p class="lg fragment mb">The LLM recipe of a transformer, lots of data and (mostly) predicting what comes next, only <strong>without any text</strong>.</p>
+  </div>
+  <aside class="notes">Within about six months, several labs released models trained from scratch on time series. We'll look at Chronos in detail because it's the closest to an actual LLM, so the analogy from the start carries over almost one to one.</aside>
+</section>
+
+<!-- 11 · Part 2 -->
+<section class="dark">
+  <div class="frame">
+    <p class="eyebrow">Part 2</p>
+    <h1>Chronos, step by step</h1>
+    <p class="mt">How to turn a language model into a forecaster</p>
+  </div>
+</section>
+
+<!-- 12 · Scale -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Chronos · step 1 of 4</p>
+    <h2><span class="step">1</span>Scale: make all series look alike</h2>
+    <div class="grow">
+      <div class="grid g2" style="gap:48px">
+        <div><p class="mono faint sm">raw: passengers, kWh, €, …</p><div data-plot='{"n":60,"seed":3,"yTicks":true}'></div></div>
+        <div class="fragment"><p class="mono faint sm">divided by mean |value| of the context</p><div data-plot='{"n":60,"seed":3,"yTicks":true,"scaled":true}'></div></div>
+      </div>
+    </div>
+    <p class="lg mb">Sales in millions and kWh in thousands now live on the <strong>same scale</strong>: average size 1.</p>
+  </div>
+  <aside class="notes">Text has a fixed vocabulary, but numbers don't: 0.003 and 3 million can both show up. So the first step is mean scaling, dividing every value by the mean absolute value of the context. The shape stays the same and only the y-axis changes. It is not standardisation, though: a series hovering around zero gets blown up, and one sitting at 20 ± 2 gets squashed to about 1.</aside>
+</section>
+
+<!-- 13 · Quantize -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Chronos · step 2 of 4</p>
+    <h2><span class="step">2</span>Quantize: numbers become tokens</h2>
+    <div class="grow">
+      <div class="grid g53">
+        <div data-plot='{"n":16,"seed":3,"scaled":true,"bins":10,"tokens":6,"hgt":260}'></div>
+        <div style="display:flex; flex-direction:column; gap:18px">
+          <p>Chop the value range <code>[-15, 15]</code> into <strong>~4,000 bins</strong>.</p>
+          <p>Each value is replaced by its bin number. That number <strong>is</strong> the token.</p>
+          <div class="card fragment"><p>Vocabulary: 4,096 tokens (bins + PAD/EOS). Context: up to 512 tokens. Sounds familiar?</p></div>
+          <p class="fragment sm">The bins are centred on 0, so 0 is around token 2050 and typical scaled values sit a bit above. The loss treats neighbouring bins as unrelated; the model learns that they are close from the data.</p>
+        </div>
+      </div>
+    </div>
+    <p class="src">Illustration uses 10 bins so you can see them; token ids follow the real Chronos scheme.</p>
+  </div>
+  <aside class="notes">This is uniform binning: each scaled value lands in one bin, and the bin index becomes the token id. The bins run from -15 to 15, so a value of 0 sits in the middle, around token 2050, and scaled values near 1 land a bit above it. You lose a bit of precision, but in exchange a time series is now a sentence of token ids that any language model can read. Someone usually asks whether the model knows that bin 2101 is next to 2102. The cross-entropy loss doesn't: it treats them as unrelated classes, so the model has to learn the ordering from the data.</aside>
+</section>
+
+<!-- 14 · Train -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Chronos · step 3 of 4</p>
+    <h2><span class="step">3</span>Train a plain language model</h2>
+    <div class="grow">
+      <div class="row" style="justify-content:center; gap:8px">
+        <span class="tok">2148</span><span class="tok">2169</span><span class="tok">2194</span><span class="tok">2218</span><span class="tok">2225</span><span class="tok">2218</span>
+        <span class="faint lg" style="margin:0 14px">→</span>
+        <div class="card accent mono" style="text-align:center; padding:16px 24px">T5<br><span class="faint" style="font-size:14px">encoder–decoder</span></div>
+        <span class="faint lg" style="margin:0 14px">→</span>
+        <span class="tok out">2201</span><span class="faint">?</span>
+      </div>
+      <div class="grid g3 mt" style="margin-top:40px">
+        <div class="card"><h3>Architecture</h3><p>Off-the-shelf T5. No time-series tricks at all. Sizes from 8M to 710M parameters.</p></div>
+        <div class="card"><h3>Loss</h3><p>Cross-entropy on the next token, the same objective LLMs use.</p></div>
+        <div class="card"><h3>Consequence</h3><p>The model outputs a <strong>probability for each of the 4,096 tokens</strong>, not one number.</p></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">The architecture is plain T5; the scaling and the binning are the only parts specific to time series. Because the model is a classifier over bins, it gives you a distribution for free, and that distribution can even be multimodal.</aside>
+</section>
+
+<!-- 15 · Sample -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Chronos · step 4 of 4</p>
+    <h2><span class="step">4</span>Sample many futures, read off quantiles</h2>
+    <div class="grow">
+      <div class="grid g2" style="gap:48px">
+        <div><p class="mono faint sm">20 sampled continuations</p><div data-plot='{"n":48,"h":18,"seed":5,"samples":20,"divider":true}'></div></div>
+        <div class="fragment"><p class="mono faint sm">median + 10–90% band</p><div data-plot='{"n":48,"h":18,"seed":5,"forecast":true,"band":true,"divider":true}'></div></div>
+      </div>
+    </div>
+    <p class="lg fragment mb">Undo the binning and the scaling → a <strong>probabilistic forecast</strong>, out of the box.</p>
+  </div>
+  <aside class="notes">This works like an LLM generating text: sample a token, append it, sample the next one. Do that 20 times and you have 20 possible futures. The median is the point forecast and the quantiles give the uncertainty band. Finally, multiply back by the scale.</aside>
+</section>
+
+<!-- 16 · Data -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Chronos · the data</p>
+    <h2>Where do you get "internet-scale" time series?</h2>
+    <div class="grid g3 mt">
+      <div class="card"><h3>Public datasets</h3><p>Energy, traffic, weather, retail, finance… a lot, but far from internet-scale.</p></div>
+      <div class="card"><h3>TSMixup</h3><p>Mix random series from different datasets into new ones. Data augmentation.</p></div>
+      <div class="card accent"><h3>KernelSynth</h3><p>Make up series from scratch by combining Gaussian process kernels.</p></div>
+    </div>
+    <div class="grow"><div data-viz="kernelsynth"></div></div>
+  </div>
+  <aside class="notes">There's no "Common Crawl" for time series, so Chronos mixes real data with augmented and fully synthetic data. KernelSynth picks a few GP kernels (linear, periodic, smooth), combines them with + and ×, and samples from the result. A small dose of synthetic data (about 10%) clearly helped; more than that hurt. Later models lean on it much more: Chronos-2 learns its multivariate skills entirely from synthetic data.</aside>
+</section>
+
+<!-- 17 · Code -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Try it yourself</p>
+    <h2>Zero-shot forecast in ~10 lines</h2>
+    <div class="grow">
+<pre><code class="language-python" data-trim data-noescape data-line-numbers>
+import pandas as pd
+from chronos import BaseChronosPipeline   # pip install chronos-forecasting
+
+pipeline = BaseChronosPipeline.from_pretrained("amazon/chronos-2", device_map="cpu")
+
+df = pd.read_csv(
+    "https://autogluon.s3.us-west-2.amazonaws.com/datasets/timeseries/misc/AirPassengers.csv"
+)
+forecast = pipeline.predict_df(
+    df,
+    prediction_length=36,
+    quantile_levels=[0.1, 0.5, 0.9],
+    id_column="item_id",
+    timestamp_column="Month",
+    target="#Passengers",
+)
+</code></pre>
+      <p class="lg mt">There's no <code>.fit()</code> and no feature engineering, and it runs on a laptop CPU.</p>
+      <p class="sm faint" style="margin-top:6px">Also available through AutoGluon and sktime.</p>
+    </div>
+  </div>
+  <aside class="notes">That's all of it. You load the pretrained model, hand it a dataframe and get quantiles back. This is Chronos-2, the current version. There's no fit call because the training already happened at Amazon.</aside>
+</section>
+
+<!-- 17b · Payoff -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Back to AirPassengers</p>
+    <h2>The chatbot's question, answered by Chronos-2</h2>
+    <div class="row mono sm" style="gap:28px; margin-top:10px">
+      <span class="ctx">━ history</span><span class="faint">━ chatbot</span><span class="fc">┅ Chronos-2 median, 10–90% band</span><span class="fragment" data-fragment-index="0" style="color:var(--p-text)">● what actually happened</span>
+    </div>
+    <div class="grow">
+      <div class="grid g2" style="gap:40px">
+        <div><p class="mono faint sm">the same 2 years the chatbot got</p><div data-viz="payoffShort"></div></div>
+        <div class="fragment" data-fragment-index="1"><p class="mono faint sm">10 years of history, forecasting 1959–60</p><div data-viz="payoffLong"></div></div>
+      </div>
+    </div>
+    <p class="lg fragment mb" data-fragment-index="2">With 2 years it plays safe: a flat line and a wide band. Given 10 years, it picks up the yearly pattern.</p>
+  </div>
+  <aside class="notes">Same numbers as the chatbot slide. With only two years of monthly data, Chronos-2 doesn't commit to a seasonal pattern; it gives a flat median and a wide band, which covers most of what actually happened. The chatbot's straight line looks confident and misses the summer peaks. Next click: the right panel uses 1949 to 1958 as history and forecasts 1959 and 1960. Now the yearly cycle is clearly there, and 15 of the 24 actual values fall inside the 10–90% band, well below the 80% you'd want: the band is too narrow. Four years of history were already enough to get the seasonality. These are real outputs of amazon/chronos-2 with default settings.</aside>
+</section>
+
+<!-- 18 · Part 3 -->
+<section class="dark">
+  <div class="frame">
+    <p class="eyebrow">Part 3</p>
+    <h1>Where we are now</h1>
+    <p class="mt">Late 2026</p>
+  </div>
+</section>
+
+<!-- 19 · What changed -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">2024 → today</p>
+    <h2>What changed in two years</h2>
+    <div class="grow">
+      <table class="cmp">
+        <thead><tr><th></th><th>Chronos (Mar 2024)</th><th>Chronos-2 (Oct 2025)</th></tr></thead>
+        <tbody>
+          <tr><td>Input</td><td>one value = one token</td><td class="new">patches of values</td></tr>
+          <tr><td>Output</td><td>sample 20 paths, step by step</td><td class="new">all quantiles, all steps, one pass</td></tr>
+          <tr><td>Multivariate</td><td>✗</td><td class="new">✓</td></tr>
+          <tr><td>Covariates (past &amp; known future)</td><td>✗</td><td class="new">✓ prices, holidays, weather</td></tr>
+          <tr><td>Learn across related series</td><td>✗</td><td class="new">✓ opt-in, like few-shot prompting; can help cold start</td></tr>
+          <tr><td>Max context / recommended horizon</td><td>512 / 64</td><td class="new">8,192 / 1,024</td></tr>
+        </tbody>
+      </table>
+      <p class="lg" style="margin-top:28px">TimesFM-3, Timestral and TiRex-2 now also do <strong>multivariate + covariates + quantiles</strong>. Toto 2.0 is multivariate.</p>
+    </div>
+    <p class="src">Chronos-2 model card, huggingface.co/amazon/chronos-2</p>
+  </div>
+  <aside class="notes">Early models were univariate only: one series in, one forecast out, and no external information. That was the main reason practitioners stuck with LightGBM. Current models take related series and covariates as context, a bit like few-shot prompting in LLMs, and they output quantiles directly, which is much faster than sampling. Learning across series is off by default; turn it on with cross_learning=True.</aside>
+</section>
+
+<!-- 19a · Chronos-2 patching -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Chronos-2 · patches</p>
+    <h2>Patches instead of single values</h2>
+    <div class="grow"><div data-viz="patches"></div></div>
+    <p class="lg fragment mb" data-fragment-index="2">Like reading words instead of letters: the same history needs far fewer tokens, so Chronos-2 can look back up to <strong>8,192 values</strong>.</p>
+  </div>
+  <aside class="notes">Chronos turned every single value into its own token, so a long history meant a very long sequence. Chronos-2 cuts the series into short, non-overlapping chunks of consecutive values and turns each chunk into one token. Next click: the future is cut into patches too, and the model fills in all of them at once instead of sampling one value after another. Each patch also carries a time index and a mask that marks missing values. The patch length here is just for the picture.</aside>
+</section>
+
+<!-- 19b · Chronos-2 attention + covariates -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Chronos-2 · inside</p>
+    <h2>Two kinds of attention and a mask</h2>
+    <div class="grow">
+      <div class="grid g53">
+        <div data-viz="covariates"></div>
+        <div style="display:flex; flex-direction:column; gap:16px; font-size:24px">
+          <p><strong><span class="ctx">Time attention</span></strong> looks along one series, patch by patch, past and future.</p>
+          <p class="fragment" data-fragment-index="0"><strong><span class="fc">Group attention</span></strong> looks across the series at the same patch of time, so sales can see the planned price.</p>
+          <p class="fragment" data-fragment-index="1">Unknown values become <span class="mono">0</span>. A <strong>mask</strong> marks real values (<span class="mono">1</span>) and gaps (<span class="mono">0</span>).</p>
+          <p class="fragment" data-fragment-index="2">Only the target gets a <strong><span class="fc">forecast</span></strong>: quantiles from 1% to 99% for every step, in one pass.</p>
+        </div>
+      </div>
+    </div>
+    <p class="src">Ansari et al. Chronos-2: From Univariate to Universal Forecasting. arXiv:2510.15821, 2025.</p>
+  </div>
+  <aside class="notes">Chronos-2 is an encoder in the style of T5 with 120M parameters, and its layers alternate between two kinds of attention. Time attention looks along one series. Group attention looks across all series in a group at the same patch. A group can be a set of related products, the variates of a multivariate series, or, like here, a target plus its covariates. Next click: at a future step, the sales row can look at the price row, and the planned price drop is right there. Next: everything that isn't known in the future window is set to zero and switched off in the mask; the mask also marks missing values in the history. Last click: only the target gets a forecast, as 21 quantiles from 1% to 99%, and the loss is only computed on the target, so the model never has to forecast the covariates. Real multivariate data is scarce, so the multivariate training data is entirely synthetic. The numbers on the slide are made up for the picture.</aside>
+</section>
+
+<!-- 20 · Zoo -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">The 2026 zoo</p>
+    <h2>Every few months, a new #1</h2>
+    <div class="grow">
+      <div class="grid g3">
+        <div class="card"><h3>Chronos-2</h3><p class="meta">Amazon · Oct 2025</p><p>120M params. The usual default to self-host.</p><span class="lic open">Apache 2.0</span></div>
+        <div class="card"><h3>Toto 2.0</h3><p class="meta">Datadog · May 2026</p><p>4M → 2.5B. Accuracy keeps improving with size.</p><span class="lic open">Apache 2.0</span></div>
+        <div class="card"><h3>TimesFM-3</h3><p class="meta">Google · Aug 2026</p><p>Now multivariate. In BigQuery (preview).</p><span class="lic nc">non-commercial, non-production</span></div>
+        <div class="card"><h3>Moirai 2.0</h3><p class="meta">Salesforce · Aug 2025</p><p>Decoder-only rewrite, quantile outputs.</p><span class="lic nc">non-commercial</span></div>
+        <div class="card"><h3>TiRex-2</h3><p class="meta">NXAI · Jul 2026</p><p>xLSTM backbone instead of a transformer stack. Designed for streaming.</p><span class="lic open">Apache 2.0 (streaming tools in PRO)</span></div>
+        <div class="card"><h3>Timestral</h3><p class="meta">Mistral · Oct 2026</p><p>5M → 209M, fast on CPU.</p><span class="lic nc">modified MIT, revenue cap</span></div>
+      </div>
+    </div>
+    <p class="lg mb">Each one has claimed #1 on a public leaderboard like GIFT-Eval*. <strong>Read the license before the leaderboard.</strong></p>
+    <p class="src">* GIFT-Eval: Salesforce's public forecasting benchmark and leaderboard, with data from many domains and frequencies.</p>
+  </div>
+  <aside class="notes">GIFT-Eval is Salesforce's public benchmark and leaderboard for forecasting models, and the one most of these releases point to. The top spot changes every few months. Toto 2.0 in May, TiRex-2 in July, TimesFM-3 in August and Timestral in October each claimed the top spot. Moirai 2.0 claimed #1 too, by MASE among models without test-data leakage. Toto 2.0 is notable because accuracy improved steadily from 4M to 2.5B parameters; the Moirai 2.0 team, for example, had seen diminishing returns from bigger models. Licenses differ a lot: the TimesFM-3 and Moirai 2.0 weights are non-commercial, while Chronos-2, Toto 2.0 and TiRex-2 are Apache 2.0. Timestral looks like MIT, but companies with more than $20M monthly revenue need a commercial license. The GIFT-Eval leaderboard now also lists "agentic" systems that ensemble several foundation models.</aside>
+</section>
+
+<!-- 21 · Caveats -->
+<section>
+  <div class="frame">
+    <p class="eyebrow">Before you use one</p>
+    <h2>A few caveats</h2>
+    <div class="grow">
+      <div class="grid g2">
+        <div class="card"><h3>Benchmarks ≠ your data</h3><p>Leaderboard rank may not transfer to your data. Evaluate on <em>your</em> series with a proper backtest.</p></div>
+        <div class="card"><h3>Keep the baselines</h3><p>Always compare against seasonal naive, ETS and your current model. Sometimes they win.</p></div>
+        <div class="card"><h3>Leakage</h3><p>Public benchmarks may overlap with pre-training data. Newer benchmarks like TIME use freshly collected data to avoid that overlap.</p></div>
+        <div class="card"><h3>Check the quantiles</h3><p>A band is only useful if it's calibrated. Measure coverage, not just MAPE.</p></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">TSFMs make a great default and a strong baseline. A well-tuned LightGBM with rich features may still win, but a TSFM gives you a very good forecast in five minutes, and any new model now has to beat that.</aside>
+</section>
+
+<!-- 22 · Takeaways -->
+<section>
+  <div class="frame">
+    <h2>Takeaways</h2>
+    <div class="grow" style="gap:20px; font-size:28px">
+      <p><span class="step">1</span>A TSFM is an LLM for numbers: <span class="ctx">context</span> in, <span class="fc">continuation</span> out, zero-shot.</p>
+      <p><span class="step">2</span>Bolting a text LLM onto time series mostly didn't pay off; today's leaders are pre-trained on time series.</p>
+      <p><span class="step">3</span>Chronos showed it with plain T5 plus scaling and binning.</p>
+      <p><span class="step">4</span>Today: multivariate, covariates and quantiles in one forward pass.</p>
+      <p><span class="step">5</span>Use one as your new baseline, and still backtest.</p>
+    </div>
+    <p class="statement" style="font-size:34px">Thanks. Questions? <span class="mono faint" style="font-size:16px; font-weight:400; margin-left:16px">Dr. Robert Kübler</span></p>
+  </div>
+</section>
+
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/highlight/highlight.min.js" crossorigin="anonymous"></script>
+<script>
+/* ══ Charts: plain SVG, deterministic toy data ══════════════════ */
+const C = {
+  ctx: '#2f5a85', ctxFill: '#e4ebf2', fc: '#8a6820', fcFill: '#efe3c6',
+  ink: '#1c1825', muted: '#57516a', faint: '#726887', border: '#d9d1c1',
+  surface: '#faf8f4', bg: '#f4f1ea',
+};
+const SANS = 'Bricolage Grotesque, sans-serif', SERIF = 'Source Serif 4, serif', MONO = 'JetBrains Mono, monospace';
+
+function rng(seed) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const gauss = r => Math.sqrt(-2 * Math.log(Math.max(r(), 1e-9))) * Math.cos(2 * Math.PI * r());
+const structure = t => (100 + 1.6 * t) * (1 + 0.24 * Math.sin(2 * Math.PI * t / 12) + 0.07 * Math.sin(4 * Math.PI * t / 12 + 0.6));
+const makeSeries = (n, seed) => { const r = rng(seed); return Array.from({ length: n }, (_, t) => structure(t) * (1 + 0.022 * gauss(r))); };
+function makeSamples(n, h, k, seed) {
+  const r = rng(seed), out = [];
+  for (let s = 0; s < k; s++) {
+    let drift = 0; const p = [];
+    for (let i = 0; i < h; i++) { drift += 0.022 * gauss(r); p.push(structure(n + i) * (1 + drift + 0.03 * gauss(r))); }
+    out.push(p);
+  }
+  return out;
+}
+function quantile(arr, q) {
+  const s = [...arr].sort((a, b) => a - b), pos = (s.length - 1) * q, lo = Math.floor(pos), hi = Math.ceil(pos);
+  return s[lo] + (s[hi] - s[lo]) * (pos - lo);
+}
+const qOverTime = (paths, q) => paths[0].map((_, i) => quantile(paths.map(p => p[i]), q));
+const el = (tag, attrs, inner = '') => `<${tag} ${Object.entries(attrs).map(([k, v]) => `${k}="${v}"`).join(' ')}>${inner}</${tag}>`;
+const txt = (x, y, s, o = {}) => el('text', { x, y, 'font-size': o.size || 14, 'font-weight': o.weight || 400, 'font-family': o.font || SERIF, fill: o.fill || C.ink, 'text-anchor': o.anchor || 'start', ...(o.italic ? { 'font-style': 'italic' } : {}), ...(o.ls ? { 'letter-spacing': o.ls } : {}) }, s);
+
+/* Time series plot. Returns the inner SVG markup for a w×hgt box. */
+function plotInner(o) {
+  o = Object.assign({ n: 60, h: 18, seed: 3, w: 600, hgt: 240, forecast: false, band: false, samples: 0, dimContext: false,
+    axis: true, yTicks: false, scaled: false, bins: 0, tokens: 0, divider: false, sw: 2.5 }, o);
+  const pad = { l: 44, r: 14, t: 26, b: 22 };
+  const ctx0 = makeSeries(o.n, o.seed);
+  const paths0 = makeSamples(o.n, o.h, 40, o.seed + 8);
+  const scale = o.scaled ? ctx0.reduce((a, b) => a + Math.abs(b), 0) / ctx0.length : 1;
+  const c = ctx0.map(v => v / scale), P = paths0.map(p => p.map(v => v / scale));
+  const lo = qOverTime(P, 0.1), md = qOverTime(P, 0.5), hi = qOverTime(P, 0.9);
+  const hasFc = o.forecast || o.band || o.samples;
+  const total = o.n + (hasFc ? o.h : 0);
+  let vals = [...c];
+  if (hasFc) vals = vals.concat(lo, hi);
+  if (o.samples) P.slice(0, o.samples).forEach(p => (vals = vals.concat(p)));
+  const mn = Math.min(...vals), mx = Math.max(...vals), m = (mx - mn) * 0.06, A = mn - m, B = mx + m;
+  const x = i => pad.l + (i / Math.max(total - 1, 1)) * (o.w - pad.l - pad.r);
+  const y = v => o.hgt - pad.b - ((v - A) / (B - A)) * (o.hgt - pad.t - pad.b);
+  const line = (arr, off = 0) => arr.map((v, i) => `${i ? 'L' : 'M'}${x(i + off).toFixed(1)},${y(v).toFixed(1)}`).join('');
+  const join = arr => [c[o.n - 1], ...arr];
+  let s = '';
+  if (o.axis) s += `<g stroke="${C.ink}" stroke-width="1.2"><line x1="${pad.l}" y1="${pad.t - 6}" x2="${pad.l}" y2="${o.hgt - pad.b}"/><line x1="${pad.l}" y1="${o.hgt - pad.b}" x2="${o.w - pad.r}" y2="${o.hgt - pad.b}"/></g>`;
+  if (o.yTicks) for (let k = 0; k <= 3; k++) { const t = A + (B - A) * k / 3; s += txt(pad.l - 8, y(t) + 4, o.scaled ? t.toFixed(2) : Math.round(t), { size: 12, fill: C.faint, font: MONO, anchor: 'end' }); }
+  let binW = 0;
+  if (o.bins) { binW = (B - A) / o.bins; for (let i = 0; i <= o.bins; i++) { const b = A + binW * i; s += `<line x1="${pad.l}" x2="${o.w - pad.r}" y1="${y(b)}" y2="${y(b)}" stroke="${C.border}" stroke-width="1"/>`; } }
+  if (o.divider) s += `<line x1="${x(o.n - 1)}" x2="${x(o.n - 1)}" y1="${pad.t - 6}" y2="${o.hgt - pad.b}" stroke="${C.border}" stroke-dasharray="4 4" stroke-width="1.5"/>`;
+  if (o.band) {
+    const L = join(lo), H = join(hi);
+    const d = H.map((v, i) => `${i ? 'L' : 'M'}${x(i + o.n - 1).toFixed(1)},${y(v).toFixed(1)}`).join('') +
+      L.map((v, i) => [i, v]).reverse().map(([i, v]) => `L${x(i + o.n - 1).toFixed(1)},${y(v).toFixed(1)}`).join('') + 'Z';
+    s += `<path d="${d}" fill="${C.fcFill}" opacity="0.9"/>`;
+  }
+  P.slice(0, o.samples).forEach(p => (s += `<path d="${line(join(p), o.n - 1)}" fill="none" stroke="${C.fc}" stroke-width="1.2" opacity="0.35"/>`));
+  if (o.forecast) s += `<path d="${line(join(md), o.n - 1)}" fill="none" stroke="${C.fc}" stroke-width="${o.sw}" stroke-dasharray="7 5" stroke-linecap="round"/>`;
+  s += `<path d="${line(c)}" fill="none" stroke="${o.dimContext ? '#b9c8d8' : C.ctx}" stroke-width="${o.sw}" stroke-linejoin="round" stroke-linecap="round" opacity="${o.bins && o.tokens ? 0.35 : 1}"/>`;
+  if (o.tokens) {
+    for (let i = o.n - o.tokens; i < o.n; i++) {
+      const v = c[i];
+      const k = Math.min(o.bins - 1, Math.max(0, Math.floor((v - A) / binW)));
+      const sv = o.bins ? A + (k + 0.5) * binW : v;
+      const id = Math.min(4095, Math.round(((v + 15) / 30) * 4092) + 3); // Chronos: PAD=0, EOS=1, value tokens on [-15, 15]
+      if (o.bins) s += `<line x1="${x(i)}" x2="${x(i)}" y1="${y(v)}" y2="${y(sv)}" stroke="${C.fc}" stroke-width="1"/>`;
+      s += `<circle cx="${x(i)}" cy="${y(sv)}" r="4" fill="${C.fc}"/>` + txt(x(i), y(sv) - 10, id, { size: 11, font: MONO, anchor: 'middle' });
+    }
+  }
+  return s;
+}
+const plot = o => { o = Object.assign({ w: 600, hgt: 240 }, o); return `<svg viewBox="0 0 ${o.w} ${o.hgt}">${plotInner(o)}</svg>`; };
+const nested = (x, y, w, h, o) => `<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible">${plotInner(Object.assign({ w, hgt: h }, o))}</svg>`;
+
+/* LLM ↔ TSFM analogy. Fragment 0: TSFM row, fragment 2 (in HTML): mapping. */
+function analogy() {
+  const arrow = (x1, y) => `<line x1="${x1}" y1="${y}" x2="${x1 + 32}" y2="${y}" stroke="${C.faint}" stroke-width="2.5" marker-end="url(#arr)"/>`;
+  const model = (y, label) => `<rect x="440" y="${y}" width="140" height="72" rx="14" fill="${C.surface}" stroke="${C.ink}" stroke-width="2"/>` +
+    txt(510, y + 30, 'pre-trained', { size: 16, weight: 700, font: SANS, anchor: 'middle' }) + txt(510, y + 52, label, { size: 16, weight: 700, font: SANS, anchor: 'middle' });
+  let s = `<svg viewBox="0 0 960 440"><defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="${C.faint}"/></marker></defs>`;
+  s += txt(245, 18, 'INPUT', { size: 15, weight: 600, font: SANS, fill: C.faint, anchor: 'middle', ls: 1.5 }) +
+       txt(510, 18, 'MODEL', { size: 15, weight: 600, font: SANS, fill: C.faint, anchor: 'middle', ls: 1.5 }) +
+       txt(790, 18, 'OUTPUT', { size: 15, weight: 600, font: SANS, fill: C.faint, anchor: 'middle', ls: 1.5 });
+  // LLM row
+  s += txt(0, 118, 'LLM', { size: 26, weight: 700, font: SANS }) + txt(0, 140, 'text', { size: 13, font: MONO, fill: C.faint });
+  s += txt(100, 72, 'prompt', { size: 14, weight: 700, font: SANS, fill: C.ctx });
+  ['Once', 'upon', 'a'].forEach((w, i) => { s += `<rect x="${100 + i * 98}" y="84" width="88" height="48" rx="10" fill="${C.ctxFill}" stroke="${C.ctx}" stroke-width="2"/>` + txt(144 + i * 98, 114, w, { size: 17, anchor: 'middle' }); });
+  s += arrow(400, 108) + model(72, 'LLM') + arrow(588, 108);
+  s += txt(630, 72, 'continuation', { size: 14, weight: 700, font: SANS, fill: C.fc });
+  ['time', 'there', 'was'].forEach((w, i) => { s += `<rect x="${630 + i * 108}" y="84" width="98" height="48" rx="10" fill="none" stroke="${C.fc}" stroke-width="2" stroke-dasharray="6 5"/>` + txt(679 + i * 108, 114, w, { size: 17, anchor: 'middle', italic: true }); });
+  // TSFM row (fragment)
+  s += `<g class="fragment" data-fragment-index="1"><line x1="0" y1="200" x2="960" y2="200" stroke="${C.border}" stroke-width="1.5"/>`;
+  s += txt(0, 338, 'TSFM', { size: 26, weight: 700, font: SANS }) + txt(0, 360, 'numbers', { size: 13, font: MONO, fill: C.faint });
+  s += txt(100, 236, 'context', { size: 14, weight: 700, font: SANS, fill: C.ctx }) + nested(80, 240, 310, 170, { n: 48, seed: 5 });
+  s += arrow(400, 328) + model(292, 'TSFM') + arrow(588, 328);
+  s += txt(630, 236, 'continuation', { size: 14, weight: 700, font: SANS, fill: C.fc }) + nested(610, 240, 350, 170, { n: 48, h: 14, seed: 5, forecast: true, band: true, dimContext: true });
+  return s + '</g></svg>';
+}
+
+/* Timeline with three fragments: lane A, the ablation, lane B. */
+function timeline() {
+  const X0 = 2022.5, X1 = 2027, L = 150, R = 950, laneA = 105, laneB = 285, axisY = 400;
+  const x = t => L + ((t - X0) / (X1 - X0)) * (R - L);
+  const ly = (base, it) => base + it.side * (24 + it.lvl * 27) + (it.side > 0 ? 5 : 0);
+  // Each label links to its paper (or, where there is none, the release post / model card).
+  const ax = id => `https://arxiv.org/abs/${id}`;
+  const A = [
+    { t: 2022.75, label: 'PromptCast', url: ax('2210.08964'), side: -1, lvl: 0 }, { t: 2023.12, label: 'GPT4TS', url: ax('2302.11939'), side: 1, lvl: 0 },
+    { t: 2023.78, label: 'LLMTime', url: ax('2310.07820'), side: -1, lvl: 0, hi: 1 }, { t: 2023.8, label: 'Time-LLM', url: ax('2310.01728'), side: 1, lvl: 0 },
+  ];
+  const Bn = [
+    { t: 2023.78, label: 'TimeGPT-1', url: ax('2310.03589'), side: -1, lvl: 0, dx: -52 }, { t: 2023.83, label: 'TimesFM', url: ax('2310.10688'), side: -1, lvl: 1, dx: 12 },
+    { t: 2023.8, label: 'Lag-Llama', url: ax('2310.08278'), side: 1, lvl: 0, dx: -30 }, { t: 2024.12, label: 'Moirai', url: ax('2402.02592'), side: 1, lvl: 1, dx: 8 },
+    { t: 2024.2, label: 'Chronos', url: ax('2403.07815'), side: -1, lvl: 0, dx: 30, hi: 1 },
+    { t: 2024.91, label: 'Chronos-Bolt', url: 'https://aws.amazon.com/blogs/machine-learning/fast-and-accurate-zero-shot-forecasting-with-chronos-bolt-and-autogluon/', side: 1, lvl: 0 },
+    { t: 2025.37, parts: [['Toto', ax('2505.14766')], ['TiRex', ax('2505.23719')]], side: -1, lvl: 0 },
+    { t: 2025.7, label: 'TimesFM 2.5', url: 'https://huggingface.co/google/timesfm-2.5-200m-pytorch', side: 1, lvl: 1, dx: 30 },
+    { t: 2025.8, label: 'Chronos-2', url: ax('2510.15821'), side: -1, lvl: 1, hi: 1 }, { t: 2025.6, label: 'Moirai 2.0', url: ax('2511.11698'), side: 1, lvl: 0, dx: -10 },
+    { t: 2026.37, label: 'Toto 2.0', url: ax('2605.20119'), side: -1, lvl: 0 },
+    { t: 2026.5, label: 'TiRex-2', url: ax('2607.01204'), side: 1, lvl: 1, dx: -36 },
+    { t: 2026.66, label: 'TimesFM-3', url: 'https://research.google/blog/timesfm-3-a-zero-shot-foundation-model-for-multivariate-forecasting/', side: 1, lvl: 0, dx: 16 },
+    { t: 2026.79, label: 'Timestral', url: 'https://mistral.ai/news/timestral/', side: -1, lvl: 1 },
+  ];
+  const link = (url, inner) => `<a href="${url}" target="_blank" rel="noopener">${inner}</a>`;
+  const label = (it, xx, yy, fill) => {
+    const parts = it.parts || [[it.label, it.url]];
+    const inner = parts.map(([s, u]) => link(u, `<tspan>${s}</tspan>`)).join('<tspan> · </tspan>');
+    return el('text', { x: xx, y: yy, 'font-size': 14, 'font-weight': it.hi ? 700 : 400, 'font-family': SERIF, fill, 'text-anchor': 'middle' }, inner);
+  };
+  const lane = (items, base, lineCol, leaderCol, dotFill, textCol) => items.map(it => {
+    const lx = x(it.t) + (it.dx || 0), yy = ly(base, it);
+    return `<line x1="${x(it.t)}" x2="${lx}" y1="${base}" y2="${yy - (it.side < 0 ? -4 : 14)}" stroke="${leaderCol}" stroke-width="1"/>` +
+      `<circle cx="${x(it.t)}" cy="${base}" r="6" fill="${it.hi ? dotFill : C.bg}" stroke="${lineCol}" stroke-width="2.5"/>` +
+      label(it, lx, yy, textCol);
+  }).join('');
+  const kx = x(2024.47);
+  let s = `<svg viewBox="0 0 960 430">`;
+  s += `<line x1="${L}" x2="${R}" y1="${axisY}" y2="${axisY}" stroke="${C.ink}" stroke-width="1.5"/>`;
+  [2023, 2024, 2025, 2026].forEach(yr => { s += `<line x1="${x(yr)}" x2="${x(yr)}" y1="30" y2="${axisY + 6}" stroke="${C.border}"/>` + txt(x(yr), axisY + 24, yr, { size: 15, font: MONO, fill: C.muted, anchor: 'middle' }); });
+  s += txt(0, laneA - 4, 'Repurpose', { size: 16, weight: 700, font: SANS, fill: C.muted }) + txt(0, laneA + 16, 'an LLM', { size: 16, weight: 700, font: SANS, fill: C.muted });
+  s += txt(0, laneB - 4, 'Pre-train on', { size: 16, weight: 700, font: SANS, fill: C.fc }) + txt(0, laneB + 16, 'time series', { size: 16, weight: 700, font: SANS, fill: C.fc });
+  s += `<g class="fragment" data-fragment-index="0"><line x1="${x(2022.6)}" x2="${kx}" y1="${laneA}" y2="${laneA}" stroke="${C.faint}" stroke-width="3"/>${lane(A, laneA, C.faint, C.faint, C.faint, C.muted)}</g>`;
+  s += `<g class="fragment" data-fragment-index="1"><g transform="translate(${kx},${laneA})" stroke="${C.fc}" stroke-width="4" stroke-linecap="round"><line x1="-10" y1="-10" x2="10" y2="10"/><line x1="-10" y1="10" x2="10" y2="-10"/></g>` +
+    txt(kx + 20, laneA - 6, '"remove the LLM:', { size: 14, weight: 700, font: SANS, fill: C.fc }) + txt(kx + 20, laneA + 14, 'same or better"', { size: 14, weight: 700, font: SANS, fill: C.fc }) +
+    link(ax('2406.16964'), txt(kx + 20, laneA + 34, 'Tan et al., NeurIPS 2024', { size: 12, font: MONO, fill: C.faint })) + '</g>';
+  s += `<g class="fragment" data-fragment-index="2"><line x1="${x(2023.7)}" x2="${R}" y1="${laneB}" y2="${laneB}" stroke="${C.fc}" stroke-width="3"/>${lane(Bn, laneB, C.fc, C.faint, C.fc, C.ink)}</g>`;
+  return s + '</svg>';
+}
+
+/* KernelSynth: linear + periodic × smooth → synthetic series */
+function kernelSynth() {
+  const N = 120, r = rng(42);
+  const comps = Array.from({ length: 4 }, () => ({ f: 0.5 + r() * 2, p: r() * 6.28, a: 0.4 + r() * 0.6 }));
+  const smooth = t => comps.reduce((s, c) => s + c.a * Math.sin(c.f * t * 2 * Math.PI + c.p), 0) / 2;
+  const periodic = t => Math.sin(t * 2 * Math.PI * 6), trend = t => 2 * t - 1;
+  const r2 = rng(7), noise = Array.from({ length: N }, () => 0.08 * gauss(r2));
+  const combo = (t, i) => 0.9 * trend(t) + 0.55 * periodic(t) * (1 + 0.6 * t) + 0.5 * smooth(t) + noise[i];
+  const path = (f, w = 150, h = 70) => {
+    const v = Array.from({ length: N }, (_, i) => f(i / (N - 1), i)), mn = Math.min(...v), mx = Math.max(...v);
+    return v.map((yy, i) => `${i ? 'L' : 'M'}${((i / (N - 1)) * w).toFixed(1)},${(h - ((yy - mn) / (mx - mn)) * h).toFixed(1)}`).join('');
+  };
+  const parts = [['Linear', path(trend)], ['Periodic', path(periodic)], ['RBF (smooth)', path(smooth)]];
+  let s = `<svg viewBox="0 0 960 200">`;
+  parts.forEach(([name, d], i) => {
+    s += `<g transform="translate(${i * 200},40)"><rect x="-10" y="-12" width="170" height="94" rx="10" fill="${C.surface}" stroke="${C.border}"/>` +
+      `<path d="${d}" fill="none" stroke="${C.ctx}" stroke-width="2.2"/>` + txt(75, 112, name, { size: 15, font: MONO, fill: C.muted, anchor: 'middle' }) +
+      (i < 2 ? txt(180, 42, ['+', '×'][i], { size: 26, weight: 700, font: SANS, fill: C.faint, anchor: 'middle' }) : '') + '</g>';
+  });
+  s += txt(625, 92, '→', { size: 30, fill: C.faint, anchor: 'middle' });
+  s += `<g transform="translate(680,15)"><rect x="-12" y="-10" width="284" height="142" rx="12" fill="${C.surface}" stroke="${C.fc}" stroke-width="2"/>` +
+    `<path d="${path(combo, 260, 120)}" fill="none" stroke="${C.fc}" stroke-width="2.4"/>` + txt(130, 162, 'synthetic series', { size: 15, weight: 700, font: MONO, fill: C.fc, anchor: 'middle' }) + '</g>';
+  return s + '</svg>';
+}
+
+/* Patching: one token per value (Chronos) vs one token per patch (Chronos-2). */
+function patches() {
+  const N = 32, P = 8, X0 = 190, dx = 14, futW = 110;
+  const v = makeSeries(N, 5), mn = Math.min(...v), mx = Math.max(...v);
+  const px = i => X0 + i * dx + dx / 2;
+  const py = (val, top, h) => top + h - ((val - mn) / (mx - mn)) * h;
+  const series = (top, h) => `<path d="${v.map((val, i) => `${i ? 'L' : 'M'}${px(i).toFixed(1)},${py(val, top, h).toFixed(1)}`).join('')}" fill="none" stroke="${C.ctx}" stroke-width="2.5" stroke-linejoin="round"/>` +
+    v.map((val, i) => `<circle cx="${px(i)}" cy="${py(val, top, h)}" r="3.2" fill="${C.ctx}"/>`).join('');
+  const rowLabel = (y, name, sub) => txt(0, y, name, { size: 20, weight: 700, font: SANS }) + txt(0, y + 20, sub, { size: 13, font: MONO, fill: C.faint });
+  let s = `<svg viewBox="0 0 960 360">`;
+  // Chronos: one token per value
+  s += rowLabel(70, 'Chronos', '1 value = 1 token') + series(20, 70);
+  for (let i = 0; i < N; i++) s += `<rect x="${X0 + i * dx + 2}" y="112" width="${dx - 4}" height="18" rx="3" fill="${C.ctxFill}" stroke="${C.ctx}" stroke-width="1.5"/>`;
+  s += txt(X0 + N * dx + 18, 126, `${N} tokens`, { size: 16, weight: 600, font: MONO, fill: C.ctx });
+  // Chronos-2: one token per patch (fragment 0)
+  s += `<g class="fragment" data-fragment-index="0"><line x1="0" y1="160" x2="960" y2="160" stroke="${C.border}" stroke-width="1.5"/>` + rowLabel(250, 'Chronos-2', '1 patch = 1 token');
+  for (let k = 0; k < N / P; k++) s += `<rect x="${X0 + k * P * dx + 3}" y="188" width="${P * dx - 6}" height="92" rx="10" fill="${k % 2 ? C.surface : C.ctxFill}" stroke="${C.border}"/>`;
+  s += series(198, 70);
+  for (let k = 0; k < N / P; k++) s += `<rect x="${X0 + k * P * dx + 3}" y="292" width="${P * dx - 6}" height="30" rx="7" fill="${C.ctxFill}" stroke="${C.ctx}" stroke-width="2"/>` +
+    txt(X0 + k * P * dx + P * dx / 2, 312, `patch ${k + 1}`, { size: 14, font: MONO, anchor: 'middle' });
+  s += txt(X0 + 2 * P * dx, 346, `${N / P} tokens`, { size: 16, weight: 600, font: MONO, fill: C.ctx, anchor: 'middle' }) + '</g>';
+  // Future patches, filled in one pass (fragment 1)
+  const fx = X0 + N * dx + 18;
+  s += `<g class="fragment" data-fragment-index="1">`;
+  [0, 1].forEach(k => {
+    const x = fx + k * (futW + 8);
+    s += `<rect x="${x}" y="188" width="${futW}" height="92" rx="10" fill="none" stroke="${C.fc}" stroke-width="2" stroke-dasharray="6 5"/>` +
+      `<rect x="${x}" y="292" width="${futW}" height="30" rx="7" fill="none" stroke="${C.fc}" stroke-width="2" stroke-dasharray="6 5"/>` +
+      txt(x + futW / 2, 312, 'future', { size: 14, font: MONO, fill: C.fc, anchor: 'middle' });
+  });
+  s += txt(fx + futW + 4, 346, 'all filled in one pass', { size: 16, weight: 600, font: MONO, fill: C.fc, anchor: 'middle' }) + '</g>';
+  return s + '</svg>';
+}
+
+/* Chronos-2 inside: time attention (always), group attention (fragment 0), zeros + mask (1), forecast (2). */
+function covariates() {
+  const rows = [
+    { name: 'sales', role: 'target', ctx: [112, 118, 132, 129], fut: null, fc: [141, 152, 133] },
+    { name: 'price', role: 'known future', ctx: ['2.49', '2.49', '2.49', '2.49'], fut: ['1.99', '1.99', '2.49'] },
+    { name: 'temp. °C', role: 'past only', ctx: [18, 21, 19, 23], fut: null },
+  ];
+  const X0 = 150, cw = 56, gap = 6, Y0 = 64, rh = 52, rgap = 30, nC = 4, nF = 3;
+  const cx = j => X0 + j * (cw + gap) + (j >= nC ? 16 : 0);
+  const cy = i => Y0 + i * (rh + rgap);
+  const bg = C.bg;
+  let s = `<svg viewBox="0 0 620 310"><defs>` +
+    `<marker id="cva" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="${C.ctx}"/></marker>` +
+    `<marker id="cvb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="${C.fc}"/></marker></defs>`;
+  s += txt(cx(0) + (nC * (cw + gap) - gap) / 2, 24, 'past', { size: 14, font: MONO, fill: C.faint, anchor: 'middle' });
+  s += txt(cx(nC) + (nF * (cw + gap) - gap) / 2, 24, 'future', { size: 14, font: MONO, fill: C.faint, anchor: 'middle' });
+  // Time attention: along the sales row (above it, so the mask row stays free)
+  const tRight = cx(nC + nF - 1) + cw;
+  s += `<line x1="${cx(0) + 4}" x2="${tRight - 4}" y1="${Y0 - 14}" y2="${Y0 - 14}" stroke="${C.ctx}" stroke-width="2.5" marker-start="url(#cva)" marker-end="url(#cva)"/>`;
+  const dx = cx(nC) - 11;
+  s += `<line x1="${dx}" x2="${dx}" y1="${Y0 - 8}" y2="${cy(2) + rh + 22}" stroke="${C.border}" stroke-dasharray="4 4" stroke-width="1.5"/>`;
+  let masks = '', zeros = '', fcs = '';
+  rows.forEach((r, i) => {
+    const y = cy(i);
+    s += txt(0, y + 24, r.name, { size: 16, weight: 700, font: SANS }) + txt(0, y + 42, r.role, { size: 13, font: MONO, fill: C.faint });
+    for (let j = 0; j < nC + nF; j++) {
+      const fut = j >= nC, val = fut ? (r.fut ? r.fut[j - nC] : null) : r.ctx[j];
+      const known = val !== null;
+      s += `<rect x="${cx(j)}" y="${y}" width="${cw}" height="${rh}" rx="8" ${known ? `fill="${C.ctxFill}" stroke="${C.ctx}"` : `fill="none" stroke="${C.faint}" stroke-dasharray="5 4"`} stroke-width="2"/>`;
+      s += txt(cx(j) + cw / 2, y + 32, known ? val : '?', { size: 17, font: MONO, anchor: 'middle', fill: known ? C.ink : C.faint });
+      // Mask badge under each cell
+      masks += txt(cx(j) + cw / 2, y + rh + 17, known ? '1' : '0', { size: 13, weight: 600, font: MONO, anchor: 'middle', fill: known ? C.ctx : C.faint });
+      if (!known) zeros += `<rect x="${cx(j) + 10}" y="${y + 12}" width="${cw - 20}" height="${rh - 24}" fill="${bg}"/>` +
+        txt(cx(j) + cw / 2, y + 32, '0', { size: 17, font: MONO, anchor: 'middle', fill: C.faint });
+      if (!known && r.fc) fcs += `<rect x="${cx(j)}" y="${y}" width="${cw}" height="${rh}" rx="8" fill="${C.fcFill}" stroke="${C.fc}" stroke-width="2"/>` +
+        txt(cx(j) + cw / 2, y + 32, r.fc[j - nC], { size: 17, weight: 600, font: MONO, anchor: 'middle', fill: C.fc });
+    }
+  });
+  s += `<rect x="${cx(0) - 5}" y="${Y0 - 5}" width="${tRight - cx(0) + 10}" height="${rh + 10}" rx="11" fill="none" stroke="${C.ctx}" stroke-width="2.5"/>`;
+  // Group attention: down the first future column
+  s += `<g class="fragment" data-fragment-index="0"><rect x="${cx(nC) - 5}" y="${Y0 - 5}" width="${cw + 10}" height="${cy(2) + rh + 10 - Y0}" rx="11" fill="none" stroke="${C.fc}" stroke-width="2.5"/></g>`;
+  s += `<g class="fragment" data-fragment-index="1">${zeros}${masks}` + txt(X0 - 14, cy(0) + rh + 17, 'mask', { size: 12, font: MONO, fill: C.faint, anchor: 'end' }) + '</g>';
+  s += `<g class="fragment" data-fragment-index="2">${fcs}</g>`;
+  return s + '</svg>';
+}
+
+/* AirPassengers payoff. Chronos-2 output computed offline with amazon/chronos-2 (chronos-forecasting 2.3.2), quantiles 0.1 / 0.5 / 0.9. */
+const PAYOFF = {"air":[112,118,132,129,121,135,148,148,136,119,104,118,115,126,141,135,125,149,170,170,158,133,114,140,145,150,178,163,172,178,199,199,184,162,146,166,171,180,193,181,183,218,230,242,209,191,172,194,196,196,236,235,229,243,264,272,237,211,180,201,204,188,235,227,234,264,302,293,259,229,203,229,242,233,267,269,270,315,364,347,312,274,237,278,284,277,317,313,318,374,413,405,355,306,271,306,315,301,356,348,355,422,465,467,404,347,305,336,340,318,362,348,363,435,491,505,404,359,310,337,360,342,406,396,420,472,548,559,463,407,362,405,417,391,419,461,472,535,622,606,508,461,390,432],"short":{"0.1":[124,116,112,111,109,110,109,109,106,103,102,101],"0.5":[147,143,143,141,141,143,144,143,140,137,135,136],"0.9":[172,175,178,179,180,183,187,188,186,184,183,184]},"long":{"0.1":[327,317,368,360,360,409,459,456,393,341,282,324,328,317,368,361,356,411,466,459,395,346,290,336],"0.5":[345,338,397,386,389,446,501,501,439,379,321,364,367,358,417,409,416,484,547,544,466,407,348,399],"0.9":[363,359,421,412,418,483,541,544,479,418,358,401,405,397,463,455,470,546,616,608,527,464,402,458]}};
+function payoffPanel(n, h, fc, chatbot) {
+  const A = PAYOFF.air, W = 470, H = 290, pad = { l: 44, r: 10, t: 16, b: 26 };
+  const ctx = A.slice(0, n), act = A.slice(n, n + h), lo = fc['0.1'], md = fc['0.5'], hi = fc['0.9'];
+  const vals = [...ctx, ...act, ...lo, ...hi, ...(chatbot || [])];
+  const mn = Math.min(...vals), mx = Math.max(...vals), m = (mx - mn) * 0.05, Y0 = mn - m, Y1 = mx + m;
+  const x = i => pad.l + (i / (n + h - 1)) * (W - pad.l - pad.r);
+  const y = v => H - pad.b - ((v - Y0) / (Y1 - Y0)) * (H - pad.t - pad.b);
+  const path = (arr, off) => arr.map((v, i) => `${i ? 'L' : 'M'}${x(i + off).toFixed(1)},${y(v).toFixed(1)}`).join('');
+  let s = `<svg viewBox="0 0 ${W} ${H}">`;
+  s += `<g stroke="${C.ink}" stroke-width="1.2"><line x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${H - pad.b}"/><line x1="${pad.l}" y1="${H - pad.b}" x2="${W - pad.r}" y2="${H - pad.b}"/></g>`;
+  for (let k = 0; k <= 3; k++) { const t = Y0 + (Y1 - Y0) * k / 3; s += txt(pad.l - 8, y(t) + 4, Math.round(t), { size: 12, fill: C.faint, font: MONO, anchor: 'end' }); }
+  const step = n + h > 60 ? 2 : 1;
+  for (let yr = 0; yr * 12 < n + h; yr += step) s += txt(x(yr * 12), H - 6, 1949 + yr, { size: 12, fill: C.faint, font: MONO, anchor: 'middle' });
+  s += `<line x1="${x(n - 0.5)}" x2="${x(n - 0.5)}" y1="${pad.t}" y2="${H - pad.b}" stroke="${C.border}" stroke-dasharray="4 4" stroke-width="1.5"/>`;
+  const band = hi.map((v, i) => `${i ? 'L' : 'M'}${x(n + i).toFixed(1)},${y(v).toFixed(1)}`).join('') +
+    lo.map((v, i) => [i, v]).reverse().map(([i, v]) => `L${x(n + i).toFixed(1)},${y(v).toFixed(1)}`).join('') + 'Z';
+  s += `<path d="${band}" fill="${C.fcFill}"/>`;
+  s += `<path d="${path(ctx, 0)}" fill="none" stroke="${C.ctx}" stroke-width="2.2" stroke-linejoin="round"/>`;
+  if (chatbot) s += `<path d="${path(chatbot, n)}" fill="none" stroke="${C.muted}" stroke-width="2.5"/>` +
+    txt(x(n + h - 1), y(chatbot[h - 1]) - 8, 'chatbot', { size: 13, font: MONO, fill: C.muted, anchor: 'end' });
+  s += `<path d="${path(md, n)}" fill="none" stroke="${C.fc}" stroke-width="2.5" stroke-dasharray="7 5" stroke-linecap="round"/>`;
+  s += `<g class="fragment" data-fragment-index="0"><path d="${path(act, n)}" fill="none" stroke="${C.ink}" stroke-width="2" stroke-linejoin="round"/>` +
+    act.map((v, i) => `<circle cx="${x(n + i)}" cy="${y(v)}" r="2.8" fill="${C.ink}"/>`).join('') + '</g>';
+  return s + '</svg>';
+}
+const payoffShort = () => payoffPanel(24, 12, PAYOFF.short, [145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200]);
+const payoffLong = () => payoffPanel(120, 24, PAYOFF.long, null);
+
+/* Render all charts before Reveal scans for fragments */
+const VIZ = { analogy, timeline, kernelsynth: kernelSynth, patches, covariates, payoffShort, payoffLong };
+document.querySelectorAll('[data-viz]').forEach(d => (d.innerHTML = VIZ[d.dataset.viz]()));
+document.querySelectorAll('[data-plot]').forEach(d => (d.innerHTML = plot(JSON.parse(d.dataset.plot))));
+
+// Slide backgrounds via reveal (so they also survive PDF export)
+document.querySelectorAll('.reveal .slides > section').forEach(sec =>
+  sec.setAttribute('data-background-color', sec.classList.contains('dark') ? '#1c1825' : '#f4f1ea'));
+
+// Slide numbers in the URL (#/5) only where the URL can be changed:
+// sandboxed previews (about:srcdoc) refuse history.replaceState.
+const canUseHash = location.protocol === 'http:' || location.protocol === 'https:' || location.protocol === 'file:';
+
+Reveal.initialize({
+  width: 1280, height: 720, margin: 0, center: false,
+  pdfSeparateFragments: false, hash: canUseHash, respondToHashChanges: canUseHash, slideNumber: 'c/t', transition: 'fade', backgroundTransition: 'fade',
+  plugins: [RevealNotes, RevealHighlight],
+});
+</script>
+</body>
+</html>
